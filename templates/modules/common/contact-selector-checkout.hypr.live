@@ -1,0 +1,93 @@
+<div class="mz-contactselector {% block module-classes %}{% endblock module-classes %}">
+    {% block contact-selector %}
+    <div class="mz-l-formfieldgroup chosen-address">
+      <div class="row completed-address-container">
+          <div class="col-xs-24">
+              <span class="address-line">
+                  {{ model.firstName }} {{ model.lastNameOrSurname }}
+              </span>
+              <span class="address-line">
+                {{ model.address.address1 }}
+              </span>
+              <span class="address-line">
+                {{ model.address.address2 }}
+              </span>
+              <span class="address-line">
+                {{ model.address.cityOrTown }}, {{ model.address.stateOrProvince }} {{ model.address.postalOrZipCode }}
+              </span>
+              <span class="address-line">
+                {{ model.phoneNumbers.home }}
+              </span>
+          </div>
+      </div>
+    </div>
+
+    <md-radio-group ng-model="shipping.addresses" id="saved-addresses">
+
+            {% for contact in model.contacts %}
+            <div class="saved-address-wrapper">
+                <div class="edit-shipping-address-emblem"><img src="/resources/images/pencil.png"></div>
+                <div class="mz-l-formfieldgroup contact-shipping-option mz-contactselector-contact {% if model.id == contact.id %} selected-ship-address {% endif %}">
+                    <div class="saved-address" data-mz-value="{{ contactcontext }}contactId" value="{{contact.id }}" data-contact-id="{{contact.id}}">
+                        <div class="mz-addresssummary">
+                            {% include "modules/common/address-summary" with model=contact %}
+                            {% if model.id == contact.id %}
+                            <span class="selected-text">SELECTED</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+            <div class="saved-address-wrapper">
+                <div class="mz-l-formfieldgroup contact-shipping-option mz-contactselector-contact">
+                    <div class="saved-address">
+                        <div class="mz-addresssummary">
+                            <span>Add New</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% comment %}
+            <label class="mz-contactselector-contact">
+              <span class="mz-contactselector-inputwrapper">
+                  <input type="radio" data-mz-value="{{ contactcontext }}contactId" name="contactId" value="{{ contact.id }}" {% if model.contactId == contact.id %} checked="checked" {% endif %}>
+              </span>
+              <span class="mz-contactselector-summarywrapper">
+                  <div class="mz-addresssummary">
+                      {% include "modules/common/address-summary" with model=contact %}
+                  </div>
+              </span>
+            </label>
+            {% endcomment %}
+
+    </md-radio-group>
+  {% if model.contactId == "new" %}
+  <div class="mz-contactselector-contact mz-contactselector-new">
+        <span class="mz-contactselector-inputwrapper">
+            <input type="radio" data-mz-value="{{ contactcontext }}contactId" name="contactId" value="new" data-mz-enternewcontact checked="checked">
+        </span>
+        <span class="mz-contactselector-summarywrapper">
+            {% block enter-new-form %}
+            {% include "modules/common/address-form-checkout" with model=editingContact %}
+            {% endblock enter-new-form %}
+        </span>
+    </div>
+    {% else %}
+    {% comment %}
+    <label class="mz-contactselector-contact mz-contactselector-new">
+        <span class="mz-contactselector-inputwrapper">
+            <input type="radio" data-mz-value="{{ contactcontext }}contactId" name="contactId" value="new" data-mz-enternewcontact>
+        </span>
+        <span class="mz-contactselector-summarywrapper">
+            <div class="mz-addresssummary">
+                <span>{{ labels.enterNewAddress }}</span>
+            </div>
+        </span>
+    </label>
+    {% endcomment %}
+    {% endif %}
+    {% endblock contact-selector %}
+</div>

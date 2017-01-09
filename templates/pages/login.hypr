@@ -1,0 +1,98 @@
+{% extends "page" %}
+
+{% block title-tag-content %} {{ labels.welcomeback  }} {% endblock title-tag-content %}
+
+{% block body-tag-classes %} mz-loginpage {% endblock body-tag-classes %}
+
+{% block body-content %}
+    <div class="mz-l-container border">
+        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24" data-mz-signin-panel>
+            <div class="col-xs-1 col-sm-5 col-md-9 col-lg-9"></div>
+            <div class="col-xs-22 col-sm-14 col-md-6 col-lg-6">
+				<div class="page-title">{{ labels.welcomeback }}</div>
+                <div class="label-login">
+                    <form method="post" class="mz-loginform mz-loginform-page">
+                        {% include "modules/common/message-bar" with model=model.messages %}
+                        <div id="signIn-msg"></div>
+                        <div class="sign-in-msg-block text-center"></div>
+                        <div id="login-container" class="hide-loading">
+
+                            <!-- Email -->
+                            <div class="hide-loading-el">
+                                <md-input-container flex>
+                                    <label for="email">Email Address</label>
+                                    <input name="email" id="login-email" value="{{model.email|default:user.email}}" type="email" class="input-text"/>
+                                </md-input-container>
+                            </div>
+
+                            <div class="div-padding">
+
+                                <!-- Password -->
+                                <div class="hide-loading-el">
+                                    <md-input-container flex>
+                                        <label for="password">{{ labels.password }}</label>
+                                        <input name="password" id="login-password" type="password" class="input-text"/>
+                                    </md-input-container>
+                                </div>
+
+                              <button type="submit" id="Login" class="btn-login mz-button mz-button-large">
+                                  <span class="thin-chevron-right"></span>
+                                  {{ labels.loginpagebutton }}
+                              </button>
+                              <input type="hidden" name="returnUrl" value="{{ model.returnUrl }}" />
+
+                              <div class="forgotpassword">
+                                <div class="mz-l-formfieldgroup-cell">
+                                  <a class="forgotPasswordLink" data-mz-action="showForgotPasswordPanel" data-forgotpassword-link> Forgot Password?</a>
+                                </div>
+                              </div>
+                              <div class="signin">
+                                {{ labels.member }}&nbsp;&nbsp;<span class="signin-signup"><a href="/sign-up" class="lnk">{{ labels.signup }}</a></span>
+                              </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+			<div class="col-xs-1 col-sm-5 col-md-9 col-lg-9"></div>
+		</div>
+
+        <!-- forgot password -->
+        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+            <div class="col-xs-1 col-sm-5 col-md-9 col-lg-9"></div>
+			<div class="col-xs-22 col-sm-14 col-md-6 col-lg-6">
+				<div class="div-hide forgot-password-panel" data-mz-forgot-pass-panel>
+					<div class="page-title">{{ labels.forgotPassword }}</div>
+					<div class="center-block">
+						<div class="resetPasswordMsgContainer">
+							<span id="resetPasswordSuccessMsg" class="success-msg"></span>
+							<span id="resetPasswordFailMsg" class="error-msg"></span>
+						</div>
+						<div class="div-padding">
+							<div class="forget-form-control-div1">
+								<input type="email" data-mz-forgotpassword-email name="reset-password" placeholder="{{ labels.emailAddress }}" class="input-text" />
+							</div>
+						</div>
+						<div class="forget-form-control-div2">
+							<div class="buttons-div">
+								<button class="sendForgotPassMail submitforgotpassword sendemail-btn mz-button mz-button-large" data-mz-action="submitforgotpassword">{{ labels.sendEmail }}</button>
+								<button class="btnWhite backToLogin sendemail-btn mz-button mz-button-large" data-mz-action="backToLogin">{{ labels.cancel }}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-xs-1 col-sm-5 col-md-9 col-lg-9"></div>
+        </div>
+    </div>
+
+    <!--forgot password-->
+    {% require_script "modules/login-links" %}
+ {% require_script "pages/forget-password" %}
+
+{% endblock body-content %}
+
+
+
+

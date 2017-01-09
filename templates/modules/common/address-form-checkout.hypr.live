@@ -1,0 +1,227 @@
+{% block address-form %}
+    <div class="row completed-address-container">
+        <div class="col-xs-24">
+            <span class="address-line">
+                {{ model.firstName }} {{ model.lastNameOrSurname }}
+            </span>
+            <span class="address-line">
+                {{ model.address.address1 }}
+            </span>
+            <span class="address-line">
+              {{ model.address.address2 }}
+            </span>
+            <span class="address-line">
+              {{ model.address.cityOrTown }}, {{ model.address.stateOrProvince }} {{ model.address.postalOrZipCode }}
+            </span>
+            <span class="address-line">
+              {{ model.phoneNumbers.home }}
+            </span>
+        </div>
+    </div>
+    <div class="row address-form-container hide-loading-el">
+         <div class="col-xs-24 col-sm-24 col-md-11 col-lg-11">
+             <md-input-container flex>
+                 <label for="firstname">{{ labels.firstName }}</label>
+                 <input type="text" class="input-padding-lg" name="firstname" data-mz-value="{{ addresscontext }}firstName" value="{{ model.firstName }}" maxlength="200">
+             </md-input-container>
+             <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}firstName"></span>
+        </div>
+        <div class="col-xs-24 col-sm-24 col-md-11 col-lg-11 col-lg-offset-2 col-md-offset-2">
+            <md-input-container flex>
+                <label for="lastname">{{ labels.lastName }}</label>
+                <input type="text" class="input-padding-lg chkout-first-name" name="lastname" data-mz-value="{{ addresscontext }}lastNameOrSurname" value="{{ model.lastNameOrSurname }}" maxlength="200">
+            </md-input-container>
+            <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}lastNameOrSurname"></span>
+        </div>
+    </div>
+
+    <div class="row mz-addressform-address1 address-form-container hide-loading-el">
+        <md-input-container flex>
+            <label for="address-line-1">{{ labels.address }}</label>
+            <input type="text" class="input-padding-mid chkout-last-name" name="address-line-1" data-mz-value="{{ addresscontext }}address.address1" value="{{ model.address.address1 }}" maxlength="200">
+        </md-input-container>
+        <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}address.address1"></span>
+    </div>
+
+    <div class="row mz-addressform-address2 address-form-container hide-loading-el">
+        <md-input-container flex>
+            <label for="address-line-1">{{ labels.address2 }}</label>
+            <input type="text" class="input-padding-mid" name="address-line-2" data-mz-value="{{ addresscontext }}address.address2" value="{{ model.address.address2 }}" maxlength="200">
+        </md-input-container>
+        <span class="mz-validationmessage"></span>
+    </div>
+
+
+    <div class="mz-addressform-country address-form-container hide-loading-el" ng-hide="true">
+        <div class="">
+            <label for="country">{{ labels.country }}<span class="is-required"> *</span></label>
+        </div>
+        <div class="countryDrop">
+            <select data-mz-value="{{ addresscontext }}address.countryCode">
+                <option></option>
+                {% if countries && countries.length > 0 %}
+                {% for country in countries %}
+                    <option {% if model.address.countryCode == country.value %}selected="selected" {% endif %}value="{{ country.value }}">{{ country.key }}</option>
+                {% endfor %}
+                {% else %}
+                {% for country in pageContext.billingCountries %}
+                    <option {% if model.address.countryCode == country.value %}selected="selected" {% endif %}value="{{ country.value }}">{{ country.key }}</option>
+                {% endfor %}
+                {% endif %}
+            </select>
+            <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}address.countryCode"></span>
+        </div>
+    </div>
+    <div class="row address-form-container hide-loading-el">
+        <div class="col-xs-24 col-sm-24 col-md-12 col-lg-12">
+            <md-input-container flex>
+                <label for="city">{{ labels.city }}</label>
+                <input type="text" class="input-padding-lg" name="city" data-mz-value="{{ addresscontext }}address.cityOrTown" value="{{ model.address.cityOrTown }}" maxlength="100">
+            </md-input-container>
+            <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}address.cityOrTown"></span>
+
+
+            <!--<div class="mz-addressform-city">
+                <div class="row">
+                    <label for="city">{{ labels.city }}<span class="is-required"> *</span></label>
+                </div>
+                <div class="row">
+                    <input type="text" class="input-padding-lg" name="city" data-mz-value="{{ addresscontext }}address.cityOrTown" value="{{ model.address.cityOrTown }}" maxlength="100">
+                    <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}address.cityOrTown"></span>
+                </div>
+                <div class="mz-addressform-autocompletefields">
+                    <label for="autocomplete-zip">{{ labels.zip }}</label><input type="text" class="input-padding-mid" name="zip" data-mz-value="{{ addresscontext }}address.postalOrZipCode" value="{{ model.address.postalOrZipCode }}" />
+                </div>
+            </div>-->
+
+        </div>
+        <div class="col-xs-24 col-sm-24 col-md-5 col-lg-5 col-lg-offset-1 col-md-offset-1">
+            <div class="checkout-address-state">
+                <label for="autocomplete-state" ng-hide="true">{{ labels.state }}</label>
+                {% if model.address.countryCode != "US" %}
+                    <input type="text" class="input-padding-lg chkout-state-inputfield" name="state" data-mz-value="{{ addresscontext }}address.stateOrProvince" value="{{ model.address.stateOrProvince }}" />
+                {% else %}
+                    <select id="shipto-state" data-mz-value="{{ addresscontext }}address.stateOrProvince" class="us-states" ng-hide="true">
+                        <option value="">{{ labels.selectState }}</option>
+                        {% for state in themeSettings.usStates %}
+                            <option {% if model.address.stateOrProvince == state.abbreviation %}selected="selected"{% endif %} value="{{ state.abbreviation }}">{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <md-input-container id="md-shipto-state" ng-cloak flex>
+                        <label>St</label>
+                        <md-select ng-model="shipto.state" ng-change="syncSelect('ship-to-state', shipto.state);">
+                            <md-option value=""></md-option>
+                            <md-option value="AL" {% if model.address.stateOrProvince == 'AL' %}selected="selected"{% endif %}>AL</md-option>
+                            <md-option value="AK" {% if model.address.stateOrProvince == 'AK' %}selected="selected"{% endif %}>AK</md-option>
+                            <md-option value="AS" {% if model.address.stateOrProvince == 'AS' %}selected="selected"{% endif %}>AS</md-option>
+                            <md-option value="AZ" {% if model.address.stateOrProvince == 'AZ' %}selected="selected"{% endif %}>AZ</md-option>
+                            <md-option value="AR" {% if model.address.stateOrProvince == 'AR' %}selected="selected"{% endif %}>AR</md-option>
+                            <md-option value="CA" {% if model.address.stateOrProvince == 'CA' %}selected="selected"{% endif %}>CA</md-option>
+                            <md-option value="CO" {% if model.address.stateOrProvince == 'CO' %}selected="selected"{% endif %}>CO</md-option>
+                            <md-option value="CT" {% if model.address.stateOrProvince == 'CT' %}selected="selected"{% endif %}>CT</md-option>
+                            <md-option value="DE" {% if model.address.stateOrProvince == 'DE' %}selected="selected"{% endif %}>DE</md-option>
+                            <md-option value="DC" {% if model.address.stateOrProvince == 'DC' %}selected="selected"{% endif %}>DC</md-option>
+                            <md-option value="FM" {% if model.address.stateOrProvince == 'FM' %}selected="selected"{% endif %}>FM</md-option>
+                            <md-option value="FL" {% if model.address.stateOrProvince == 'FL' %}selected="selected"{% endif %}>FL</md-option>
+                            <md-option value="GA" {% if model.address.stateOrProvince == 'GA' %}selected="selected"{% endif %}>GA</md-option>
+                            <md-option value="GU" {% if model.address.stateOrProvince == 'GU' %}selected="selected"{% endif %}>GU</md-option>
+                            <md-option value="HI" {% if model.address.stateOrProvince == 'HI' %}selected="selected"{% endif %}>HI</md-option>
+                            <md-option value="ID" {% if model.address.stateOrProvince == 'ID' %}selected="selected"{% endif %}>ID</md-option>
+                            <md-option value="IL" {% if model.address.stateOrProvince == 'IL' %}selected="selected"{% endif %}>IL</md-option>
+                            <md-option value="IN" {% if model.address.stateOrProvince == 'IN' %}selected="selected"{% endif %}>IN</md-option>
+                            <md-option value="IA" {% if model.address.stateOrProvince == 'IA' %}selected="selected"{% endif %}>IA</md-option>
+                            <md-option value="KS" {% if model.address.stateOrProvince == 'KS' %}selected="selected"{% endif %}>KS</md-option>
+                            <md-option value="KY" {% if model.address.stateOrProvince == 'KY' %}selected="selected"{% endif %}>KY</md-option>
+                            <md-option value="LA" {% if model.address.stateOrProvince == 'LA' %}selected="selected"{% endif %}>LA</md-option>
+                            <md-option value="ME" {% if model.address.stateOrProvince == 'ME' %}selected="selected"{% endif %}>ME</md-option>
+                            <md-option value="MH" {% if model.address.stateOrProvince == 'MH' %}selected="selected"{% endif %}>MH</md-option>
+                            <md-option value="MD" {% if model.address.stateOrProvince == 'MD' %}selected="selected"{% endif %}>MD</md-option>
+                            <md-option value="MA" {% if model.address.stateOrProvince == 'MA' %}selected="selected"{% endif %}>MA</md-option>
+                            <md-option value="MI" {% if model.address.stateOrProvince == 'MI' %}selected="selected"{% endif %}>MI</md-option>
+                            <md-option value="MN" {% if model.address.stateOrProvince == 'MN' %}selected="selected"{% endif %}>MN</md-option>
+                            <md-option value="MS" {% if model.address.stateOrProvince == 'MS' %}selected="selected"{% endif %}>MS</md-option>
+                            <md-option value="MO" {% if model.address.stateOrProvince == 'MO' %}selected="selected"{% endif %}>MO</md-option>
+                            <md-option value="MT" {% if model.address.stateOrProvince == 'MT' %}selected="selected"{% endif %}>MT</md-option>
+                            <md-option value="NE" {% if model.address.stateOrProvince == 'NE' %}selected="selected"{% endif %}>NE</md-option>
+                            <md-option value="NV" {% if model.address.stateOrProvince == 'NV' %}selected="selected"{% endif %}>NV</md-option>
+                            <md-option value="NH" {% if model.address.stateOrProvince == 'NH' %}selected="selected"{% endif %}>NH</md-option>
+                            <md-option value="NJ" {% if model.address.stateOrProvince == 'NJ' %}selected="selected"{% endif %}>NJ</md-option>
+                            <md-option value="NM" {% if model.address.stateOrProvince == 'NM' %}selected="selected"{% endif %}>NM</md-option>
+                            <md-option value="NY" {% if model.address.stateOrProvince == 'NY' %}selected="selected"{% endif %}>NY</md-option>
+                            <md-option value="NC" {% if model.address.stateOrProvince == 'NC' %}selected="selected"{% endif %}>NC</md-option>
+                            <md-option value="ND" {% if model.address.stateOrProvince == 'ND' %}selected="selected"{% endif %}>ND</md-option>
+                            <md-option value="MP" {% if model.address.stateOrProvince == 'MP' %}selected="selected"{% endif %}>MP</md-option>
+                            <md-option value="OH" {% if model.address.stateOrProvince == 'OH' %}selected="selected"{% endif %}>OH</md-option>
+                            <md-option value="OK" {% if model.address.stateOrProvince == 'OK' %}selected="selected"{% endif %}>OK</md-option>
+                            <md-option value="OR" {% if model.address.stateOrProvince == 'OR' %}selected="selected"{% endif %}>OR</md-option>
+                            <md-option value="PW" {% if model.address.stateOrProvince == 'PW' %}selected="selected"{% endif %}>PW</md-option>
+                            <md-option value="PA" {% if model.address.stateOrProvince == 'PA' %}selected="selected"{% endif %}>PA</md-option>
+                            <md-option value="PR" {% if model.address.stateOrProvince == 'PR' %}selected="selected"{% endif %}>PR</md-option>
+                            <md-option value="RI" {% if model.address.stateOrProvince == 'RI' %}selected="selected"{% endif %}>RI</md-option>
+                            <md-option value="SC" {% if model.address.stateOrProvince == 'SC' %}selected="selected"{% endif %}>SC</md-option>
+                            <md-option value="SD" {% if model.address.stateOrProvince == 'SD' %}selected="selected"{% endif %}>SD</md-option>
+                            <md-option value="TN" {% if model.address.stateOrProvince == 'TN' %}selected="selected"{% endif %}>TN</md-option>
+                            <md-option value="TX" {% if model.address.stateOrProvince == 'TX' %}selected="selected"{% endif %}>TX</md-option>
+                            <md-option value="UT" {% if model.address.stateOrProvince == 'UT' %}selected="selected"{% endif %}>UT</md-option>
+                            <md-option value="VT" {% if model.address.stateOrProvince == 'VT' %}selected="selected"{% endif %}>VT</md-option>
+                            <md-option value="VI" {% if model.address.stateOrProvince == 'VI' %}selected="selected"{% endif %}>VI</md-option>
+                            <md-option value="VA" {% if model.address.stateOrProvince == 'VA' %}selected="selected"{% endif %}>VA</md-option>
+                            <md-option value="WA" {% if model.address.stateOrProvince == 'WA' %}selected="selected"{% endif %}>WA</md-option>
+                            <md-option value="WV" {% if model.address.stateOrProvince == 'WN' %}selected="selected"{% endif %}>WV</md-option>
+                            <md-option value="WI" {% if model.address.stateOrProvince == 'WI' %}selected="selected"{% endif %}>WI</md-option>
+                            <md-option value="WY" {% if model.address.stateOrProvince == 'WY' %}selected="selected"{% endif %}>WY</md-option>
+                        </md-select>
+
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-xs-24 col-sm-24 col-md-4 col-lg-4 col-lg-offset-1 col-md-offset-1 address-zip-input-container">
+            <!--<div class="row">
+                <label for="autocomplete-zip">{{ labels.zip }}<span class="is-required"> *</span></label>
+            </div>
+            <div class="row">
+                <input type="text" class="input-padding-lg input-width-zip" name="zip" data-mz-value="{{ addresscontext }}address.postalOrZipCode" value="{{ model.address.postalOrZipCode }}" />
+            </div>-->
+
+            <md-input-container flex>
+                <label for="autocomplete-zip">{{ labels.zip }}</label>
+                <input type="text" class="input-padding-lg input-width-zip" name="zip" data-mz-value="{{ addresscontext }}address.postalOrZipCode" value="{{ model.address.postalOrZipCode }}" />
+            </md-input-container>
+
+        </div>
+    </div>
+    <div class="row mz-addressform-phone address-form-container hide-loading-el">
+        <md-input-container flex>
+            <label for="shippingphone">{{ labels.phone }}</label>
+            <input ng-model="shippingPhone" ng-change="shippingPhone = formatPhone(shippingPhone)" type="text" class="input-padding-mid" name="shippingphone" data-mz-value="{{ addresscontext }}phoneNumbers.home" value="{{ model.phoneNumbers.home }}" maxlength="20">
+        </md-input-container>
+        <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}phoneNumbers.home"></span>
+
+        <!--<div class="">
+            <label for="shippingphone">{{ labels.phone }}<span class="is-required"> *</span></label>
+        </div>
+        <div class="">
+            <input type="text" class="input-padding-mid" name="shippingphone" data-mz-value="{{ addresscontext }}phoneNumbers.home" value="{{ model.phoneNumbers.home }}" maxlength="20">
+            <span class="mz-validationmessage" data-mz-validationmessage-for="{{ addresscontext }}phoneNumbers.home"></span>
+        </div>-->
+    </div>
+    {% if themeSettings.showAddressTypeDropdown %}
+    <div class="mz-addressform-addresstype address-form-container hide-loading-el" ng-hide="true">
+        <div class="">
+            <label for="addresstype">{{ labels.addressType }}<span class="is-required"> *</span></label>
+        </div>
+        <div class="addressTypeDrop">
+            <select data-mz-value="{{ addresscontext }}address.addressType">
+                <option value="Residential" {% if model.address.addressType == "Residential" %}selected="selected"{% endif %} >{{ labels.residential }}</option>
+                <option value="Commercial" {% if model.address.addressType == "Commercial" %}selected="selected"{% endif %} >{{ labels.commercial }}</option>
+            </select>
+        </div>
+    </div>
+    {% endif %}
+    
+
+{% endblock address-form %}
+
+
+
+

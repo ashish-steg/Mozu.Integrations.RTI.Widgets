@@ -1,0 +1,15 @@
+<div id="recent-history-main-content" class="test">
+    <div class="recent-history-container hidden">
+        <div class="cross-sell-title">
+            <p class="hidTitle"> {{ model.config.title }} </p>   
+        </div>
+        <div class="ig-recent-history carousel-parent custom-silder "> 
+            <div data-ig-recent-history="{% json_attribute Model.config %}"> 
+            </div>
+        </div> 
+    </div>
+</div> 
+{% require_script "widgets/catalog/recent-history" %} 
+ 
+
+

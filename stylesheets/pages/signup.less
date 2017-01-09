@@ -1,0 +1,117 @@
+.mz-signup {
+
+    @media (max-width: 640px) {
+        .mobile-site-logo-sign-up {
+            display: block;
+            letter-spacing: 3px;
+            padding-top: 5px;
+        }
+        .desktop-site-logo {
+            display: none;
+        }
+    }
+    .signup-label {
+        .roboto-normal;
+        color: @masala;
+        padding-bottom: 34px;
+        padding-top: 69px;
+        text-align: center;
+        font-size: 1.875rem;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        @media (max-width: 640px) {
+          display: none;
+        }
+    }
+
+    .label-signup {
+        .roboto-medium;
+        color: @masala;
+        text-align: left;
+        margin-bottom: 10%;
+        font-size: 0.99rem;
+        @media (max-width: 640px) {
+            margin: 15% 0;
+        }
+    }
+
+    .red-text {
+	    color: @red;
+    }
+    .div-padding {
+        height: 40px;
+        padding-right: 40px;
+    }
+    .div-padding-email {
+        padding-top: 5%;
+    }
+    .div-padding1{
+        padding-top: 4%;
+        text-align: left;
+    }
+    .mz-l-formfieldgroup-row {
+        margin-bottom: 10%;
+    }
+    .input-text {
+        width: 95%;
+        height: 40px;
+        margin-top: 3%;
+        .roboto-normal;
+        text-align: left;
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 1.010rem;
+        border: 1px solid @subCatBorder;
+    }
+    input:invalid, textarea:invalid {
+        background-color: @white;
+    }
+
+    .signup-btn {
+        .roboto-bold;
+        background-color: @white;
+        border-color: @masala;
+        border-radius: 3px;
+        font-size: 1.7rem;
+        padding: 10px 20px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+        -webkit-transition: ease 0.3s;
+        -moz-transition: ease 0.3s;
+        transition: ease 0.3s;
+    }
+
+    .error-message {
+        .roboto-medium;
+        color: @masala;
+        position: static;
+        padding-left: 18%;
+        padding-right: 21%;
+        font-size: 0.99rem;
+    }
+
+    
+}
+
+#sign-up-container {
+    position: relative;
+    .sign-up-spinner {
+    position: absolute;
+    height: 100%;
+    z-index: 9;
+    border: none;
+    visibility: hidden;
+    display: none;
+    .transition(all 0.3 linear);
+    .thatsAll {
+        width: 35%;
+    }
+    }
+    .sign-up-spinner.active {
+        display: block;
+        visibility: visible;
+    }
+}
+
+

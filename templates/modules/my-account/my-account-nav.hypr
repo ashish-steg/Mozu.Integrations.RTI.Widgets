@@ -1,0 +1,48 @@
+<nav class="mz-scrollnav" id="account-nav" data-mz-scrollnav="{{ navtarget }}">
+    <ul class="mz-scrollnav-list nav">
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-settings">
+                {{ labels.accountSettings }}
+            </a>
+        </li>
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#password-section">
+                {{ labels.password }}
+            </a>
+        </li>
+        {% if siteContext.generalSettings.isWishlistCreationEnabled %}
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-wishlist">
+                {{ labels.accountMyWishlist }}
+            </a>
+        </li>
+        {% endif %}
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-orderhistory">
+                {{ labels.orderHistory }}
+            </a>
+        </li>
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-returnhistory">
+                {{ labels.returns }}
+            </a>
+        </li>
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-paymentmethods">
+                {{ labels.paymentMethods }}
+            </a>
+        </li>
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-addressbook">
+                {{ labels.addressBook }}
+            </a>
+        </li>
+        <li class="mz-scrollnav-item">
+            <a class="mz-scrollnav-link" href="#account-storecredit">
+                {{ labels.storeCredit }}
+            </a>
+        </li>
+    </ul>
+</nav>
+{% require_script "modules/scroll-nav" %}
+

@@ -1,0 +1,13 @@
+<div id="up-sale-container" class="test">
+    <div class="related-container hidden">
+        <div class="cross-sell-title ">
+            <p class="hidTitle"> {{ model.config.title }} </p>   
+        </div>
+        <div class="ig-related-products carousel-parent custom-silder"> 
+            <div data-ig-related-products="{% json_attribute Model.config%}">
+                {% include_products "modules/product/related-product-tiles" with  productCodes=Model.config.productCodes as_parameter %}
+            </div>
+        </div> 
+    </div>
+</div>
+{% require_script "widgets/catalog/related-products" %}

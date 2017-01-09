@@ -1,0 +1,18 @@
+{% extends "page" %}
+
+{% block title-tag-content %}{% firstof pageContext.metaTitle labels.signUp %} - {% parent %}{% endblock title-tag-content %}
+
+{% block body-tag-classes %} mz-signuppage {% endblock body-tag-classes %}
+{% block body-content %}
+<div class="mz-l-container border">
+  <form method="post" data-mz-signup-form class="mz-loginform mz-loginform-page fades-in" data-mz-type="signup">
+ {% include "modules/common/sign-up-form" %}
+
+  </form>
+</div>
+
+
+{% endblock body-content %}
+
+
+

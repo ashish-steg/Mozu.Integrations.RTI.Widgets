@@ -1,0 +1,68 @@
+<header id="mz-page-header" class="{% if pageContext.cmsContext.page.path == "home" %}mz-homepageheader {% if pageContext.isTablet or pageContext.isMobile %}header-border{% endif %} {%else%}mz-pageheader{% endif %} mz-pageheader-actual {% if pageContext.isTablet %}pageheader-tablet-actual pageheader-tablet-small{% endif %} {% if pageContext.isMobile %}pageheader-mobile-actual pageheader-mobile-small {% endif %} ">
+    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+        <div class="row">
+            <div class="{% if pageContext.pageType == "confirmation" or pageContext.pageType == "checkout"  %}hidden{%else%}col-xs-4 col-sm-2 col-md-2 col-lg-2{% endif %}">
+                <div class="mz-menuicon">
+                    <span id="mobile-menu-icon" class="icon-hide">
+                       <svg  width="33px" height="14px" class="svg" viewBox="0 0 33 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                            <title>Menu Icon</title>
+                                <desc>Created with Sketch Beta.</desc>
+                                <defs></defs>
+                                <g id="Header:-Default" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                    <g id="Header:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-18.000000, -23.000000)" fill="#4A4A4A">
+                                        <g sketch:type="MSLayerGroup">
+                                            <g transform="translate(18.960499, 23.000000)" sketch:type="MSShapeGroup">
+                                                <rect id="Menu-Icon-Bar-3" x="0" y="0" {% if pageContext.isDesktop %} width="31.9334719" height="1.94117647" {% endif %} or {% if pageContext.isTablet %} width="31.9334719" height="1.94117647" {% endif %} or {% if pageContext.isMobile %} width="27.2" height="1.6" {% endif %}></rect>
+                                                <rect id="Menu-Icon-Bar-4" x="0" y="6" {% if pageContext.isDesktop %} width="31.9334719" height="1.94117647" {% endif %} or {% if pageContext.isTablet %} width="31.9334719" height="1.94117647" {% endif %} or {% if pageContext.isMobile %} width="27.2" height="1.6" {% endif %}></rect>
+                                                <rect id="Menu-Icon-Bar-1" x="0" y="12.0588235" {% if pageContext.isDesktop %} width="31.9334719" height="1.94117647" {% endif %} or {% if pageContext.isTablet %} width="31.9334719" height="1.94117647" {% endif %} or {% if pageContext.isMobile %} width="27.2" height="1.6" {% endif %}></rect>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="{% if pageContext.pageType == "confirmation" or pageContext.pageType == "checkout"  %}col-xs-24 col-sm-24 col-md-24 col-lg-24 text-center{%else%}col-xs-16 col-sm-5 col-md-5 col-lg-4{% endif %}">
+
+                <div class="logo-svg">
+                    {% block store-branding %}
+                        {% include "modules/page-header/store-branding" %}
+                    {% endblock store-branding %}
+                </div>
+            </div>
+            
+            <div class="{% if pageContext.pageType == "confirmation" or pageContext.pageType == "checkout"  %}hidden{%else%}col-xs-24 col-sm-10 col-md-10 col-lg-12{% endif %}{% if pageContext.isTablet %} col-xs-13 {% endif %}">
+                {% if pageContext.isDesktop or pageContext.isTablet %}
+                    <div class="search-container">
+                        {% block search-box %}
+                            {% include "modules/page-header/search-box" %}
+                        {% endblock search-box %}
+                    </div>
+                {% endif %}
+                {% if pageContext.isMobile %}
+                    {% block utility-nav %}
+                        {% include "modules/page-header/utility-nav" %}
+                    {% endblock utility-nav %}
+                {% endif %}
+            </div>
+            
+            <div class="{% if pageContext.pageType == "confirmation" or pageContext.pageType == "checkout"  %}hidden{%else%}col-xs-24 col-sm-7 col-md-7 col-lg-6{% endif %}{% if pageContext.isDesktop %} col-xs-24 {% endif %}">
+                {% if pageContext.isDesktop or pageContext.isTablet  %}
+                    {% block utility-nav %}
+                        {% include "modules/page-header/utility-nav" %}
+                    {% endblock utility-nav %}
+                {% endif %}
+                {% if pageContext.isMobile %}
+                     <div class="search-container">
+                        {% block search-box %}
+                            {% include "modules/page-header/search-box" %}
+                        {% endblock search-box %}
+                    </div>
+               {% endif %} 
+            </div>
+        </div>
+    </div>
+</header>
+{% require_script "modules/page-header" %}

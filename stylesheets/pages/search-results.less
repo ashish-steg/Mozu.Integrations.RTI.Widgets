@@ -1,0 +1,174 @@
+.mz-searchresults {
+    .mz-pagetitle {
+        text-align: center;
+        font-size: 2rem;
+        color: @masala;
+        
+        .roboto-medium;
+    }
+    .mz-pagenumbers {
+        display: none;
+    }
+    .mz-l-paginatedlist {
+        display: block;
+        .mz-productlist-list {
+            border-left: 1px solid @alto;
+        }
+        .mz-l-paginatedlist-header {
+            border-left: 1px solid @alto;
+            border-top: 1px solid @alto;
+            border-bottom: 1px solid @alto;
+            height: 2.929rem;
+            .mz-pagingcontrols {
+                display: block;
+                vertical-align: middle;
+                float: left;
+                label {
+                    margin: 0.7143rem 0.3571rem 0.3571rem 1.071rem;
+                }
+            }
+            .mz-pagingcontrols-pagestate-label {
+                display: inline-block;
+                margin-left: @gutter;
+            }
+            .filter {
+                width: 5.857rem;
+                height: 1.714rem;
+                background: @athens-gray;
+                float: left;
+                margin: 0.5rem;
+                .filterIcon {
+                    margin: 0 0 0 0.5714rem;
+                }
+                .filterLabel {
+                    text-transform: uppercase;
+                    font-size: 0.8571rem;
+                    color: @masala;
+                    vertical-align: super;
+                }
+            }
+        }
+        .rightBar {
+            float: right;
+            .productView {
+                display: block;
+                vertical-align: middle;
+                float: left;
+                span {
+                    margin: 0.5714rem 0.3571rem 0 0.3571rem;
+                    display: block;
+                    float: left;
+                    cursor: pointer;
+                }
+            }
+            .mz-sortby {
+                display: block;
+                float: right;
+                .mz-pagingcontrols-pagesort-label {
+                    margin: 0.4286rem;
+                    .mz-pagingcontrols-pagesort-dropdown {
+                        height: 1.929rem;
+                        font-size: 0.9286rem;
+                        background-color: @athens-gray;
+                        border: 0;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+    //loading icon
+    .more-product {
+        visibility: hidden;
+        .transition(all 0.3 linear)
+    }
+    .more-product.active {
+        visibility: visible;
+    }
+    
+    @font-face {
+        font-family: 'icomoon';
+        src:url('//s3.amazonaws.com/icomoon.io/4/Loading/icomoon.eot?-9haulc');
+    	src:url('//s3.amazonaws.com/icomoon.io/4/Loading/icomoon.eot?#iefix-9haulc') format('embedded-opentype'),
+    		url('//s3.amazonaws.com/icomoon.io/4/Loading/icomoon.woff?-9haulc') format('woff'),
+    		url('//s3.amazonaws.com/icomoon.io/4/Loading/icomoon.ttf?-9haulc') format('truetype'),
+    		url('//s3.amazonaws.com/icomoon.io/4/Loading/icomoon.svg?-9haulc#icomoon') format('svg');
+    
+        font-style: normal;
+        font-weight: normal;
+    }
+
+    [class^="icon-"], [class*=" icon-"] {
+        font-family: 'icomoon';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-spinner-2:before {
+        content: "\e001";
+    }
+
+    @-webkit-keyframes rotating {
+        from {
+            -ms-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        to {
+            -ms-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -webkit-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotating {
+        from {
+            -ms-transform: rotate(0);
+            -moz-transform: rotate(0);
+            -webkit-transform: rotate(0);
+            -o-transform: rotate(0);
+            transform: rotate(0);
+        }
+        to {
+            -ms-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -webkit-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    .spinner {
+        display: inline-block;
+    	font-size: 4em;
+    	height: 1em;
+    	line-height: 1;
+    	margin: .5em;
+        -webkit-animation: rotating 2s linear infinite;
+        -moz-animation: rotating 2s linear infinite;
+        -ms-animation: rotating 2s linear infinite;
+        -o-animation: rotating 2s linear infinite;
+        animation: rotating 2s linear infinite;
+        color: @masala;
+        text-shadow: 0 0 .25em rgba(255,255,255, .3);
+    }
+    .spinner--steps2 {
+        -webkit-animation: rotating 2s linear infinite steps(12);;
+        -moz-animation: rotating 2s linear infinite steps(12);;
+        -ms-animation: rotating 2s linear infinite steps(12);;
+        -o-animation: rotating 2s linear infinite steps(12);;
+        animation: rotating 2s linear infinite steps(12);;
+    }
+}
+
+

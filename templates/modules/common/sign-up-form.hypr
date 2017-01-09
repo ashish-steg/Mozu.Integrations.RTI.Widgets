@@ -1,0 +1,80 @@
+
+        <div class="signup-label">{{ labels.createSignuppage }}</div>
+            <div class="row">
+                <div class="error-message">
+                    <div data-mz-messagebar-container>
+                        {% include "modules/common/message-bar" with model=messages %}
+                    </div>
+                </div>
+            </div>
+            <div class="row hide-loading" id="sign-up-container">
+                <div class="col-xs-24 col-sm-24 col-md-24 col-ld-24">
+                    <div class="col-xs-1 col-sm-5 col-md-5 col-ld-5"></div>
+                    <div class="col-xs-11 col-sm-7 col-md-7 col-ld-7">
+                        <div class="label-signup">
+                            <div class="div-padding mz-l-formfieldgroup-row">
+
+                    <!-- First name -->
+                    <div class="hide-loading-el">
+                        <md-input-container flex>
+                            <label for="firstname">{{ labels.firstname }}</label>
+                            <input type="text" id="firstname" class="mz-input-field mz-signup-firstname input-text" tabindex="1" name="firstname" autofocus data-mz-signup-firstname/>
+                        </md-input-container>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="hide-loading-el">
+                        <md-input-container flex>
+                            <label for="emailaddress">{{ labels.emailaddress }} <span class="red-text">*</span></label>
+                            <input type="text" class="mz-input-field mz-signup-email input-text" tabindex="3" name="emailaddress" data-mz-signup-emailaddress/>
+                        </md-input-container>
+                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-11 col-sm-7 col-md-7 col-ld-7">
+                        <div class="label-signup">
+
+                            <div id="signIn-msg"></div>
+
+                    <!-- Last Name -->
+                    <div class="hide-loading-el">
+                        <md-input-container flex>
+                            <label for="lastname">{{ labels.lastname }}</label>
+                            <input type="text" class="mz-input-field mz-signup-lastname input-text" tabindex="2" name="lastname" data-mz-signup-lastname/>
+                        </md-input-container>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="hide-loading-el">
+                        <md-input-container flex>
+                            <label for="password">{{ labels.password }} <span class="red-text">*</span></label>
+                            <input type="password" class="mz-input-field mz-signup-password input-text" tabindex="4" name="password" data-mz-signup-password/>
+                        </md-input-container>
+                    </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-5 col-md-5 col-ld-5"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-24 col-sm-24 col-md-24 col-ld-24">
+                    <div class="col-xs-1 col-sm-5 col-md-5 col-ld-5"></div>
+                    <div class="col-xs-22 col-sm-14 col-md-14 col-lg-14">
+                        <div class="mz-l-formfieldgroup-row">
+                            <div class="mz-l-formfieldgroup-cell">
+                                <button type="submit" class="signup-btn mz-button mz-button-large" tabindex="5">
+                                    <span class="thin-chevron-right"></span>
+                                    {{ labels.createSignuppage }}
+                                </button>
+                            </div>
+                            <div class="mz-l-formfieldgroup-cell"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-sm-5 col-md-5 col-ld-5"></div>
+                </div>
+            </div>
+
+    {% require_script "pages/sign-up" %}

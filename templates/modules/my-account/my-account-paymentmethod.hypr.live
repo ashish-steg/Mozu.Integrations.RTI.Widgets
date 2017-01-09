@@ -1,0 +1,8 @@
+{% extends "modules/common/payment-method" %}
+{% block module-classes %}mz-paymentmethod-myaccount{% endblock %}
+{% block payment-method-actions %}
+    <a class="mz-paymentmethod-edit" data-mz-action="beginEditCard" data-mz-card="{{ model.id }}">{{ labels.edit }}</a>
+    <a class="mz-paymentmethod-delete" data-mz-action="beginDeleteCard" data-mz-card="{{ model.id }}">{{ labels.delete }}</a>
+{% endblock payment-method-actions %}
+
+

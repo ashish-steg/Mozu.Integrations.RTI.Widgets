@@ -1,0 +1,27 @@
+<div class="mz-address mz-l-formfieldgroup payment-method">
+    <div class="payment-method-inner">
+        <table>
+            <tr>
+                <td>
+                    {% if model.paymentOrCardType == "VISA" %}
+                        <img src="../../resources/images/icons/payment/visa.png">
+                    {% else %}
+                        {% if model.paymentOrCardType == "MC" %}
+                            <img src="../../resources/images/icons/payment/mastercard.png">
+                        {% else %}
+                            {% if model.paymentOrCardType == "AMEX" %}
+                                <img src="../../resources/images/icons/payment/amex.png">
+                            {% else %}
+                                {% if model.paymentOrCardType == "DISCOVER" %}
+                                    <img src="../../resources/images/icons/payment/discover.png">
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                    <span>{{ model.cardNumberPartOrMask }}</span>
+                </td>
+                <td>exp {{ model.expireMonth }}/{{ model.expireYear }}</td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,590 @@
+{% extends "page" %}
+
+{% block title-tag-content %}{% firstof pageContext.metaTitle model.content.productName %}  - {% parent %}{% endblock title-tag-content %}
+
+{% block body-tag-classes %} mz-product {% endblock body-tag-classes %}
+
+{% block body-content %}
+
+{% require_script "pages/product" %}
+
+{% preload_json model "product" %}
+
+    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+        <div class="mz-l-container" itemscope itemtype="http://schema.org/Product">
+            <div class="row {% if pageContext.isTablet or pageContext.isDesktop %}product-backgroundimg{% endif %}">
+                <div class="mz-product-main">
+                    <div class="col-xs-24 col-sm-12 col-md-14 col-lg-14">
+                        <div class="row {% if pageContext.isMobile %} product-backgroundimg {% endif %}">
+                           <div data-ig-images-view class="mz-productimages mz-l-sidebar"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-24 col-sm-12 col-md-10 col-lg-10">
+                        <div class="mz-productdetail-wrap">
+                            {% include "modules/common/message-bar" %}
+							<div id="product-detail" class="mz-productdetail mz-l-stack">
+								{% include "modules/product/product-detail" %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% dropzone "product-page-img-widget" scope="page" %}
+			</div>
+			<div class="row mz-back-color">
+				{% include "modules/product/product-detail-speci" %}
+			</div>
+			<div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 mz-bgbackground">
+				<div class="what-people-container">
+					<h4 class="what-people-saying">{{ labels.whatPeople }}</h4>
+					{% for property in model.properties %}
+						{% if property.attributeFQN == "tenant~rating" %}
+							<div class="popularity-details">
+								<div class="popularity-rating">
+									{% for popIndex in property.values %}
+										{% if popIndex.value == "0" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 27 42" version="1.1">
+												<title>Star Circle - 0</title>
+												<desc>Created with Sketch Beta.</desc><defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-60.000000, -606.000000)">
+														<g id="Star-Circle---0" sketch:type="MSLayerGroup" transform="translate(59.978516, 606.652316)">
+															<text id="0" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="15.778359" y="39.7900159">0</tspan>
+															</text>
+															<path d="M18.2152474,7.54565022 L14.3607968,11.3042831 L15.2741222,16.6129869 C15.2813708,16.662368 15.2849951,16.7332686 15.2849951,16.8256884 C15.2849951,16.974285 15.247846,17.1000031 15.1735477,17.2028428 C15.0992494,17.3056825 14.9911997,17.3571024 14.8493987,17.3571024 C14.7148463,17.3571024 14.5732718,17.3147433 14.4246753,17.2300251 L9.65689935,14.7244964 L4.88912345,17.2300251 C4.73327825,17.3147433 4.59170375,17.3571024 4.46439997,17.3571024 C4.31580338,17.3571024 4.20435594,17.3056825 4.13005765,17.2028428 C4.05575935,17.1000031 4.0186102,16.974285 4.0186102,16.8256884 C4.0186102,16.7831028 4.0256323,16.7122023 4.03967649,16.6129869 L4.95300186,11.3042831 L1.08767841,7.54565022 C0.910540404,7.35446803 0.821971401,7.18457863 0.821971401,7.03598205 C0.821971401,6.77412586 1.02017569,6.61125857 1.41658427,6.54738015 L6.74703384,5.77200497 L9.13635825,0.941030213 C9.27091065,0.650632612 9.44442435,0.505433811 9.65689935,0.505433811 C9.86937435,0.505433811 10.0428881,0.650632612 10.1774404,0.941030213 L12.5667649,5.77200497 L17.8972144,6.54738015 C18.293623,6.61125857 18.4918273,6.77412586 18.4918273,7.03598205 C18.4918273,7.03598205 18.399181,7.36171664 18.2152474,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg> 
+										{% endif %}
+										{% if popIndex.value == "0.5" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 36 42" version="1.1">
+												<title>Star Circle - 0.5</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-145.000000, -606.000000)">
+														<g id="Star-Circle---0.5" sketch:type="MSLayerGroup" transform="translate(146.050800, 606.652316)">
+															<path d="M29.6128549,8.82811608 C27.0881733,7.87353526 24.3512213,7.35111819 21.4922523,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="0.5" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="7.07036084" y="39.7900159">0.5</tspan>
+															</text>
+															<path d="M17.7419247,7.54565022 L13.8874741,11.3042831 L14.8007995,16.6129869 C14.8080481,16.662368 14.8116724,16.7332686 14.8116724,16.8256884 C14.8116724,16.974285 14.7745233,17.1000031 14.700225,17.2028428 C14.6259267,17.3056825 14.517877,17.3571024 14.376076,17.3571024 C14.2415236,17.3571024 14.0999491,17.3147433 13.9513525,17.2300251 L9.18357663,14.7244964 L4.41580073,17.2300251 C4.25995553,17.3147433 4.11838103,17.3571024 3.99107725,17.3571024 C3.84248066,17.3571024 3.73103322,17.3056825 3.65673493,17.2028428 C3.58243663,17.1000031 3.54528749,16.974285 3.54528749,16.8256884 C3.54528749,16.7831028 3.55230958,16.7122023 3.56635377,16.6129869 L4.47967914,11.3042831 L0.614355691,7.54565022 C0.437217685,7.35446803 0.348648682,7.18457863 0.348648682,7.03598205 C0.348648682,6.77412586 0.546852973,6.61125857 0.943261555,6.54738015 L6.27371112,5.77200497 L8.66303553,0.941030213 C8.79758793,0.650632612 8.97110163,0.505433811 9.18357663,0.505433811 C9.39605163,0.505433811 9.56956533,0.650632612 9.70411773,0.941030213 L12.0934421,5.77200497 L17.4238917,6.54738015 C17.8203003,6.61125857 18.0185046,6.77412586 18.0185046,7.03598205 C18.0185046,7.03598205 17.9258582,7.36171664 17.7419247,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "1" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 42 42" version="1.1">
+												<title>Star Circle - 1</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-227.000000, -606.000000)">
+														<g id="Star-Circle---1" sketch:type="MSLayerGroup" transform="translate(227.474202, 606.652316)">
+															<path d="M40.6423584,17.6357724 C36.5296997,11.4374807 29.4881865,7.35111819 21.4922523,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="1" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="15.6042025" y="39.7900159">1</tspan>
+															</text>
+															<path d="M17.7419247,7.54565022 L13.8874741,11.3042831 L14.8007995,16.6129869 C14.8080481,16.662368 14.8116724,16.7332686 14.8116724,16.8256884 C14.8116724,16.974285 14.7745233,17.1000031 14.700225,17.2028428 C14.6259267,17.3056825 14.517877,17.3571024 14.376076,17.3571024 C14.2415236,17.3571024 14.0999491,17.3147433 13.9513525,17.2300251 L9.18357663,14.7244964 L4.41580073,17.2300251 C4.25995553,17.3147433 4.11838103,17.3571024 3.99107725,17.3571024 C3.84248066,17.3571024 3.73103322,17.3056825 3.65673493,17.2028428 C3.58243663,17.1000031 3.54528749,16.974285 3.54528749,16.8256884 C3.54528749,16.7831028 3.55230958,16.7122023 3.56635377,16.6129869 L4.47967914,11.3042831 L0.614355691,7.54565022 C0.437217685,7.35446803 0.348648682,7.18457863 0.348648682,7.03598205 C0.348648682,6.77412586 0.546852973,6.61125857 0.943261555,6.54738015 L6.27371112,5.77200497 L8.66303553,0.941030213 C8.79758793,0.650632612 8.97110163,0.505433811 9.18357663,0.505433811 C9.39605163,0.505433811 9.56956533,0.650632612 9.70411773,0.941030213 L12.0934421,5.77200497 L17.4238917,6.54738015 C17.8203003,6.61125857 18.0185046,6.77412586 18.0185046,7.03598205 C18.0185046,7.03598205 17.9258582,7.36171664 17.7419247,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "1.5" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 46 43" version="1.1">
+												<title>Star Circle - 1.5</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-310.000000, -606.000000)">
+														<g id="Star-Circle---1.5" sketch:type="MSLayerGroup" transform="translate(310.985384, 606.652316)">
+															<path d="M41.5383882,41.5309245 C43.3977163,38.214379 44.4578273,34.3893372 44.4578273,30.3166932 C44.4578273,17.6331564 34.1757891,7.35111819 21.4922523,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="1.5" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="7.36952701" y="39.7900159">1.5</tspan>
+															</text>
+															<path d="M17.7419247,7.54565022 L13.8874741,11.3042831 L14.8007995,16.6129869 C14.8080481,16.662368 14.8116724,16.7332686 14.8116724,16.8256884 C14.8116724,16.974285 14.7745233,17.1000031 14.700225,17.2028428 C14.6259267,17.3056825 14.517877,17.3571024 14.376076,17.3571024 C14.2415236,17.3571024 14.0999491,17.3147433 13.9513525,17.2300251 L9.18357663,14.7244964 L4.41580073,17.2300251 C4.25995553,17.3147433 4.11838103,17.3571024 3.99107725,17.3571024 C3.84248066,17.3571024 3.73103322,17.3056825 3.65673493,17.2028428 C3.58243663,17.1000031 3.54528749,16.974285 3.54528749,16.8256884 C3.54528749,16.7831028 3.55230958,16.7122023 3.56635377,16.6129869 L4.47967914,11.3042831 L0.614355691,7.54565022 C0.437217685,7.35446803 0.348648682,7.18457863 0.348648682,7.03598205 C0.348648682,6.77412586 0.546852973,6.61125857 0.943261555,6.54738015 L6.27371112,5.77200497 L8.66303553,0.941030213 C8.79758793,0.650632612 8.97110163,0.505433811 9.18357663,0.505433811 C9.39605163,0.505433811 9.56956533,0.650632612 9.70411773,0.941030213 L12.0934421,5.77200497 L17.4238917,6.54738015 C17.8203003,6.61125857 18.0185046,6.77412586 18.0185046,7.03598205 C18.0185046,7.03598205 17.9258582,7.36171664 17.7419247,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "2" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 46 51" version="1.1">
+												<title>Star Circle - 2</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-394.000000, -606.000000)">
+														<g id="Star-Circle---2" sketch:type="MSLayerGroup" transform="translate(394.496566, 606.652316)">
+															<path d="M33.8013632,49.708371 C40.2075285,45.633477 44.4578273,38.4714404 44.4578273,30.3166932 C44.4578273,17.6331564 34.1757891,7.35111819 21.4922523,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="2" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="15.6042025" y="39.7900159">2</tspan>
+															</text>
+															<path d="M17.7419247,7.54565022 L13.8874741,11.3042831 L14.8007995,16.6129869 C14.8080481,16.662368 14.8116724,16.7332686 14.8116724,16.8256884 C14.8116724,16.974285 14.7745233,17.1000031 14.700225,17.2028428 C14.6259267,17.3056825 14.517877,17.3571024 14.376076,17.3571024 C14.2415236,17.3571024 14.0999491,17.3147433 13.9513525,17.2300251 L9.18357663,14.7244964 L4.41580073,17.2300251 C4.25995553,17.3147433 4.11838103,17.3571024 3.99107725,17.3571024 C3.84248066,17.3571024 3.73103322,17.3056825 3.65673493,17.2028428 C3.58243663,17.1000031 3.54528749,16.974285 3.54528749,16.8256884 C3.54528749,16.7831028 3.55230958,16.7122023 3.56635377,16.6129869 L4.47967914,11.3042831 L0.614355691,7.54565022 C0.437217685,7.35446803 0.348648682,7.18457863 0.348648682,7.03598205 C0.348648682,6.77412586 0.546852973,6.61125857 0.943261555,6.54738015 L6.27371112,5.77200497 L8.66303553,0.941030213 C8.79758793,0.650632612 8.97110163,0.505433811 9.18357663,0.505433811 C9.39605163,0.505433811 9.56956533,0.650632612 9.70411773,0.941030213 L12.0934421,5.77200497 L17.4238917,6.54738015 C17.8203003,6.61125857 18.0185046,6.77412586 18.0185046,7.03598205 C18.0185046,7.03598205 17.9258582,7.36171664 17.7419247,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "2.5" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 46 55" version="1.1">
+												<title>Star Circle - 2.5</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-477.000000, -606.000000)">
+														<g id="Star-Circle---2.5" sketch:type="MSLayerGroup" transform="translate(478.007748, 606.652316)">
+															<path d="M21.4922523,53.2822682 L21.4922523,53.2822682 C21.8650781,53.2822682 22.2358289,53.2733842 22.6043045,53.2558163 C34.7713751,52.6757232 44.4578273,42.6274043 44.4578273,30.3166932 C44.4578273,17.6331564 34.1757891,7.35111819 21.4922523,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="2.5" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="7.36952701" y="39.7900159">2.5</tspan>
+															</text>
+															<path d="M17.7419247,7.54565022 L13.8874741,11.3042831 L14.8007995,16.6129869 C14.8080481,16.662368 14.8116724,16.7332686 14.8116724,16.8256884 C14.8116724,16.974285 14.7745233,17.1000031 14.700225,17.2028428 C14.6259267,17.3056825 14.517877,17.3571024 14.376076,17.3571024 C14.2415236,17.3571024 14.0999491,17.3147433 13.9513525,17.2300251 L9.18357663,14.7244964 L4.41580073,17.2300251 C4.25995553,17.3147433 4.11838103,17.3571024 3.99107725,17.3571024 C3.84248066,17.3571024 3.73103322,17.3056825 3.65673493,17.2028428 C3.58243663,17.1000031 3.54528749,16.974285 3.54528749,16.8256884 C3.54528749,16.7831028 3.55230958,16.7122023 3.56635377,16.6129869 L4.47967914,11.3042831 L0.614355691,7.54565022 C0.437217685,7.35446803 0.348648682,7.18457863 0.348648682,7.03598205 C0.348648682,6.77412586 0.546852973,6.61125857 0.943261555,6.54738015 L6.27371112,5.77200497 L8.66303553,0.941030213 C8.79758793,0.650632612 8.97110163,0.505433811 9.18357663,0.505433811 C9.39605163,0.505433811 9.56956533,0.650632612 9.70411773,0.941030213 L12.0934421,5.77200497 L17.4238917,6.54738015 C17.8203003,6.61125857 18.0185046,6.77412586 18.0185046,7.03598205 C18.0185046,7.03598205 17.9258582,7.36171664 17.7419247,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "3" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 46 55" version="1.1">
+												<title>Star Circle - 3</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-561.000000, -606.000000)">
+														<g id="Star-Circle---3" sketch:type="MSLayerGroup" transform="translate(561.518930, 606.652316)">
+															<path d="M10.617799,50.5495571 L10.617799,50.5495571 C13.8547551,52.2929657 17.5579717,53.2822682 21.4922523,53.2822682 C21.8650781,53.2822682 22.2358289,53.2733842 22.6043045,53.2558163 C34.7713751,52.6757232 44.4578273,42.6274043 44.4578273,30.3166932 C44.4578273,17.6331564 34.1757891,7.35111819 21.4922523,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="3" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="15.6042025" y="39.7900159">3</tspan>
+															</text>
+															<path d="M17.7419247,7.54565022 L13.8874741,11.3042831 L14.8007995,16.6129869 C14.8080481,16.662368 14.8116724,16.7332686 14.8116724,16.8256884 C14.8116724,16.974285 14.7745233,17.1000031 14.700225,17.2028428 C14.6259267,17.3056825 14.517877,17.3571024 14.376076,17.3571024 C14.2415236,17.3571024 14.0999491,17.3147433 13.9513525,17.2300251 L9.18357663,14.7244964 L4.41580073,17.2300251 C4.25995553,17.3147433 4.11838103,17.3571024 3.99107725,17.3571024 C3.84248066,17.3571024 3.73103322,17.3056825 3.65673493,17.2028428 C3.58243663,17.1000031 3.54528749,16.974285 3.54528749,16.8256884 C3.54528749,16.7831028 3.55230958,16.7122023 3.56635377,16.6129869 L4.47967914,11.3042831 L0.614355691,7.54565022 C0.437217685,7.35446803 0.348648682,7.18457863 0.348648682,7.03598205 C0.348648682,6.77412586 0.546852973,6.61125857 0.943261555,6.54738015 L6.27371112,5.77200497 L8.66303553,0.941030213 C8.79758793,0.650632612 8.97110163,0.505433811 9.18357663,0.505433811 C9.39605163,0.505433811 9.56956533,0.650632612 9.70411773,0.941030213 L12.0934421,5.77200497 L17.4238917,6.54738015 C17.8203003,6.61125857 18.0185046,6.77412586 18.0185046,7.03598205 C18.0185046,7.03598205 17.9258582,7.36171664 17.7419247,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "3.5" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 46 55" version="1.1">
+												<title>Star Circle - 3.5</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-644.000000, -606.000000)">
+														<g id="Star-Circle---3.5" sketch:type="MSLayerGroup" transform="translate(645.205671, 606.476757)">
+															<path d="M0.980256523,41.172168 L0.980256523,41.172168 C4.82435266,48.4769255 12.488847,53.4578273 21.3166932,53.4578273 C21.689519,53.4578273 22.0602698,53.4489433 22.4287454,53.4313754 C34.595816,52.8512823 44.2822682,42.8029634 44.2822682,30.4922523 C44.2822682,17.8087154 34.0002301,7.52667728 21.3166932,7.52667728" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="3.5" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="7.19396792" y="39.965575">3.5</tspan>
+															</text>
+															<path d="M17.5663656,7.72120932 L13.711915,11.4798422 L14.6252404,16.788546 C14.632489,16.8379271 14.6361133,16.9088276 14.6361133,17.0012475 C14.6361133,17.1498441 14.5989642,17.2755622 14.5246659,17.3784019 C14.4503676,17.4812416 14.3423179,17.5326615 14.2005169,17.5326615 C14.0659645,17.5326615 13.92439,17.4903024 13.7757934,17.4055842 L9.00801754,14.9000555 L4.24024164,17.4055842 C4.08439643,17.4903024 3.94282194,17.5326615 3.81551816,17.5326615 C3.66692157,17.5326615 3.55547413,17.4812416 3.48117583,17.3784019 C3.40687754,17.2755622 3.36972839,17.1498441 3.36972839,17.0012475 C3.36972839,16.9586619 3.37675049,16.8877614 3.39079468,16.788546 L4.30412005,11.4798422 L0.438796598,7.72120932 C0.261658592,7.53002712 0.173089589,7.36013773 0.173089589,7.21154114 C0.173089589,6.94968496 0.371293879,6.78681766 0.767702461,6.72293925 L6.09815203,5.94756406 L8.48747644,1.11658931 C8.62202884,0.826191706 8.79554254,0.680992905 9.00801754,0.680992905 C9.22049254,0.680992905 9.39400624,0.826191706 9.52855864,1.11658931 L11.917883,5.94756406 L17.2483326,6.72293925 C17.6447412,6.78681766 17.8429455,6.94968496 17.8429455,7.21154114 C17.8429455,7.21154114 17.7502991,7.53727573 17.5663656,7.72120932 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "4" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 48 55" version="1.1">
+												<title>Star Circle - 4</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-726.000000, -606.000000)">
+														<g id="Star-Circle---4" sketch:type="MSLayerGroup" transform="translate(726.716852, 606.652316)">
+															<path d="M0.383638334,29.083962 C0.362049293,29.4921372 0.351118187,29.9031386 0.351118187,30.3166932 C0.351118187,43.0002301 10.6331564,53.2822682 23.3166932,53.2822682 L23.3166932,53.2822682 C23.689519,53.2822682 24.0602698,53.2733842 24.4287454,53.2558163 C36.595816,52.6757232 46.2822682,42.6274043 46.2822682,30.3166932 C46.2822682,17.6331564 36.0002301,7.35111819 23.3166932,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="4" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="17.4286434" y="39.7900159">4</tspan>
+															</text>
+															<path d="M19.5663656,7.54565022 L15.711915,11.3042831 L16.6252404,16.6129869 C16.632489,16.662368 16.6361133,16.7332686 16.6361133,16.8256884 C16.6361133,16.974285 16.5989642,17.1000031 16.5246659,17.2028428 C16.4503676,17.3056825 16.3423179,17.3571024 16.2005169,17.3571024 C16.0659645,17.3571024 15.92439,17.3147433 15.7757934,17.2300251 L11.0080175,14.7244964 L6.24024164,17.2300251 C6.08439643,17.3147433 5.94282194,17.3571024 5.81551816,17.3571024 C5.66692157,17.3571024 5.55547413,17.3056825 5.48117583,17.2028428 C5.40687754,17.1000031 5.36972839,16.974285 5.36972839,16.8256884 C5.36972839,16.7831028 5.37675049,16.7122023 5.39079468,16.6129869 L6.30412005,11.3042831 L2.4387966,7.54565022 C2.26165859,7.35446803 2.17308959,7.18457863 2.17308959,7.03598205 C2.17308959,6.77412586 2.37129388,6.61125857 2.76770246,6.54738015 L8.09815203,5.77200497 L10.4874764,0.941030213 C10.6220288,0.650632612 10.7955425,0.505433811 11.0080175,0.505433811 C11.2204925,0.505433811 11.3940062,0.650632612 11.5285586,0.941030213 L13.917883,5.77200497 L19.2483326,6.54738015 C19.6447412,6.61125857 19.8429455,6.77412586 19.8429455,7.03598205 C19.8429455,7.03598205 19.7502991,7.36171664 19.5663656,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "4.5" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 48 54" version="1.1">
+												<title>Star Circle - 4.5</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs>
+													<linearGradient x1="0.25781251%" y1="49.7500002%" x2="101.257813%" y2="49.7500002%" id="linearGradient-1">
+														<stop stop-color="#F8E71C" offset="51.1100925%"/>
+														<stop stop-color="#FFFFFF" offset="47.3453444%"/>
+													</linearGradient>
+												</defs>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-812.000000, -607.000000)">
+														<g id="Star-Circle---4.5" sketch:type="MSLayerGroup" transform="translate(812.403593, 606.652316)">
+															<path d="M2.81997788,19.7756955 C1.18618511,22.9325523 0.26333864,26.5168516 0.26333864,30.3166932 C0.26333864,43.0002301 10.5453768,53.2822682 23.2289137,53.2822682 L23.2289137,53.2822682 C23.6017394,53.2822682 23.9724902,53.2733842 24.3409659,53.2558163 C36.5080365,52.6757232 46.1944887,42.6274043 46.1944887,30.3166932 C46.1944887,17.6331564 35.9124505,7.35111819 23.2289137,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="4.5" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="9.10618837" y="39.7900159">4.5</tspan>
+															</text>
+															<path d="M19.478586,7.97856374 L15.6241355,11.7371967 L16.5374609,17.0459004 C16.5447095,17.0952816 16.5483338,17.1661821 16.5483338,17.2586019 C16.5483338,17.4071985 16.5111846,17.5329166 16.4368863,17.6357564 C16.362588,17.7385961 16.2545384,17.7900159 16.1127374,17.7900159 C15.978185,17.7900159 15.8366105,17.7476568 15.6880139,17.6629387 L10.920238,15.1574099 L6.15246209,17.6629387 C5.99661689,17.7476568 5.85504239,17.7900159 5.72773861,17.7900159 C5.57914202,17.7900159 5.46769458,17.7385961 5.39339629,17.6357564 C5.31909799,17.5329166 5.28194884,17.4071985 5.28194884,17.2586019 C5.28194884,17.2160163 5.28897094,17.1451158 5.30301513,17.0459004 L6.2163405,11.7371967 L2.35101705,7.97856374 C2.17387904,7.78738155 2.08531004,7.61749216 2.08531004,7.46889557 C2.08531004,7.20703939 2.28351433,7.04417209 2.67992291,6.98029368 L8.01037248,6.20491849 L10.3996969,1.37394374 C10.5342493,1.08354613 10.707763,0.938347334 10.920238,0.938347334 C11.132713,0.938347334 11.3062267,1.08354613 11.4407791,1.37394374 L13.8301035,6.20491849 L19.1605531,6.98029368 C19.5569617,7.04417209 19.7551659,7.20703939 19.7551659,7.46889557 C19.7551659,7.46889557 19.6625196,7.79463016 19.478586,7.97856374 Z" id="Star-2" stroke="#F6A623" fill="url(#linearGradient-1)" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+										{% if popIndex.value == "5" %}
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="84px" height="82.6px" {% endif %} or {% if pageContext.isMobile %} width="71.4px" height="70.2px" {% endif %} viewBox="0 0 48 55" version="1.1">
+												<title>Star Circle - 5</title>
+												<desc>Created with Sketch Beta.</desc>
+												<defs/>
+												<g id="Explorations" stroke="none" stroke-width="1.2" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+													<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-893.000000, -606.000000)">
+														<g id="Star-Circle---5" sketch:type="MSLayerGroup" transform="translate(893.826996, 606.652316)">
+															<path d="M2.86202405,19.5461272 C1.14572276,22.7666985 0.173004295,26.443596 0.173004295,30.347684 C0.173004295,43.0502333 10.470455,53.347684 23.1730043,53.347684 C23.5463889,53.347684 23.9176955,53.3387867 24.2867235,53.3211924 C36.4720323,52.7402298 46.1730043,42.6768486 46.1730043,30.347684 C46.1730043,17.6451348 35.8755535,7.34768402 23.1730043,7.34768402" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+															<text id="5" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+																<tspan x="17.3408638" y="39.7900159">5</tspan>
+															</text>
+															<path d="M19.478586,7.54565022 L15.6241355,11.3042831 L16.5374609,16.6129869 C16.5447095,16.662368 16.5483338,16.7332686 16.5483338,16.8256884 C16.5483338,16.974285 16.5111846,17.1000031 16.4368863,17.2028428 C16.362588,17.3056825 16.2545384,17.3571024 16.1127374,17.3571024 C15.978185,17.3571024 15.8366105,17.3147433 15.6880139,17.2300251 L10.920238,14.7244964 L6.15246209,17.2300251 C5.99661689,17.3147433 5.85504239,17.3571024 5.72773861,17.3571024 C5.57914202,17.3571024 5.46769458,17.3056825 5.39339629,17.2028428 C5.31909799,17.1000031 5.28194884,16.974285 5.28194884,16.8256884 C5.28194884,16.7831028 5.28897094,16.7122023 5.30301513,16.6129869 L6.2163405,11.3042831 L2.35101705,7.54565022 C2.17387904,7.35446803 2.08531004,7.18457863 2.08531004,7.03598205 C2.08531004,6.77412586 2.28351433,6.61125857 2.67992291,6.54738015 L8.01037248,5.77200497 L10.3996969,0.941030213 C10.5342493,0.650632612 10.707763,0.505433811 10.920238,0.505433811 C11.132713,0.505433811 11.3062267,0.650632612 11.4407791,0.941030213 L13.8301035,5.77200497 L19.1605531,6.54738015 C19.5569617,6.61125857 19.7551659,6.77412586 19.7551659,7.03598205 C19.7551659,7.03598205 19.6625196,7.36171664 19.478586,7.54565022 Z" id="Star" stroke="#F6A623" fill="#F8E81C" sketch:type="MSShapeGroup"/>
+														</g>
+													</g>
+												</g>
+											</svg>
+										{% endif %}
+									{% endfor %}
+								</div>
+								<div class="popularity-numbers">
+									{% for property in model.properties %}
+										{% if property.attributeFQN == "tenant~rating" %}
+											<ul>
+												{% for popIndex in property.values %}
+													<li>{{ labels.five }}
+														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="14px" height="13px" viewBox="0 0 14 13" version="1.1">
+															<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+															<title>Star Filled</title>
+															<desc>Created with Sketch Beta.</desc>
+															<defs/>
+															<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+																<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-237.000000, -2876.000000)" stroke="#F6A623" fill="#F8E81C">
+																	<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																		<g id="Reviews-Summary" transform="translate(99.500000, 269.500000)" sketch:type="MSShapeGroup">
+																			<g id="Breakdown" transform="translate(126.000000, 0.000000)">
+																				<path d="M24.3298691,8.92846435 L21.5974988,11.5596744 L22.2449434,15.2760029 C22.2500818,15.310572 22.252651,15.3602055 22.252651,15.4249035 C22.252651,15.5289277 22.2263165,15.616936 22.1736474,15.6889283 C22.1209783,15.7609207 22.0443833,15.7969169 21.9438624,15.7969169 C21.8484799,15.7969169 21.7481196,15.7672636 21.6427814,15.7079571 L18.2629665,13.9539757 L14.8831516,15.7079571 C14.772675,15.7672636 14.6723147,15.7969169 14.5820706,15.7969169 C14.4767324,15.7969169 14.3977288,15.7609207 14.3450597,15.6889283 C14.2923906,15.616936 14.266056,15.5289277 14.266056,15.4249035 C14.266056,15.3950916 14.2710339,15.3454581 14.2809896,15.2760029 L14.9284342,11.5596744 L12.1883563,8.92846435 C12.0627854,8.79462831 12,8.67569819 12,8.57167398 C12,8.38836301 12.1405045,8.27434866 12.4215134,8.22963094 L16.2002004,7.68683385 L17.8939616,4.30493684 C17.9893441,4.10164561 18.1123457,4 18.2629665,4 C18.4135873,4 18.5365889,4.10164561 18.6319714,4.30493684 L20.3257326,7.68683385 L24.1044196,8.22963094 C24.3854285,8.27434866 24.525933,8.38836301 24.525933,8.57167398 C24.525933,8.57167398 24.4602572,8.79970267 24.3298691,8.92846435 Z" id="Star-Filled"/>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</svg>
+														{% if popIndex.value == "5" or popIndex.value == "4.5" %} 
+															<div class="rating-ratiofive"></div>
+														{% endif %}
+														{% if popIndex.value == "4" or popIndex.value == "3.5" %}
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "3" or popIndex.value == "2.5" %}
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "2" or popIndex.value == "1.5" %}
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "1" or popIndex.value == "0.5" %}
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+													</li>
+													<li>{{ labels.four }}
+														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="14px" height="13px" viewBox="0 0 14 13" version="1.1">
+															<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+															<title>Star Filled</title>
+															<desc>Created with Sketch Beta.</desc>
+															<defs/>
+															<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+																<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-237.000000, -2876.000000)" stroke="#F6A623" fill="#F8E81C">
+																	<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																		<g id="Reviews-Summary" transform="translate(99.500000, 269.500000)" sketch:type="MSShapeGroup">
+																			<g id="Breakdown" transform="translate(126.000000, 0.000000)">
+																				<path d="M24.3298691,8.92846435 L21.5974988,11.5596744 L22.2449434,15.2760029 C22.2500818,15.310572 22.252651,15.3602055 22.252651,15.4249035 C22.252651,15.5289277 22.2263165,15.616936 22.1736474,15.6889283 C22.1209783,15.7609207 22.0443833,15.7969169 21.9438624,15.7969169 C21.8484799,15.7969169 21.7481196,15.7672636 21.6427814,15.7079571 L18.2629665,13.9539757 L14.8831516,15.7079571 C14.772675,15.7672636 14.6723147,15.7969169 14.5820706,15.7969169 C14.4767324,15.7969169 14.3977288,15.7609207 14.3450597,15.6889283 C14.2923906,15.616936 14.266056,15.5289277 14.266056,15.4249035 C14.266056,15.3950916 14.2710339,15.3454581 14.2809896,15.2760029 L14.9284342,11.5596744 L12.1883563,8.92846435 C12.0627854,8.79462831 12,8.67569819 12,8.57167398 C12,8.38836301 12.1405045,8.27434866 12.4215134,8.22963094 L16.2002004,7.68683385 L17.8939616,4.30493684 C17.9893441,4.10164561 18.1123457,4 18.2629665,4 C18.4135873,4 18.5365889,4.10164561 18.6319714,4.30493684 L20.3257326,7.68683385 L24.1044196,8.22963094 C24.3854285,8.27434866 24.525933,8.38836301 24.525933,8.57167398 C24.525933,8.57167398 24.4602572,8.79970267 24.3298691,8.92846435 Z" id="Star-Filled"/>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</svg>
+														{% if popIndex.value == "5" or popIndex.value == "4.5" %} 
+															<div class="rating-ratiofour"></div>
+														{% endif %}
+														{% if popIndex.value == "4" or popIndex.value == "3.5" %}
+															<div class="rating-ratiofive"></div>
+														{% endif %}
+														{% if popIndex.value == "3" or popIndex.value == "2.5" %}
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "2" or popIndex.value == "1.5" %} 
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "1" or popIndex.value == "0.5" %} 
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+													</li>
+													<li>{{ labels.three }}
+														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="14px" height="13px" viewBox="0 0 14 13" version="1.1">
+															<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+															<title>Star Filled</title>
+															<desc>Created with Sketch Beta.</desc>
+															<defs/>
+															<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+																<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-237.000000, -2876.000000)" stroke="#F6A623" fill="#F8E81C">
+																	<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																		<g id="Reviews-Summary" transform="translate(99.500000, 269.500000)" sketch:type="MSShapeGroup">
+																			<g id="Breakdown" transform="translate(126.000000, 0.000000)">
+																				<path d="M24.3298691,8.92846435 L21.5974988,11.5596744 L22.2449434,15.2760029 C22.2500818,15.310572 22.252651,15.3602055 22.252651,15.4249035 C22.252651,15.5289277 22.2263165,15.616936 22.1736474,15.6889283 C22.1209783,15.7609207 22.0443833,15.7969169 21.9438624,15.7969169 C21.8484799,15.7969169 21.7481196,15.7672636 21.6427814,15.7079571 L18.2629665,13.9539757 L14.8831516,15.7079571 C14.772675,15.7672636 14.6723147,15.7969169 14.5820706,15.7969169 C14.4767324,15.7969169 14.3977288,15.7609207 14.3450597,15.6889283 C14.2923906,15.616936 14.266056,15.5289277 14.266056,15.4249035 C14.266056,15.3950916 14.2710339,15.3454581 14.2809896,15.2760029 L14.9284342,11.5596744 L12.1883563,8.92846435 C12.0627854,8.79462831 12,8.67569819 12,8.57167398 C12,8.38836301 12.1405045,8.27434866 12.4215134,8.22963094 L16.2002004,7.68683385 L17.8939616,4.30493684 C17.9893441,4.10164561 18.1123457,4 18.2629665,4 C18.4135873,4 18.5365889,4.10164561 18.6319714,4.30493684 L20.3257326,7.68683385 L24.1044196,8.22963094 C24.3854285,8.27434866 24.525933,8.38836301 24.525933,8.57167398 C24.525933,8.57167398 24.4602572,8.79970267 24.3298691,8.92846435 Z" id="Star-Filled"/>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</svg>
+														{% if popIndex.value == "5" or popIndex.value == "4.5" %} 
+															<div class="rating-ratioone"></div>
+														{% endif %}
+														{% if popIndex.value == "4" or popIndex.value == "3.5" %} 
+															<div class="rating-ratiofour"></div>
+														{% endif %}
+														{% if popIndex.value == "3" or popIndex.value == "2.5" %}
+															<div class="rating-ratiofive"></div>
+														{% endif %}
+														{% if popIndex.value == "2" or popIndex.value == "1.5" %} 
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "1" or popIndex.value == "0.5" %} 
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+													</li>
+													<li>{{ labels.two }}
+														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="14px" height="13px" viewBox="0 0 14 13" version="1.1">
+															<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+															<title>Star Filled</title>
+															<desc>Created with Sketch Beta.</desc>
+															<defs/>
+															<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+																<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-237.000000, -2876.000000)" stroke="#F6A623" fill="#F8E81C">
+																	<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																		<g id="Reviews-Summary" transform="translate(99.500000, 269.500000)" sketch:type="MSShapeGroup">
+																			<g id="Breakdown" transform="translate(126.000000, 0.000000)">
+																				<path d="M24.3298691,8.92846435 L21.5974988,11.5596744 L22.2449434,15.2760029 C22.2500818,15.310572 22.252651,15.3602055 22.252651,15.4249035 C22.252651,15.5289277 22.2263165,15.616936 22.1736474,15.6889283 C22.1209783,15.7609207 22.0443833,15.7969169 21.9438624,15.7969169 C21.8484799,15.7969169 21.7481196,15.7672636 21.6427814,15.7079571 L18.2629665,13.9539757 L14.8831516,15.7079571 C14.772675,15.7672636 14.6723147,15.7969169 14.5820706,15.7969169 C14.4767324,15.7969169 14.3977288,15.7609207 14.3450597,15.6889283 C14.2923906,15.616936 14.266056,15.5289277 14.266056,15.4249035 C14.266056,15.3950916 14.2710339,15.3454581 14.2809896,15.2760029 L14.9284342,11.5596744 L12.1883563,8.92846435 C12.0627854,8.79462831 12,8.67569819 12,8.57167398 C12,8.38836301 12.1405045,8.27434866 12.4215134,8.22963094 L16.2002004,7.68683385 L17.8939616,4.30493684 C17.9893441,4.10164561 18.1123457,4 18.2629665,4 C18.4135873,4 18.5365889,4.10164561 18.6319714,4.30493684 L20.3257326,7.68683385 L24.1044196,8.22963094 C24.3854285,8.27434866 24.525933,8.38836301 24.525933,8.57167398 C24.525933,8.57167398 24.4602572,8.79970267 24.3298691,8.92846435 Z" id="Star-Filled"/>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</svg>
+														{% if popIndex.value == "5" or popIndex.value == "4.5" %} 
+															<div class="rating-ratiothree"></div>
+														{% endif %}
+														{% if popIndex.value == "4" or popIndex.value == "3.5" %}
+															<div class="rating-ratioone"></div>
+														{% endif %}
+														{% if popIndex.value == "3" or popIndex.value == "2.5" %}
+															<div class="rating-ratiofour"></div>
+														{% endif %}
+														{% if popIndex.value == "2" or popIndex.value == "1.5" %}
+															<div class="rating-ratiofive"></div>
+														{% endif %}
+														{% if popIndex.value == "1" or popIndex.value == "0.5" %}
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+													</li>
+													<li>{{ labels.one }}
+														<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="14px" height="13px" viewBox="0 0 14 13" version="1.1">
+															<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+															<title>Star Filled</title>
+															<desc>Created with Sketch Beta.</desc>
+															<defs/>
+															<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+																<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-237.000000, -2876.000000)" stroke="#F6A623" fill="#F8E81C">
+																	<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																		<g id="Reviews-Summary" transform="translate(99.500000, 269.500000)" sketch:type="MSShapeGroup">
+																			<g id="Breakdown" transform="translate(126.000000, 0.000000)">
+																				<path d="M24.3298691,8.92846435 L21.5974988,11.5596744 L22.2449434,15.2760029 C22.2500818,15.310572 22.252651,15.3602055 22.252651,15.4249035 C22.252651,15.5289277 22.2263165,15.616936 22.1736474,15.6889283 C22.1209783,15.7609207 22.0443833,15.7969169 21.9438624,15.7969169 C21.8484799,15.7969169 21.7481196,15.7672636 21.6427814,15.7079571 L18.2629665,13.9539757 L14.8831516,15.7079571 C14.772675,15.7672636 14.6723147,15.7969169 14.5820706,15.7969169 C14.4767324,15.7969169 14.3977288,15.7609207 14.3450597,15.6889283 C14.2923906,15.616936 14.266056,15.5289277 14.266056,15.4249035 C14.266056,15.3950916 14.2710339,15.3454581 14.2809896,15.2760029 L14.9284342,11.5596744 L12.1883563,8.92846435 C12.0627854,8.79462831 12,8.67569819 12,8.57167398 C12,8.38836301 12.1405045,8.27434866 12.4215134,8.22963094 L16.2002004,7.68683385 L17.8939616,4.30493684 C17.9893441,4.10164561 18.1123457,4 18.2629665,4 C18.4135873,4 18.5365889,4.10164561 18.6319714,4.30493684 L20.3257326,7.68683385 L24.1044196,8.22963094 C24.3854285,8.27434866 24.525933,8.38836301 24.525933,8.57167398 C24.525933,8.57167398 24.4602572,8.79970267 24.3298691,8.92846435 Z" id="Star-Filled"/>
+																			</g>
+																		</g>
+																	</g>
+																</g>
+															</g>
+														</svg>
+														{% if popIndex.value == "5" or popIndex.value == "4.5" %} 
+															<div class="rating-ratiotwo"></div>
+														{% endif %}
+														{% if popIndex.value == "4" or popIndex.value == "3.5" %}
+															<div class="rating-ratiothree"></div>
+														{% endif %}
+														{% if popIndex.value == "3" or popIndex.value == "2.5" %}
+															<div class="rating-ratioone"></div>
+														{% endif %}
+														{% if popIndex.value == "2" or popIndex.value == "1.5" %}
+															<div class="rating-ratiofour"></div>
+														{% endif %}
+														{% if popIndex.value == "1" or popIndex.value == "0.5" %}
+															<div class="rating-ratiofive"></div>
+														{% endif %}
+													</li>
+												{% endfor %}
+											</ul>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+					<div class="reviewer-details">
+						<div>
+							<div class="reviewer-snap"><span class="reviewer-name">JB</span></div>
+							<span class="reviewer-saying">"{{ labels.cantSay }}"</span>
+						</div>
+						<div class="reviewer-popularity">
+							<div class="row">
+								<div class="col-xs-5 col-sm-2 col-md-2 col-lg-2 popularity">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="42.3px" height="41.9px" viewBox="0 0 48 55" version="1.1">
+										<title>Star Circle - 4</title>
+										<desc>Created with Sketch Beta.</desc>
+										<defs/>
+										<g id="Explorations" stroke="none" stroke-width="3" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-726.000000, -606.000000)">
+												<g id="Star-Circle---4" sketch:type="MSLayerGroup" transform="translate(726.716852, 606.652316)">
+													<path d="M0.383638334,29.083962 C0.362049293,29.4921372 0.351118187,29.9031386 0.351118187,30.3166932 C0.351118187,43.0002301 10.6331564,53.2822682 23.3166932,53.2822682 L23.3166932,53.2822682 C23.689519,53.2822682 24.0602698,53.2733842 24.4287454,53.2558163 C36.595816,52.6757232 46.2822682,42.6274043 46.2822682,30.3166932 C46.2822682,17.6331564 36.0002301,7.35111819 23.3166932,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+													<text id="4" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+														<tspan x="17.4286434" y="39.7900159">4</tspan>
+													</text>
+													<path d="M19.5663656,7.54565022 L15.711915,11.3042831 L16.6252404,16.6129869 C16.632489,16.662368 16.6361133,16.7332686 16.6361133,16.8256884 C16.6361133,16.974285 16.5989642,17.1000031 16.5246659,17.2028428 C16.4503676,17.3056825 16.3423179,17.3571024 16.2005169,17.3571024 C16.0659645,17.3571024 15.92439,17.3147433 15.7757934,17.2300251 L11.0080175,14.7244964 L6.24024164,17.2300251 C6.08439643,17.3147433 5.94282194,17.3571024 5.81551816,17.3571024 C5.66692157,17.3571024 5.55547413,17.3056825 5.48117583,17.2028428 C5.40687754,17.1000031 5.36972839,16.974285 5.36972839,16.8256884 C5.36972839,16.7831028 5.37675049,16.7122023 5.39079468,16.6129869 L6.30412005,11.3042831 L2.4387966,7.54565022 C2.26165859,7.35446803 2.17308959,7.18457863 2.17308959,7.03598205 C2.17308959,6.77412586 2.37129388,6.61125857 2.76770246,6.54738015 L8.09815203,5.77200497 L10.4874764,0.941030213 C10.6220288,0.650632612 10.7955425,0.505433811 11.0080175,0.505433811 C11.2204925,0.505433811 11.3940062,0.650632612 11.5285586,0.941030213 L13.917883,5.77200497 L19.2483326,6.54738015 C19.6447412,6.61125857 19.8429455,6.77412586 19.8429455,7.03598205 C19.8429455,7.03598205 19.7502991,7.36171664 19.5663656,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</div>
+								<div class="reviewer-paragraph">
+    								<div class="col-xs-15 col-sm-20 col-md-19 col-lg-17">
+    									<span class="reviewer-text">{{ labels.loremipson }}</span>
+    								</div>
+								</div>
+							</div>
+							<span class="reviewer-names">{{ labels.reviewerName }}
+								<span class="reviewer-location">{{ labels.reviewerLocation }}
+									<span class="reviewer-datestamp">{{ labels.reviewerDateStamp }}
+										<span class="reviewer-days">{{ labels.reviewerDays }}
+											<span class="reviewer-thumbs-up">
+												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="27px" height="28px" {% endif %} or {% if pageContext.isTablet %} width="20px" height="22px" {% endif %} or {% if pageContext.isMobile %} width="17px" height="17.9px" {% endif %} viewBox="0 0 27 28" version="1.1">
+												<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+													<title>Thumbs Up</title>
+													<desc>Created with Sketch Beta.</desc>
+													<defs/>
+													<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+														<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-550.000000, -3291.000000)" fill="#444444">
+															<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																<g id="Review" transform="translate(116.000000, 484.000000)" sketch:type="MSShapeGroup">
+																	<g id="Thumbs" transform="translate(317.165488, 187.139665)">
+																		<path d="M142.571271,32.5419922 C143.15859,31.8436129 143.492686,30.6901253 143.492686,29.5913054 C143.492686,28.8655922 143.340222,28.2300807 143.051202,27.7531054 C142.674681,27.1326275 142.072778,26.7909546 141.356858,26.7909546 L137.885973,26.7909546 C139.775206,23.2498571 140.252486,20.5820754 139.304555,18.8545774 C138.642992,17.6505223 137.431231,17.2241145 136.59334,17.2241145 C136.261895,17.2241145 135.980831,17.4769524 135.93708,17.8158919 C135.699766,19.6185579 134.362056,21.7697303 132.267328,23.7172656 C130.260101,25.5827994 127.794155,27.0738597 125.259268,27.967676 C124.939756,27.2733967 124.254329,26.7923213 123.461514,26.7923213 L119.484181,26.7923213 C118.387763,26.7923213 117.495515,27.7121047 117.495515,28.8423585 L117.495515,41.1425815 C117.495515,42.2728353 118.387763,43.1926186 119.484181,43.1926186 L123.461514,43.1926186 C124.302057,43.1926186 125.020628,42.6527755 125.312299,41.8915284 C127.912149,42.2277345 128.890573,42.7662109 129.838503,43.288287 C131.025074,43.9415655 132.144031,44.5593101 135.80848,44.5593101 C136.763039,44.5593101 137.661917,44.3023721 138.340715,43.8363303 C139.003603,43.381222 139.427852,42.7416104 139.568385,42.0008637 C140.09737,41.7794597 140.566695,41.2683171 140.925981,40.5084366 C141.275986,39.7690566 141.502694,38.8246728 141.502694,38.101693 C141.502694,37.9663905 141.494739,37.8420216 141.480156,37.7272195 C141.815577,37.4730149 142.116529,37.0807745 142.364449,36.5641651 C142.722409,35.8193183 142.937185,34.885868 142.937185,34.0685865 C142.937185,33.4891094 142.832449,33.0066673 142.626953,32.6321938 C142.609718,32.6021266 142.592483,32.5720594 142.575248,32.5433589 L142.571271,32.5419922 Z M123.458862,41.8245605 L119.48153,41.8245605 C119.115615,41.8245605 118.818641,41.5184216 118.818641,41.1412148 L118.818641,28.8409918 C118.818641,28.4637849 119.115615,28.1576461 119.48153,28.1576461 L123.458862,28.1576461 C123.824777,28.1576461 124.121751,28.4637849 124.121751,28.8409918 L124.121751,41.1398481 L124.121751,41.1412148 C124.121751,41.5184216 123.824777,41.8245605 123.458862,41.8245605 L123.458862,41.8245605 Z M141.806297,31.2655024 C141.606105,31.6809766 141.403261,31.8313127 141.315759,31.8313127 C140.949845,31.8313127 140.652871,32.1374515 140.652871,32.5146584 C140.652871,32.8918652 140.949845,33.1980041 141.315759,33.1980041 C141.371442,33.1980041 141.411215,33.1980041 141.470875,33.304606 C141.558377,33.4645089 141.608756,33.7419473 141.608756,34.0672199 C141.608756,34.6753975 141.441708,35.3983773 141.173901,35.9559874 C140.911397,36.5012973 140.644916,36.6994676 140.528247,36.6994676 C140.162333,36.6994676 139.865359,37.0056065 139.865359,37.3828133 C139.865359,37.6247177 139.98733,37.8379215 140.171613,37.9595571 C140.212712,38.3927983 140.016497,39.5517526 139.507399,40.307533 C139.315161,40.5931715 139.112317,40.7571745 138.953224,40.7571745 C138.587309,40.7571745 138.290335,41.0633133 138.290335,41.4405202 C138.290335,42.6432087 137.001679,43.1912519 135.804502,43.1912519 C132.472823,43.1912519 131.539476,42.6773759 130.458967,42.0814985 C129.448725,41.5252551 128.313859,40.8993104 125.446203,40.5316704 L125.446203,29.3425675 C128.231661,28.4009171 130.950831,26.7772877 133.151621,24.7327173 C135.263585,22.7701484 136.650348,20.6490433 137.120999,18.683741 C137.481611,18.8026431 137.888624,19.0541144 138.149803,19.5283563 C138.592612,20.3347042 138.924057,22.3929416 136.170417,27.1230606 C136.04712,27.3335311 136.044468,27.5973026 136.162462,27.8118731 C136.280456,28.0264437 136.500535,28.1590128 136.739175,28.1590128 L141.356858,28.1590128 C141.620688,28.1590128 141.790388,28.2546812 141.926943,28.4788185 C142.082059,28.7343898 142.166908,29.1307304 142.166908,29.5926721 C142.166908,30.1721492 142.031679,30.7980939 141.806297,31.2668691 L141.806297,31.2655024 Z" id="Thumbs-Up"/>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</g>
+												</svg>
+											</span>
+										</span>
+									</span>
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="reviewer-details">
+						<div>
+							<img src="{{ siteContext.cdnPrefix }}{{ themeSettings.images.product }}"></img>
+							<span class="reviewer-saying">"{{ labels.feels }}"</span>
+						</div>
+						<div class="reviewer-popularity">
+							<div class="row">
+								<div class="col-xs-5 col-sm-2 col-md-2 col-lg-2 popularity">
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"  width="42.3px" height="41.9px" viewBox="0 0 48 55" version="1.1">
+										<title>Star Circle - 4</title>
+										<desc>Created with Sketch Beta.</desc>
+										<defs/>
+										<g id="Explorations" stroke="none" stroke-width="3" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+											<g id="Star-Ratings" sketch:type="MSArtboardGroup" transform="translate(-726.000000, -606.000000)">
+												<g id="Star-Circle---4" sketch:type="MSLayerGroup" transform="translate(726.716852, 606.652316)">
+													<path d="M0.383638334,29.083962 C0.362049293,29.4921372 0.351118187,29.9031386 0.351118187,30.3166932 C0.351118187,43.0002301 10.6331564,53.2822682 23.3166932,53.2822682 L23.3166932,53.2822682 C23.689519,53.2822682 24.0602698,53.2733842 24.4287454,53.2558163 C36.595816,52.6757232 46.2822682,42.6274043 46.2822682,30.3166932 C46.2822682,17.6331564 36.0002301,7.35111819 23.3166932,7.35111819" id="Circle" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+													<text id="4" sketch:type="MSTextLayer" font-family="Roboto" font-size="20.7692308" font-weight="260" sketch:alignment="middle" fill="#4A4A4A">
+														<tspan x="17.4286434" y="39.7900159">4</tspan>
+													</text>
+													<path d="M19.5663656,7.54565022 L15.711915,11.3042831 L16.6252404,16.6129869 C16.632489,16.662368 16.6361133,16.7332686 16.6361133,16.8256884 C16.6361133,16.974285 16.5989642,17.1000031 16.5246659,17.2028428 C16.4503676,17.3056825 16.3423179,17.3571024 16.2005169,17.3571024 C16.0659645,17.3571024 15.92439,17.3147433 15.7757934,17.2300251 L11.0080175,14.7244964 L6.24024164,17.2300251 C6.08439643,17.3147433 5.94282194,17.3571024 5.81551816,17.3571024 C5.66692157,17.3571024 5.55547413,17.3056825 5.48117583,17.2028428 C5.40687754,17.1000031 5.36972839,16.974285 5.36972839,16.8256884 C5.36972839,16.7831028 5.37675049,16.7122023 5.39079468,16.6129869 L6.30412005,11.3042831 L2.4387966,7.54565022 C2.26165859,7.35446803 2.17308959,7.18457863 2.17308959,7.03598205 C2.17308959,6.77412586 2.37129388,6.61125857 2.76770246,6.54738015 L8.09815203,5.77200497 L10.4874764,0.941030213 C10.6220288,0.650632612 10.7955425,0.505433811 11.0080175,0.505433811 C11.2204925,0.505433811 11.3940062,0.650632612 11.5285586,0.941030213 L13.917883,5.77200497 L19.2483326,6.54738015 C19.6447412,6.61125857 19.8429455,6.77412586 19.8429455,7.03598205 C19.8429455,7.03598205 19.7502991,7.36171664 19.5663656,7.54565022 Z" id="Star" stroke="#F6A623" sketch:type="MSShapeGroup"/>
+												</g>
+											</g>
+										</g>
+									</svg>
+								</div>
+								<div class="reviewer-paragraph">
+								    <div class="col-xs-15 col-sm-20 col-md-19 col-lg-17">
+								        <span class="reviewer-text">{{ labels.reviewerText }}</span>
+								    </div>
+								</div>
+							</div>
+							<span class="reviewer-names">{{ labels.reviewerSecondName }}
+								<span class="reviewer-location">{{ labels.reviewerSecondLocation }}
+									<span class="reviewer-datestamp">{{ labels.reviewerSecondDateStamp }}
+										<span class="reviewer-days">{{ labels.reviewerSecondDays }}
+											<span class="reviewer-thumbs-up">
+												<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" {% if pageContext.isDesktop %} width="27px" height="28px" {% endif %} or {% if pageContext.isTablet %} width="20px" height="22px" {% endif %} or {% if pageContext.isMobile %} width="17px" height="17.9px" {% endif %} viewBox="0 0 27 28" version="1.1">
+												<!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
+													<title>Thumbs Up</title>
+													<desc>Created with Sketch Beta.</desc>
+													<defs/>
+													<g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+														<g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-550.000000, -3291.000000)" fill="#444444">
+															<g id="Reviews" sketch:type="MSLayerGroup" transform="translate(0.000000, 2603.000000)">
+																<g id="Review" transform="translate(116.000000, 484.000000)" sketch:type="MSShapeGroup">
+																	<g id="Thumbs" transform="translate(317.165488, 187.139665)">
+																		<path d="M142.571271,32.5419922 C143.15859,31.8436129 143.492686,30.6901253 143.492686,29.5913054 C143.492686,28.8655922 143.340222,28.2300807 143.051202,27.7531054 C142.674681,27.1326275 142.072778,26.7909546 141.356858,26.7909546 L137.885973,26.7909546 C139.775206,23.2498571 140.252486,20.5820754 139.304555,18.8545774 C138.642992,17.6505223 137.431231,17.2241145 136.59334,17.2241145 C136.261895,17.2241145 135.980831,17.4769524 135.93708,17.8158919 C135.699766,19.6185579 134.362056,21.7697303 132.267328,23.7172656 C130.260101,25.5827994 127.794155,27.0738597 125.259268,27.967676 C124.939756,27.2733967 124.254329,26.7923213 123.461514,26.7923213 L119.484181,26.7923213 C118.387763,26.7923213 117.495515,27.7121047 117.495515,28.8423585 L117.495515,41.1425815 C117.495515,42.2728353 118.387763,43.1926186 119.484181,43.1926186 L123.461514,43.1926186 C124.302057,43.1926186 125.020628,42.6527755 125.312299,41.8915284 C127.912149,42.2277345 128.890573,42.7662109 129.838503,43.288287 C131.025074,43.9415655 132.144031,44.5593101 135.80848,44.5593101 C136.763039,44.5593101 137.661917,44.3023721 138.340715,43.8363303 C139.003603,43.381222 139.427852,42.7416104 139.568385,42.0008637 C140.09737,41.7794597 140.566695,41.2683171 140.925981,40.5084366 C141.275986,39.7690566 141.502694,38.8246728 141.502694,38.101693 C141.502694,37.9663905 141.494739,37.8420216 141.480156,37.7272195 C141.815577,37.4730149 142.116529,37.0807745 142.364449,36.5641651 C142.722409,35.8193183 142.937185,34.885868 142.937185,34.0685865 C142.937185,33.4891094 142.832449,33.0066673 142.626953,32.6321938 C142.609718,32.6021266 142.592483,32.5720594 142.575248,32.5433589 L142.571271,32.5419922 Z M123.458862,41.8245605 L119.48153,41.8245605 C119.115615,41.8245605 118.818641,41.5184216 118.818641,41.1412148 L118.818641,28.8409918 C118.818641,28.4637849 119.115615,28.1576461 119.48153,28.1576461 L123.458862,28.1576461 C123.824777,28.1576461 124.121751,28.4637849 124.121751,28.8409918 L124.121751,41.1398481 L124.121751,41.1412148 C124.121751,41.5184216 123.824777,41.8245605 123.458862,41.8245605 L123.458862,41.8245605 Z M141.806297,31.2655024 C141.606105,31.6809766 141.403261,31.8313127 141.315759,31.8313127 C140.949845,31.8313127 140.652871,32.1374515 140.652871,32.5146584 C140.652871,32.8918652 140.949845,33.1980041 141.315759,33.1980041 C141.371442,33.1980041 141.411215,33.1980041 141.470875,33.304606 C141.558377,33.4645089 141.608756,33.7419473 141.608756,34.0672199 C141.608756,34.6753975 141.441708,35.3983773 141.173901,35.9559874 C140.911397,36.5012973 140.644916,36.6994676 140.528247,36.6994676 C140.162333,36.6994676 139.865359,37.0056065 139.865359,37.3828133 C139.865359,37.6247177 139.98733,37.8379215 140.171613,37.9595571 C140.212712,38.3927983 140.016497,39.5517526 139.507399,40.307533 C139.315161,40.5931715 139.112317,40.7571745 138.953224,40.7571745 C138.587309,40.7571745 138.290335,41.0633133 138.290335,41.4405202 C138.290335,42.6432087 137.001679,43.1912519 135.804502,43.1912519 C132.472823,43.1912519 131.539476,42.6773759 130.458967,42.0814985 C129.448725,41.5252551 128.313859,40.8993104 125.446203,40.5316704 L125.446203,29.3425675 C128.231661,28.4009171 130.950831,26.7772877 133.151621,24.7327173 C135.263585,22.7701484 136.650348,20.6490433 137.120999,18.683741 C137.481611,18.8026431 137.888624,19.0541144 138.149803,19.5283563 C138.592612,20.3347042 138.924057,22.3929416 136.170417,27.1230606 C136.04712,27.3335311 136.044468,27.5973026 136.162462,27.8118731 C136.280456,28.0264437 136.500535,28.1590128 136.739175,28.1590128 L141.356858,28.1590128 C141.620688,28.1590128 141.790388,28.2546812 141.926943,28.4788185 C142.082059,28.7343898 142.166908,29.1307304 142.166908,29.5926721 C142.166908,30.1721492 142.031679,30.7980939 141.806297,31.2668691 L141.806297,31.2655024 Z" id="Thumbs-Up"/>
+																	</g>
+																</g>
+															</g>
+														</g>
+													</g>
+												</svg> 
+											</span>
+										</span>
+									</span>
+								</span>
+							</span>
+						</div>
+					</div>    
+				</div>
+			</div>
+		</div>
+    <div class="row">
+        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+            <div>
+                {% if pageContext.isEditMode %}*** Drop personalization widgets on product page ***{% endif %}
+                {% dropzone "product-page-cross-widget-2" scope="page" %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
+            <div>
+                {% if pageContext.isEditMode %}*** Drop Recent History widget on product template ***{% endif %}
+                {% dropzone "product-page-recent-history" scope="template" %}
+            </div>
+        </div>
+    </div>
+    {% if pageContext.isDesktop or pageContext.isTablet %}
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="spinner-container">
+                            <span class="spinner icon-spinner-2"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock body-content %}
+
+
+
+
+
+

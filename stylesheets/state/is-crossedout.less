@@ -1,0 +1,22 @@
+@crimson: #d0021b;
+
+.is-crossedout {
+    position: relative;
+}
+.is-crossedout:before {
+    left: 0;
+    top: 50%;
+    right: 0;
+    content: "";
+    position: absolute;
+    border-top: 1px solid;
+    border-color: @crimson;
+
+    -webkit-transform:rotate(-5deg);
+    -moz-transform:rotate(-5deg);
+    -ms-transform:rotate(-5deg);
+    -o-transform:rotate(-5deg);
+    transform:rotate(-15deg);
+}
+
+

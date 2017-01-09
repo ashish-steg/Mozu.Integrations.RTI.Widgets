@@ -1,0 +1,24 @@
+# Mac Crap
+.DS*
+
+# Zip files
+*.zip
+
+# Merge originals
+*.orig
+
+# Node-specific
+node_modules/
+
+/npm-debug.log
+
+/compiled/
+node_modules/**
+dist/**
+.yo-rc.json
+mozu.config.json
+
+mozu.config
+
+# IDEs
+.idea/*

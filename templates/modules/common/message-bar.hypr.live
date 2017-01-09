@@ -1,0 +1,13 @@
+﻿<div class="mz-messagebar" data-mz-message-bar>
+    {% if model.length > 0 %}
+    <ul class="is-showing mz-errors">
+        {% for msg in model %}
+            {% if msg.message == "Missing or invalid parameter: variationProductCode Product is configurable. Variation code must be specified" %}
+                <li>{{ labels.productWishlistError }}</li>
+            {% else %}
+                <li>{{ msg.message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>

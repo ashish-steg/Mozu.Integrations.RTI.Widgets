@@ -1,4 +1,4 @@
-{% extends "page" %}
+﻿{% extends "page" %}
 
 {% block title-tag-content %}{% firstof pageContext.metaTitle labels.yourAccount %} - {% parent %}{% endblock title-tag-content %}
 
@@ -10,23 +10,14 @@
 
 {% preload_json model "customer" %}
 
-<div class="mz-l-wrapper mz-l-container">
-    <!--<h1 class="mz-pagetitle">
+<div class="mz-l-container">
+    <h1 class="mz-pagetitle">
         {{ labels.yourAccount }}
-    </h1>-->
-    <!--rahul-->
-    <div class="mz-product__title-container">
-        <div class="mz-title-block">
-            <h1 class="bg-white">
-                <span>{{ labels.yourAccount }}</span>
-            </h1>
-        </div>
-    </div>
-    {% if pageContext.isDesktop or pageContext.isTablet %}
+    </h1>
+
     <div class="mz-l-sidebar mz-myaccount-nav">
         {% include "modules/my-account/my-account-nav" with navtarget="body" %}
     </div>
-    {% endif %}
 
     <div id="account-panels" class="mz-myaccount-panels mz-l-stack mz-l-stack-large">
 
@@ -55,7 +46,7 @@
 
         <a id="orderhistory"></a>
         <div class="mz-l-stack-section mz-accountorderhistory" id="account-orderhistory">
-            {% include "modules/my-account/my-account-orderhistory" with model=model.orderHistory %}
+            {% include "modules/my-account/my-account-orderhistory" with model=model.orderHistory showPaging=true %}
         </div>
         
         <a id="returnhistory"></a>
@@ -77,6 +68,8 @@
         <div class="mz-l-stack-section mz-accountstorecredit" id="account-storecredit">
             {% include "modules/my-account/my-account-storecredit" %}
         </div>
+
+        {% include "modules/my-account/my-account-print-window" %}
 
 		{% dropzone "my-account-bottom" scope="template" %}
 

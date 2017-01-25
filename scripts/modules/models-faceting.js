@@ -1,4 +1,4 @@
-define(['modules/jquery-mozu', 'underscore', "hyprlive", "modules/backbone-mozu", "modules/models-product"], function($, _, Hypr, Backbone, ProductModels) {
+﻿define(['modules/jquery-mozu', 'underscore', "hyprlive", "modules/backbone-mozu", "modules/models-product"], function($, _, Hypr, Backbone, ProductModels) {
 
     var FacetValue = Backbone.MozuModel.extend({
         idAttribute: 'value'
@@ -100,21 +100,7 @@ define(['modules/jquery-mozu', 'underscore', "hyprlive", "modules/backbone-mozu"
                     value: value.toString()
                 });
             newValue.set("isApplied", yes);
-            this.updateFacets({ resetIndex: true }); 
-
-        },
-        setColorFacetValue: function(e) {
-            var $box = $(e.currentTarget);
-            var attr = $box.attr('checked');
-            $box.parent('.color-facet-block').find('.check-icon').removeClass('hidden');
-            if (typeof attr !== typeof undefined && attr !== false) {
-                $box.prop("checked", false).set($box.data('mz-facet'), $box.data('mz-facet-value'));
-                this.model.setFacetValue($box.data('mz-facet'), $box.data('mz-facet-value'), false);
-            } else {
-                $box.prop("checked", true);
-                this.model.setFacetValue($box.data('mz-facet'), $box.data('mz-facet-value'), true);
-            }
-
+            this.updateFacets({ resetIndex: true });
         },
         updateFacets: function(options) {
             var me = this,

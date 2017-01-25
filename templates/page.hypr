@@ -76,12 +76,7 @@
         {% include "modules/web-fonts-loader" %}
         {% endblock head-tag-scripts %}
         {% cms_resources %}
-
-            {% if not SiteContext.IsEditMode %}
-                {% block live-mode-stylesheets %}
-                    <link rel="stylesheet" href="{% make_url "stylesheet" "/stylesheets/base/mozu-fixes.less" %}" title="default" />
-                {% endblock live-mode-stylesheets %}
-            {% endif %}
+        
 
         {%header_content%}
     
@@ -91,64 +86,58 @@
     {% endblock head-tag %}
     
     {% block body-tag %}
-        {% block open-body-tag %}
-        <body class="{% block body-tag-classes %}{% endblock body-tag-classes %}{% if pageContext.cmsContext.template.path == "checkout" %} page-checkout {% endif %} {% if pageContext.isMobile %} iphone-screen {% else %} {% if pageContext.isTablet %} ipad-screen {% else %} desktop-screen {% endif %} {% endif %}">
-        {% endblock open-body-tag %}
 
-        {% block site-nav %}
+    {% block open-body-tag %}
+    <body class="{% block body-tag-classes %}{% endblock body-tag-classes %}">
+    {% endblock open-body-tag %}
+
+       
+        <div id="page-wrapper" class="mz-l-pagewrapper">
+    
+            {% block utility-bar %}
+                {% include "modules/utility-bar/header" %}
+            {% endblock utility-bar %}
+
+            {% block page-header %}
+            {% include "modules/page-header" %}
+            {% endblock page-header %}
+
+            {% block site-nav %}
             {% include "modules/site-nav" %}
-        {% endblock site-nav %}
-
-            {% require_script "modules/soft-cart" %}
-                <div class="soft-cart-wrap" data-mz-role="soft-cart">
-                </div>
-            {% require_script "modules/signup" %}
-                <div class="create-account-wrap">
-                    {% include "modules/create-account" %}
-                </div>
-             {% require_script "modules/my-wishlist" %}
-                <div class="wishlist-wrap" data-mz-role="wishList">
-                </div>
-
-            <div id="page-wrapper" class="mz-l-pagewrapper site-viewport">
-
-                {% block utility-bar %}
-                    {% include "modules/utility-bar/header" %}
-                {% endblock utility-bar %}
-
-                {% block page-header %}
-                    <div id="page-header" class="mz-header-wrapper">
-                        {% include "modules/page-header" %}
-                    </div>
-                {% endblock page-header %}
-
-                <div role="main" id="page-content" class="mz-l-pagecontent {% block page-content-classes %} content-viewport {% endblock page-content-classes %} {% if pageContext.isEditMode and pageContext.cmsContext.template.path == "home" or pageContext.isEditMode and pageContext.cmsContext.template.path == "category"%}isEditMode-Margin{% else %}{% ifnotequal pageContext.cmsContext.template.path "home" %}content-top-margin{% endifnotequal %}{% endif %}">
-                    {% block breadcrumbs %}
-                        {% if themeSettings.showBreadcrumbs %}
-                            {% include "modules/breadcrumbs" %}
-                        {% endif %}
-                    {% endblock breadcrumbs %}
-
-                    {% block body-content %}
-                    {% endblock body-content %}
-
-                    {% block body-below-content %}
-                    {% endblock body-below-content %}
-                </div>
-
-                {% block page-footer %}
-                    {% include "modules/page-footer" %}
-                {% endblock page-footer %}
+            {% endblock site-nav %}
+    
+            <div role="main" id="page-content" class="mz-l-pagecontent">
+                
+                {% block breadcrumbs %}
+                {% if themeSettings.showBreadcrumbs %}
+                {% include "modules/breadcrumbs" %}
+                {% endif %}
+                {% endblock breadcrumbs %}
+                
+                {% block body-content %}
+                {% dropzone "body" scope="page" %}
+                {% endblock body-content %}
+                
+                {% block body-below-content %}
+                {% dropzone "body-bottom" scope="template" %}
+                {% endblock body-below-content %}
+                
             </div>
 
-            {% block trailing-scripts %}
-                {% include "modules/trailing-scripts" %}
-            {% endblock trailing-scripts %}
-            {% include "modules/web-fonts-loader" %}
-            <!--color code and name from theme settings-->
-            {% include "modules/color-name-code" %}
-            <!--color code and name from theme settings-->
-        </body>
+            {% block page-footer %}
+            {% include "modules/page-footer" %}
+            {% endblock page-footer %}
+
+        </div>
+
+        {% block trailing-scripts %}
+        {% include "modules/trailing-scripts" %}
+        {% endblock trailing-scripts %}
+
+        {% visitor_tracking_pixel %}
+
+    </body>
     {% endblock body-tag %}
+
 </html>
 {% endautoescape %}

@@ -1,111 +1,15 @@
-{% if model.swatchImages.length == 0 %}
-    {% if model.content.productImages.length > 0 %}
-        <figure id="pdp-owl" class="mz-productimages-main mg-image tablet-product-imageslider">
-            {% for image in model.content.productImages %}
-                <img itemprop="image" class="mz-productimages-mainimage lazyload" data-mz-productimage-main
-                    {% if pageContext.isMobile %}
-                        src="{{ image.imageUrl }}?max=800"
-                    {% endif %}
-                    {% if pageContext.isTablet or pageContext.isDesktop %}
-                        src="{{ image.imageUrl }}?max=1024"
-                    {% endif %}
-                    
-                    {% if model.mainImage.altText %}alt="{{ model.mainImage.altText }}"{% endif %}
-                />
-            {% endfor %}
-            {% for property in model.properties %}
-                {% if property.attributeDetail.name == "video-url" %}
-                    {% for v in property.values %}
-                        <div class="mz-productimages-mainimage product-video">
-                            <a class="owl-video" href="{{v.value}}"></a>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </figure> 
-    {% else %}
-        <figure class="mz-productimages-main">
-            <img src="http://placehold.it/340x340&text=No+Image" alt="No Image" class="mz-productimages-mainimage lazyload" data-sizes="auto" />
-        </figure>
-    {% endif %}
+{% if model.content.productImages %}
+<figure class="mz-productimages-main">
+  <img itemprop="image" class="mz-productimages-mainimage" data-mz-productimage-main src="{% make_url "image" model.mainImage with max=themeSettings.productImagesContainerWidth as_parameters %}" {% if model.mainImage.altText %}alt="{{ model.mainImage.altText }}"{% endif %} />
+</figure>
+<figure class="mz-productimages-thumbs">
+    {% for image in model.content.productImages %}
+    <a class="mz-productimages-thumb" data-mz-productimage-thumb="{{ image.sequence }}" href="{% make_url "image" image %}">
+        <img class="mz-productimages-thumbimage"  src="{% make_url "image" image with max=themeSettings.maxProductImageThumbnailSize as_parameters %}" {% if image.altText %}alt="{{ image.altText }}"{% endif %} />
+    </a>
+    {% endfor %}
+</figure>
 {% else %}
-    <div class="swatchImages">
-        {% if model.swatchImages and model.swatchImages.length > 0  %}
-            {% if model.swatchImages.length > 1 %}
-                <figure id="swatch-owl" class="mz-productimages-main mg-image tablet-product-imageslider">
-                    {% for image in model.swatchImages %}
-                        <img itemprop="image" class="mz-productimages-mainimage lazyload" data-mz-productimage-main
-                            {% if pageContext.isMobile %}
-                                src="{{ image.imageUrl }}?max=800"
-                            {% endif %}
-                            {% if pageContext.isTablet or pageContext.isDesktop %}
-                                src="{{ image.imageUrl }}?max=1024"
-                            {% endif %}
-                            
-                            {% if model.mainImage.altText %}alt="{{ model.mainImage.altText }}"{% endif %}
-                        />
-                    {% endfor %}
-                </figure>   
-            {% else %}
-                <!-- Not implemented owl -->
-                <figure class="mz-productimages-main mg-image tablet-product-imageslider">
-                    {% for image in model.swatchImages %}
-                        <img itemprop="image" class="mz-productimages-mainimage lazyload" data-mz-productimage-main
-                            {% if pageContext.isMobile %}
-                                src="{{ image.imageUrl }}?max=800"
-                            {% endif %}
-                            {% if pageContext.isTablet or pageContext.isDesktop %}
-                                src="{{ image.imageUrl }}?max=1024"
-                            {% endif %}
-                            
-                            {% if model.mainImage.altText %}alt="{{ model.mainImage.altText }}"{% endif %}
-                        />
-                    {% endfor %}
-                </figure>
-            {% endif %}
-        {% else %}
-            <figure class="mz-productimages-main mg-image">
-                <img itemprop="image" class="mz-productimages-mainimage lazyload" data-mz-productimage-main
-                    {% if pageContext.isMobile %}
-                        src="{{ image.imageUrl }}?max=800"
-                    {% endif %}
-                    {% if pageContext.isTablet or pageContext.isDesktop %}
-                        src="{{ image.imageUrl }}?max=1024"
-                    {% endif %}
-                    
-                    {% if model.mainImage.altText %}alt="{{ model.mainImage.altText }}"{% endif %}
-                />
-            </figure>
-        {% endif %}
-    </div>
+<span class="mz-productimages-noimage">[{{ labels.noImages}}]</span>
 {% endif %}
-<div class="{% if pageContext.isMobile %}hidden{% endif %}">
-    <div class="prod-previous">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="36px" height="65px" viewBox="0 0 36 65" version="1.1">
-            <title>chevron left product detail page photo</title>
-            <desc>Created with Sketch Beta.</desc>
-            <defs/>
-            <g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                <g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-203.000000, -389.000000)" fill="#DEDFE3">
-                    <g id="Photo-Slider-Controls" sketch:type="MSLayerGroup" transform="translate(203.000000, 389.000000)">
-                        <path d="M33.3383826,65.0136428 C33.7876001,65.0136428 34.2368176,64.8459606 34.5807498,64.5140182 C35.2651047,63.8467115 35.2651047,62.7619103 34.5807498,62.0946035 L4.23750834,32.5072491 L34.5807498,2.91989476 C35.2651047,2.25258802 35.2651047,1.1677868 34.5807498,0.500480058 C33.896395,-0.166826686 32.7838796,-0.166826686 32.0995248,0.500480058 L0.51391602,31.2992528 C-0.170438837,31.9665596 -0.170438837,33.0513608 0.51391602,33.7186675 L32.0995248,64.5174403 C32.443457,64.8528047 32.8926745,65.0170648 33.3418921,65.0170648 L33.3383826,65.0136428 Z" id="chevron-left-product-detail-page-photo" sketch:type="MSShapeGroup"/>
-                    </g>
-                </g>
-            </g>
-        </svg>
-    </div>
-    <div class="prod-next">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="36px" height="65px" viewBox="0 0 36 65" version="1.1">
-            <title>chevron right product detail page photo</title>
-            <desc>Created with Sketch Beta.</desc>
-            <defs/>
-            <g id="PDP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                <g id="PDP:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-696.000000, -389.000000)" fill="#DEDEE2">
-                    <g id="Photo-Slider-Controls" sketch:type="MSLayerGroup" transform="translate(203.000000, 389.000000)">
-                        <path d="M494.4199,64.5140182 C493.735545,63.8467115 493.735545,62.7619103 494.4199,62.0946035 L524.763142,32.5072491 L494.4199,2.91989476 C493.735545,2.25258802 493.735545,1.1677868 494.4199,0.500480058 C495.104255,-0.166826686 496.21677,-0.166826686 496.901125,0.500480058 L528.486734,31.2992528 C529.171089,31.9665596 529.171089,33.0513608 528.486734,33.7186675 L496.901125,64.5174403 C496.557193,64.8528047 496.107975,65.0170648 495.658758,65.0170648 C495.21305,65.0136428 494.763832,64.8459606 494.4199,64.5140182 Z" id="chevron-right-product-detail-page-photo" sketch:type="MSShapeGroup"/>
-                    </g>
-                </g>
-            </g>
-        </svg>
-    </div>
-</div>
+

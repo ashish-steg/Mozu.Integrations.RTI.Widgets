@@ -53,8 +53,6 @@ define([
                 'click [data-mz-pagenumbers] a',
                 'click a[data-mz-facet-value]',
                 'click [data-mz-action="clearFacets"]',
-                'click [data-mz-value="sortBy"]',
-                'click [data-mz-facet="Tenant~color"]',
                 'change input[data-mz-facet-value]',
                 'change [data-mz-value="pageSize"]',
                 'change [data-mz-value="sortBy"]'
@@ -70,7 +68,6 @@ define([
         });
 
         _dispatcher.onChange(function(url) {
-            conf.template = 'modules/category-products';
             getPartialView(url, conf.template).then(updateUi, showError);
         });
 

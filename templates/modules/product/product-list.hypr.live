@@ -1,18 +1,11 @@
-<div class="row">
-    <div class="mz-productlist col-xs-24 col-sm-24 col-md-24 col-lg-24 grid">
-        <ul class="mz-productlist-list {% block list-classes %}{% endblock list-classes %} "> 
-            {% if model.items %}
-                {% for prod in model.items %}
-                    <li class="mz-productlist-item grid" id="mz-productlist-item" data-mz-product="{{ prod.productCode }}">{% include "modules/product/product-listing" with model=prod %}</li>
-                {% endfor %}
-                <span class="product-container hidden"></span>
-            {% endif %} 
-        </ul>
-    </div>
+﻿<div class="mz-productlist {% block module-classes %}{% endblock module-classes %}">
+    {% if model.items %}
+    <ul class="mz-productlist-list {% block list-classes %}{% endblock list-classes %}">
+        {% for prod in model.items %}
+            <li class="mz-productlist-item" data-mz-product="{{ prod.productCode }}">{% include "modules/product/product-listing" with model=prod %}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </div>
 
-<!--Loading image - product loading is in progress-->
-<div class="col-lg-24 col-md-24 col-sm-24 col-xs-24 text-center more-product" id="more-product">
-    <span class="spinner icon-spinner-2"></span>
-    <!--<img class="hidden thatsAll" src=""/>-->
-</div>
+

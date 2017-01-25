@@ -1,76 +1,18 @@
-<div class="mz-productoptions">
-    {% for option in model.options %} 
+﻿<div class="mz-productoptions">
+    {% for option in model.options %}
     <div class="mz-productoptions-optioncontainer">
+        {% if option.isRequired %}
+            <strong class="is-required">*</strong>
+        {% endif %}
+        <label class="mz-productoptions-optionlabel">{{ option.attributeDetail.name }}</label>
         <div class="mz-productoptions-valuecontainer">
             {% if option.attributeDetail.inputType == "List" %}
-                <ul class="color-swatch {% if option.attributeDetail.name == "Color" %}color{% endif %} {% if option.attributeDetail.name == "Size" %}size{% endif %}">
+                <select {% if option.isMultiValue %}multiple{% endif %} class="mz-productoptions-option" data-mz-product-option="{{ option.attributeFQN }}">
+                    {% if not option.isMultiValue %}<option></option>{% endif %}
                     {% for value in option.values %}
-                        {% if option.attributeDetail.name == "Color" %}
-                            <li class="{% if value.isSelected %}selected{% endif %}" value="{{value.stringValue|default(value.value)}}" data-toggle="tooltip" title="{{value.stringValue|default(value.value)}}">
-                                <input  type="button" 
-                                    class="color transparent-btn {{ value.value }} {% if value.isSelected %} selected {% endif %} {% if not value.isEnabled %} disabled {% endif %}"
-                                    data-mz-action="setProductColorOption" 
-                                    data-color-swatch="{{ option.attributeFQN }}" 
-                                    data-color-swatch-value="{{value.stringValue|default(value.value)}}{% if value.deltaPrice and value.deltaPrice > 0 %} ( {{ value.deltaPrice|currency }} {{ labels.more }} ){% endif %}"
-                                    data-origial-color="{{ value.value }}" 
-                                    data-product-option-id="{{ option.attributeFQN }}" 
-                                    
-                                    data-placement="top" 
-                                    value="{{value.stringValue|default(value.value)}}{% if value.deltaPrice and value.deltaPrice > 0 %} 
-                                    ( {{ value.deltaPrice|currency }} {{ labels.more }} ){% endif %}"
-                                /> 
-                                <span class="stripeImg">
-                                    <svg height="37" width="37">
-                                      <defs>
-                                        <pattern id="stripe" patternUnits="userSpaceOnUse" width="4" height="4" patterntransform="rotate(90)">
-                                          <path d="M-1,1 l2,-2
-                                                   M0,4 l4,-4
-                                                   M3,5 l2,-2" />
-                                        </pattern>
-                                        <mask id="mask">
-                                          <rect height="100%" width="100%" style="fill: url(#stripe)" />
-                                        </mask>
-                                      </defs>
-                                      <g>
-                                        <g class="stripe" fill="url(#stripe)">
-                                          <rect width="37" height="37" y="0" />
-                                        </g>
-                                      </g>
-                                    </svg>
-                                </span>
-                            </li>
-                        {% else %}
-                        <span class="sizeSwatch" data-toggle="tooltip" title="" style="float: left;">
-                            <input type="button"   
-                                {% if not value.isEnabled %} diabled="disabled"{% endif %}
-                                class="{% if value.isSelected %} selected {% endif %} transparent-btn this-is-others {{value.value}} size-chart-btn"
-                                data-mz-option-value="{{value.value}}" 
-                                value="{{value.stringValue|default(value.value)}}{% if value.deltaPrice and value.deltaPrice > 0 %} 
-                                ( {{ value.deltaPrice|currency }} {{ labels.more }} ){% endif %}" 
-                                data-mz-product-cust-option="{{ option.attributeFQN }}"/>
-                            <span class="stripeImg">
-                                <svg height="37" width="37">
-                                  <defs>
-                                    <pattern id="stripe" patternUnits="userSpaceOnUse" width="4" height="4" patterntransform="rotate(90)">
-                                      <path d="M-1,1 l2,-2
-                                               M0,4 l4,-4
-                                               M3,5 l2,-2" />
-                                    </pattern>
-                                    <mask id="mask">
-                                      <rect height="100%" width="100%" style="fill: url(#stripe)"/>
-                                    </mask>
-                                  </defs>
-                                  <g>
-                                    <g class="stripe" fill="url(#stripe)">
-                                      <rect width="37" height="37" y="0" />
-                                    </g>
-                                  </g>
-                                </svg>
-                            </span>
-                        {% endif %}
-                        </span>
+                    <option {% if not value.isEnabled %} class="is-disabled" {% endif %} {% if value.isSelected %}selected="true"{% endif %} value="{{value.value}}">{{value.stringValue|default(value.value)}}{% if value.deltaPrice and value.deltaPrice > 0 %} ( {{ value.deltaPrice|currency }} {{ labels.more }} ){% endif %}</option>
                     {% endfor %}
-                </ul>
+                </select>
             {% else %}
                 {% if option.attributeDetail.inputType == "YesNo" %}
                     <input class="mz-productoptions-option" type="checkbox" {% if option.shopperEnteredValue %}checked="checked"{% endif %} data-mz-product-option="{{ option.attributeFQN }}" />
@@ -86,7 +28,7 @@
                     <textarea class="mz-productoptions-option" data-mz-product-option="{{ option.attributeFQN }}" data-mz-focus-bookmark="{{ option.attributeFQN }}">{{ option.shopperEnteredValue }}</textarea>
                 {% endif %}
                 {% if option.attributeDetail.inputType == "Date" %}
-                    <input type="text" data-mz-is-datepicker data-mz-focus-bookmark="{{ option.attributeFQN }}" data-mz-product-option="{{ option.attributeFQN }}" class="mz-productoptions-option transperant-color" value="{{ option.shopperEnteredValue }}" data-format="mm/dd/yy" data-max="{{option.maxValue}}" data-min="{{ option.minValue }}">
+                    <input type="text" data-mz-is-datepicker data-mz-focus-bookmark="{{ option.attributeFQN }}" data-mz-product-option="{{ option.attributeFQN }}" class="mz-productoptions-option" style="color:transparent" value="{{ option.shopperEnteredValue }}" data-format="mm/dd/yy" data-max="{{option.maxValue}}" data-min="{{ option.minValue }}">
                 {% endif %}
                 {% if option.values %}
                   {% for value in option.values %}

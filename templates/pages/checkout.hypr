@@ -1,6 +1,13 @@
-{% extends "page" %}
+﻿{% extends "page" %}
 
 {% block title-tag-content %}{% firstof pageContext.metaTitle labels.checkout %} - {% parent %}{% endblock title-tag-content %}
+
+{% block head-tag-scripts %}
+{% parent %}
+{% if siteContext.checkoutSettings.visaCheckout.isEnabled and not pageContext.isEditMode %}
+{% include "modules/common/anti-clickjacking-script" %}
+{% endif %}
+{% endblock head-tag-scripts %}
 
 {% block body-tag-classes %} mz-checkout {% endblock body-tag-classes %}
 
@@ -12,77 +19,61 @@
 
 {% preload_json model "checkout" %}
 
-	<div class="mz-l-container checkout-form hidden"> <!-- Added class checkout-form - SUDHIR -->
-	    <form id="checkout-form" class="mz-checkoutform" method="post" onsubmit="return false;">
-    	    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 no-min-height">
-    	        {% include "modules/common/message-bar" with model=model.messages %}
-    	    </div>
+<div class="mz-l-container">
+    <h1 class="mz-pagetitle">
+        {{ labels.checkout }}
+        {% if not user.isAuthenticated %}
+        <span class="mz-pagetitle-note">
+            {{ labels.registeredCustomer }} <a data-mz-action="login" data-placement="left" href="javascript;">{{ labels.logIn }}</a>
+        </span>
+        {% endif %}
+    </h1>
 
-    		<div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 checkout-steps-tablet-master hidden">
-    		    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-step-1">
-    		        <div class="topProgressBar"></div>
-    		    </div>
-    		    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-step-2">
-    		        <div class="topProgressBar"></div>
-    		    </div>
-    		    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-step-3">
-    		        <div class="topProgressBar"></div>
-    		    </div>
-    		</div>
+    <form id="checkout-form" class="mz-checkoutform mz-l-2column mz-l-2column-right fades-in" method="post" onsubmit="return false;">
 
-    		<div class="col-xs-24 col-sm-24 col-md-24 col-lg-24 checkout-steps-master">
-    			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-step-1 mz-background">
-    				<div class="topProgressBar"></div>
-    				<div class="border-layer"></div>
+    {% include "modules/common/message-bar" with model=model.messages %}
 
-    				<div class="checkout-step-form">
-        				<div class="mz-checkoutform-shippingaddress hide-loading" id="step-shipping-address">
-        					{% include "modules/checkout/step-shipping-address" %}
-        				</div>
-        				<div class="mz-checkoutform-shippingmethod {% if not model.requiresFulfillmentInfo %} escape-payment-method {% endif %}{% if not model.requiresFulfillmentInfo %}hidden{% endif %}" id="step-shipping-method" >
-        					{% include "modules/checkout/step-shipping-method" %}
-        				</div>
-    				</div>
+    <div class="mz-l-column" id="checkout-rightcol">
+        
+        <div class="mz-formstep mz-checkoutform-ordersummary" id="order-summary">
+            {% include "modules/checkout/checkout-order-summary" %}
+        </div>
 
-    				<div class="overlay"></div>
-    			</div>
+        <div class="mz-l-formfieldgroup">
+            <div class="mz-checkoutform-couponcode mz-l-formfieldgroup-row" id="coupon-code-field" >
+                {% include "modules/checkout/coupon-code-field" %}
+            </div>
+            {% if themeSettings.showCheckoutCommentsField %}
+            <div class="mz-checkoutform-comments mz-l-formfieldgroup-row" id="comments-field" >
+                {% include "modules/checkout/comments-field" %}
+            </div>
+            {% endif %}
+        </div>
 
-    			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-step-2 mz-background">
-    				<div class="topProgressBar"></div>
-    				<div class="border-layer"></div>
+    </div>
 
-    				<div class="checkout-step-form">
-        				<div class="mz-checkoutform-paymentinfo" id="step-payment-info">
-        					{% include "modules/checkout/step-payment-info" %}
-        				</div>
-    				</div>
+    <div class="mz-l-column">
 
-    				<div class="overlay"></div>
-    			</div>
+        <div class="mz-formstep mz-checkoutform-shippingaddress" id="step-shipping-address">
+            {% include "modules/checkout/step-shipping-address" %}
+        </div>
 
-    			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 checkout-step-3 mz-background">
-    				<div class="topProgressBar"></div>
+        <div class="mz-formstep mz-checkoutform-shippingmethod" id="step-shipping-method" {% if not model.requiresFulfillmentInfo %}style="display:none"{% endif %}>
+            {% include "modules/checkout/step-shipping-method" %}
+        </div>
 
-    				<div class="checkout-step-form">
-        				<div class="mz-checkoutform-review" id="step-review">
-        					{% include "modules/checkout/step-review" %}
-        				</div>
-    				</div>
+        <div class="mz-formstep mz-checkoutform-paymentinfo" id="step-payment-info">
+            {% include "modules/checkout/step-payment-info" %}
+        </div>
 
-    				<div class="overlay"></div>
-    			</div>
-    		</div>
-		</form>
-	</div>
+        <div class="mz-formstep mz-checkoutform-review" id="step-review">
+            {% include "modules/checkout/step-review" %}
+        </div>
+
+    </div><!-- left .column -->
+
+</form>
+
+</div>
 
 {% endblock body-content %}
-
-
-
-
-
-
-
-
-
-

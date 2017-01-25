@@ -1,3 +1,4 @@
+﻿{% if not pageContext.query.partial %}
 <script type="text/json" id="data-mz-preload-facetedproducts">
 {
 	"facets": {% json model.facets %}, 
@@ -14,158 +15,36 @@
 	"currentSort": "{{ model.currentSort }}"
 }
 </script>
-<div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-    <div class="row">
-        {% if pageContext.isDesktop %}
-        <div class="{% if pageContext.isTablet or pageContext.isMobile %}col-xs-0 col-sm-0{% else %}col-xs-24 col-sm-6{% endif %} col-md-6 col-lg-4 border-facet">
-            <div class="facetDesktop">
-                <button class="mz-button mz-button-small closeFacets">Done</button> 
-                <div class="facets-parent">
-					<div class="sidebar-cat-title">
-						{% if onSearchPage %}
-							{{ labels.categories }}
-						{% else %}
-							{{ parentCategoryDetails.name }}
-						{% endif %}
-					</div>
-					<div data-mz-facets class="mz-l-sidebar row">
-                    	{% dropzone "sidebar-above-facets" scope="template" %}
-                        {% include "modules/product/faceting-form" %}
-                    	{% dropzone "sidebar-below-facets" scope="template" %}
-                    </div>
-				</div>  
-            </div>
+{% endif %}
+{% if model.facets %}
+<div data-mz-facets class="mz-l-sidebar">
+	{% dropzone "sidebar-above-facets" scope="template" %}
+    {% include "modules/product/faceting-form" %}
+	{% dropzone "sidebar-below-facets" scope="template" %}
+</div>
+{% endif %}
+
+<div class="mz-l-paginatedlist">
+    <div class="mz-l-paginatedlist-header">
+        <div data-mz-pagesort class="mz-sortby">
+            {% include "modules/common/page-sort" %}
         </div>
-        {% endif %}
-        {% if pageContext.isMobile or pageContext.isTablet %}
-            <div class="facetMobile">
-                {% if model.facets %}
-				<div class="facets-parent">
-					<div data-mz-facets class="mz-l-sidebar row">
-                    	{% dropzone "sidebar-above-facets" scope="template" %}
-                        {% include "modules/product/faceting-form" %}
-                    	{% dropzone "sidebar-below-facets" scope="template" %}
-                    </div>
-				</div>
-                {% endif %}
-            </div>
-        {% endif %}
-         
-        <div class="{% if pageContext.isTablet or pageContext.isMobile %}col-xs-24 col-sm-24{% else %}col-sm-18{% endif %} {% if pageContext.isTablet %} col-md-24 {% else %} col-md-18 {% endif %} {% if pageContext.isDesktop %} col-xs-24 {% endif %} col-lg-20">   
-            <div class="row">
-                <div class="mz-l-paginatedlist">
-                    <div class="mz-l-paginatedlist-header">
-                        {% if pageContext.isMobile or pageContext.isTablet and model.facets or pageContext.isMobile or pageContext.isTablet and pageContext.pageType == "search" %}
-                            <div class="filter" id="filter">
-                                <div class="filterIcon">
-                                    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                                    <svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                                        <!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
-                                        <title>Filter Icon</title>
-                                        <desc>Created with Sketch Beta.</desc>
-                                        <defs></defs>
-                                        <g id="Style-Guide" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                            <g sketch:type="MSArtboardGroup" transform="translate(-618.000000, -3768.000000)" id="Buttons" stroke="#4A4A4A">
-                                                <g sketch:type="MSLayerGroup" transform="translate(0.000000, 3533.000000)">
-                                                    <g id="Filter" transform="translate(611.000000, 231.628906)" sketch:type="MSShapeGroup">
-                                                        <g id="Filter-Icon" transform="translate(7.862272, 3.000000)">
-                                                            <path d="M0.5,3.5 L21.5,3.5" id="Line" stroke-linecap="square"></path>
-                                                            <path d="M0.5,10.5 L21.5,10.5" id="Line-2" stroke-linecap="square"></path>
-                                                            <path d="M0.5,17.5 L21.5,17.5" id="Line-4" stroke-linecap="square"></path>
-                                                            <ellipse id="Oval-170" fill="#FFFFFF" cx="19.5" cy="3.5" rx="2.5" ry="2.5"></ellipse>
-                                                            <ellipse id="Oval-171" fill="#FFFFFF" cx="2.5" cy="10.5" rx="2.5" ry="2.5"></ellipse>
-                                                            <ellipse id="Oval-172" fill="#FFFFFF" cx="19.5" cy="17.5" rx="2.5" ry="2.5"></ellipse>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </div> 
-                                <div class="filterLabel">
-                                    {{ labels.filterLabel }} 
-                                </div>
-                            </div>
-                        {% endif %}
-                        
-                        <div data-mz-pagingcontrols class="mz-pagingcontrols">
-                            {% include "modules/common/paging-controls" %}
-                        </div>
-                        <div class="rightBar">
-                            {% if pageContext.isDesktop %}  
-                                <button class="mz-button mz-button-small facetsToggle">Filters</button> 
-                            {% endif %}
-                            <div class="productView">
-                                <span class="list" data-mz-product-list-view>
-                                    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                                    <svg width="22px" height="23px" viewBox="0 0 22 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                                        <!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
-                                        <title>View Toggle Icon - List View</title>
-                                        <desc>Created with Sketch Beta.</desc>
-                                        <defs></defs>
-                                        <g id="Product-Grid" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                            <g id="Product-Grid:-Desktop-HD:-Tile-View" sketch:type="MSArtboardGroup" transform="translate(-1246.000000, -289.000000)" fill="#ECEDF1">
-                                                <g id="Sort-Panel:-Desktop-HD" sketch:type="MSLayerGroup" transform="translate(240.000000, 280.000000)">
-                                                    <g id="Layout-Selector" transform="translate(1006.000000, 9.000000)" sketch:type="MSShapeGroup">
-                                                        <g id="View-Toggle-Icon---List-View">
-                                                            <rect id="Rectangle-102" x="0" y="16" width="22" height="7"></rect>
-                                                            <rect id="Rectangle-104" x="0" y="8" width="22" height="7"></rect>
-                                                            <rect id="Rectangle-105" x="0" y="0" width="22" height="7"></rect>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </span>
-                                <span class="grid" data-mz-product-grid-view>
-                                    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                                    <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                                        <!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
-                                        <title>View Toggle Icon - Grid View</title>
-                                        <desc>Created with Sketch Beta.</desc>
-                                        <defs></defs>
-                                        <g id="Product-Grid" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                            <g id="Product-Grid:-Desktop-HD:-Tile-View" sketch:type="MSArtboardGroup" transform="translate(-1279.000000, -289.000000)" fill="#4A4A4A">
-                                                <g id="Sort-Panel:-Desktop-HD" sketch:type="MSLayerGroup" transform="translate(240.000000, 280.000000)">
-                                                    <g id="Layout-Selector" transform="translate(1006.000000, 9.000000)" sketch:type="MSShapeGroup">
-                                                        <g id="View-Toggle-Icon---Grid-View" transform="translate(33.000000, 0.000000)">
-                                                            <rect id="Rectangle-98" x="0" y="0" width="11" height="11"></rect>
-                                                            <rect id="Rectangle-106" x="12" y="0" width="11" height="11"></rect>
-                                                            <rect id="Rectangle-108" x="0" y="12" width="11" height="11"></rect>
-                                                            <rect id="Rectangle-107" x="12" y="12" width="11" height="11"></rect>
-                                                        </g>
-                                                    </g>
-                                                </g>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                </span> 
-                            </div>
-                            {% if pageContext.isDesktop or pageContext.isTablet %}
-                            <div data-mz-pagesort class="mz-sortby">
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div data-mz-pagenumbers class="mz-pagenumbers">
-                        {% include "modules/common/page-numbers" %}
-                    </div>
-                    <div data-mz-productlist class="mz-l-paginatedlist-list">
-                        {% include "modules/product/product-list-tiled" %}
-                    </div>
-                </div>
-            </div>
+        <div data-mz-pagenumbers class="mz-pagenumbers">
+            {% include "modules/common/page-numbers" %}
+        </div>
+        <div data-mz-pagingcontrols class="mz-pagingcontrols">
+            {% include "modules/common/paging-controls" %}
+        </div>
+    </div>
+    <div data-mz-productlist class="mz-l-paginatedlist-list">
+        {% include "modules/product/product-list-tiled" %}
+    </div>
+    <div class="mz-l-paginatedlist-footer">
+        <div data-mz-pagenumbers class="mz-pagenumbers">
+            {% include "modules/common/page-numbers" %}
+        </div>
+        <div data-mz-pagingcontrols class="mz-pagingcontrols">
+            {% include "modules/common/paging-controls" %}
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-

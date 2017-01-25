@@ -1,37 +1,26 @@
-@fontFamily:            {{ themeSettings.primaryFont }}, sans-serif;
+﻿@fontFamily:            {{ themeSettings.primaryFont }}, sans-serif;
 @fontSize:              {{ themeSettings.fontSize }};
-
-@fontSizeSmall:         ceil((@font-size-base * 0.85));
-@fontSizeLarge:         ceil((@font-size-base * 1.25));
-@fontSizeLarger:        ceil((@font-size-base * 1.7));
-
+@fontSizeSmall:         @fontSize - 2px;
+@fontSizeLarger:        @fontSize + 2px;
+@fontSizeLarge:         @fontSize + 6px;
 @storeBrandingFontSize: 36px;
 
-@textColor:             @text-color;
-@linkColor:             @link-color;
-@linkHoverColor:        @link-hover-color;
-@linkVisitedColor:      @link-hover-color;
-@errorText:             @state-danger-text;
-@errorBackground:       @state-danger-bg;
-@warningText:           @state-warning-text;
-@warningBackground:     @state-warning-bg;
-@successText:           @state-success-text;
-@successBackground:     @state-success-bg;
-@mysticError:           #cf142c;
+@textColor:             {{ themeSettings.textColor }};
+@linkColor:             #4F4F4F;
+@linkHoverColor:        #666;
+@linkVisitedColor:      #3F3F3F;
+@errorText:             #b94a48;
+@errorBackground:       #f2dede;
+@warningText:           @textColor;
+@warningBackground:     #ffefcf;
+@successText:           @textColor;
+@successBackground:     #eef2ee;
 
-//menu colors
-@menuGray:              #3D3D3D;
-@menuLink:              #515151;
-@menuBorder:            #9D9D9D;
-@menuItem:              #DEDEDE;
-@teal:                  #50E3C2;
-@menuIcon:              #717171;
-
-// MOZU DEFAULTS --------------------------------------------------------------------
 @availableText:         #237e0e;
 @unavailableText:       #ae1231;
 
 @bodyBackgroundColor:   {{ themeSettings.bodyBackgroundColor }};
+@highlightColor:        #ffffe0;
 
 @errorBorder:           darken(spin(@errorBackground, -10), 3%);
 @successBorder:         darken(spin(@successBackground, -10), 3%);
@@ -52,4 +41,3 @@
 @orderDetailWidth:      200px;
 @itemListingThumbSize:  {{ themeSettings.itemListingThumbSize }};
 @productListingThumbSize: {{ themeSettings.listProductThumbSize }}px;
-

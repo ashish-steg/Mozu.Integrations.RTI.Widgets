@@ -1,4 +1,4 @@
-{% extends "page" %}
+﻿{% extends "page" %}
 
 {% block title-tag-content %}{% firstof pageContext.metaTitle labels.pageNotFound %} - {% parent %}{% endblock title-tag-content %}
 
@@ -6,7 +6,7 @@
 
 {% block body-content %}
 <div class="mz-l-container">
-    <h1 class="mz-pagetitle"></h1>
+    <h1 class="mz-pagetitle">{{ labels.pageNotFound }}</h1>
     {% dropzone "notfound" scope="template" %}
 </div>
 {% endblock body-content %}

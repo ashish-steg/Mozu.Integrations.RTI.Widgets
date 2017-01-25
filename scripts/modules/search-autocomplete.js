@@ -1,4 +1,4 @@
-define(['shim!vendor/typeahead.js/typeahead.bundle[modules/jquery-mozu=jQuery]>jQuery', 'hyprlive', 'modules/api', 'underscore'], function($, Hypr, api, _) {
+﻿define(['shim!vendor/typeahead.js/typeahead.bundle[modules/jquery-mozu=jQuery]>jQuery', 'hyprlive', 'modules/api'], function($, Hypr, api) {
 
     // bundled typeahead saves a lot of space but exports bloodhound to the root object, let's lose it
     var Bloodhound = window.Bloodhound.noConflict();
@@ -13,12 +13,8 @@ define(['shim!vendor/typeahead.js/typeahead.bundle[modules/jquery-mozu=jQuery]>j
         },
         termsUrl = getApiUrl('terms'),
         productsUrl = getApiUrl('pages'),
-        pageContext = require.mozuData('pagecontext'),
         ajaxConfig = {
-            headers: api.getRequestHeaders(),
-            beforeSend: function(xhr) {
-                $('.tt-dataset-pages').html('<span class="spinner icon-spinner-2" style="display:inline-block;"></span>');
-            }
+            headers: api.getRequestHeaders()
         },
         i,
         nonWordRe = /\W+/,
@@ -66,45 +62,15 @@ define(['shim!vendor/typeahead.js/typeahead.bundle[modules/jquery-mozu=jQuery]>j
     $.each(AutocompleteManager.datasets, function(name, set) {
         set.initialize();
     });
-    var showProducts = function(categories) {
-        _.defer(function() {
-            $('.tt-dataset-cat').remove();
-            var categoriescount = categories.length;
-            var remainingcategories = categoriescount - 3;
-            var counter = 0;
-                    
-            _.each(categories, function(category) {
-                counter++;
-                var element = '<div class="tt-dataset-cat">';
-                if(counter <= 3){
-                    
-                    if(category.parentCategory) {
-                        element += '<span class="tt-dataset-current-prod-cat"><a href="/c/'+ category.categoryId+'">' + category.content.name + '</a></span>' +
-                                '<span class="tt-dataset-current-prod-parent-cat"><a href="/c/' + category.parentCategory.categoryId + '"> in > ' + category. parentCategory.content.name + window.chevron +'</a></span>';
-                    } else {
-                        element += '<span class="tt-dataset-current-prod-cat"><a href="/c/'+ category.categoryId+'">' + category.content.name + '</a></span>';
-                    }
-                    
-                    element += '</div>';
-                    $('.tt-dataset-pages').before(element);
-                }
-                if(counter === 4) {
-                    element += "<span class='tt-dataset-more-categories'><a href='/search?query=" + AutocompleteManager.$typeaheadField[1].value + "'> + " +remainingcategories+ " more categories</a></span>";
-                    element += '</div>';
-                    $('.tt-dataset-pages').before(element);
-                }
-            });
-        });
-    };
+
     var dataSetConfigs = [
         {
             name: 'pages',
             displayKey: function(datum) {
-                showProducts(datum.suggestion.categories);
+                return datum.suggestion.productCode;
             },
             templates: {
-                suggestion: makeTemplateFn('modules/search/autocomplete-page-result'),
-                empty: '<div class="empty-box"> no results found, please try a different search </div> '
+                suggestion: makeTemplateFn('modules/search/autocomplete-page-result')
             },
             source: AutocompleteManager.datasets.pages.ttAdapter()
         }
@@ -130,27 +96,18 @@ define(['shim!vendor/typeahead.js/typeahead.bundle[modules/jquery-mozu=jQuery]>j
             displayKey: function(datum) {
                 return datum.suggestion.term;
             },
-            
             source: AutocompleteManager.datasets.terms.ttAdapter()
         });
     }
- 
+
     $(document).ready(function() {
         var $field = AutocompleteManager.$typeaheadField = $('[data-mz-role="searchquery"]');
         AutocompleteManager.typeaheadInstance = $field.typeahead({
-            hint: true,highlight: true,minLength: 1,items:4
+            minLength: 3
         }, dataSetConfigs).data('ttTypeahead');
-        window.chevron = ( $(".chevron-arrow").html() );
         // user hits enter key while menu item is selected;
         $field.on('typeahead:selected', function (e, data, set) {
             if (data.suggestion.productCode) window.location = "/p/" + data.suggestion.productCode;
-        });
-        
-        $field.on('typeahead:closed', function (e, data, set) {
-            $('.mz-pageheader, .mz-homepageheader').css('opacity', '0.94');
-        });
-        $field.on('typeahead:opened', function (e, data, set) {
-            $('.mz-pageheader, .mz-homepageheader').css('opacity', '1');
         });
     });
 

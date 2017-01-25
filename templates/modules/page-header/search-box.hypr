@@ -1,43 +1,23 @@
-<form id="searchbox" class="mz-searchbox{% if themeSettings.useSearchAutocomplete %} mz-searchbox-expands{% endif %}" action="/search">
+﻿<form id="searchbox" class="mz-searchbox{% if themeSettings.useSearchAutocomplete %} mz-searchbox-expands{% endif %}" action="/search">
     <span class="mz-searchbox-field">
-        <input placeholder="{{ labels.search }}" onfocus="this.placeholder=''" onblur="this.placeholder='{{ labels.search }}'" type="search" class="mz-searchbox-input" autocomplete="off" name="query" data-mz-role="searchquery" />
+        <input placeholder="{{ labels.search }}" type="search" class="mz-searchbox-input" autocomplete="off" name="query" data-mz-role="searchquery" />
         <button class="mz-searchbox-button" type="submit">{{ labels.search }}</button>
     </span>
-    <span class="chevron-arrow">
-        <svg width="6.3px" height="12px" viewBox="0 0 12 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-             Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch 
-            <title>chevron left - cart</title>
-            <desc>Created with Sketch Beta.</desc>
-            <defs></defs>
-            <g id="Cart" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                <g id="Cart:-Tablet" sketch:type="MSArtboardGroup" transform="translate(-467.000000, -20.000000)" fill="#9B9B9B">
-                    <g id="Cart" sketch:type="MSLayerGroup">
-                        <g id="Your-Cart" transform="translate(448.000000, 0.000000)" sketch:type="MSShapeGroup">
-                            <path d="M30.0065779,41.4988947 C30.1548888,41.4988947 30.3031996,41.4447347 30.4167501,41.3375199 C30.6426925,41.1219851 30.6426925,40.7716028 30.4167501,40.556068 L20.3988148,30.9995855 L30.4167501,21.443103 C30.6426925,21.2275682 30.6426925,20.8771859 30.4167501,20.6616511 C30.1908078,20.4461163 29.8235067,20.4461163 29.5975644,20.6616511 L19.1694567,30.6094122 C18.9435144,30.824947 18.9435144,31.1753293 19.1694567,31.3908641 L29.5975644,41.3386252 C29.7111149,41.4469453 29.8594257,41.5 30.0077366,41.5 L30.0065779,41.4988947 Z" id="chevron-left---cart"></path>
-                        </g>
-                    </g>
-                </g>    
-            </g>    
-        </svg>
-    </span> 
-	<select dir="rtl" class="mz-searchbox-categories" name="facetValueFilter" 
-            data-mz-contextify='[value="categoryId:{{ pageContext.categoryId }}"]'
+	<select class="mz-searchbox-categories" name="categoryId" 
+            data-mz-contextify='[value="{{ pageContext.categoryId }}"]'
             data-mz-contextify-attr='selected'
             data-mz-contextify-val='selected'>
-        
-            <option dir="ltr" value="">{{labels.inall}}</option>
-            
-            {% partial_cache %}
-                {% for node in navigation.tree %}
-                    {% if node.nodeType == "category" and not node.isEmpty and not node.isHidden %}
-                        <option dir="ltr" value="categoryId:{{node.originalId}}">{{node.name}}</option>
-                    {% endif %}
-		        {% endfor %}
-            {% endpartial_cache %}
-    </select>
+        <option value="">{{ labels.all }}</option>
+        {% partial_cache %}
+        {% for node in navigation.tree %}
+        {% if node.nodeType == "category" and not node.isEmpty %}
+        <option value="{{node.originalId}}">{{node.name}}</option>
+        {% endif %}
+		{% endfor %}
+        {% endpartial_cache %}
+	</select>
     {% require_script "modules/contextify" %}
-    
     {% if themeSettings.useSearchAutocomplete %}
         {% require_script "modules/search-autocomplete" %}
     {% endif %}
-</form> 
+</form>

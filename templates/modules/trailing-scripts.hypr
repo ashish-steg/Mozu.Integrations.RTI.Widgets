@@ -1,4 +1,4 @@
-{% with themeSettings.useDebugScripts|default:pageContext.isDebugMode as debugMode %}
+﻿{% with themeSettings.useDebugScripts|default:pageContext.isDebugMode as debugMode %}
 
 <script src="{{siteContext.cdnPrefix}}/js/require-{% if debugMode %}debug{% else %}min{% endif %}.js"></script>
 <script type="text/javascript">
@@ -10,18 +10,7 @@
       paths: {
         jquery: "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery{% if not debugMode %}.min{% endif %}",
 		underscore: "vendor/underscore/underscore",
-		backbone: "vendor/backbone/backbone",
-		bootstrap: "vendor/bootstrap.min",
-        btstrapswitch: "vendor/bootstrap-switch.min",
-		owl: "vendor/jquery/owl.carousel.min",
-		lazysizes: "vendor/jquery/lazysizes-custom.min"
-      },
-      shim: {
-        "bootstrap": ['jquery'],
-        "jqValidator": ['jquery'],
-        "btstrapswitch": ['bootstrap'],
-		"owl": ['jquery'],
-		"lazysizes": ['jquery']
+		backbone: "vendor/backbone/backbone"
       }
   });
   {% if debugMode %}

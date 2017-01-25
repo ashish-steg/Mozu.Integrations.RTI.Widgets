@@ -1,38 +1,27 @@
-<h6 class="mz-checkout-step-title">{{ labels.shippingMethodTitle }}</h6>
-<div class="mz-formstep-body hide-loading " id="step-shipping-method-contents">
-    <div class="mz-formstep-fields mz-l-formfieldgroup">
-        {% if model.availableShippingMethods %}
-                <div class="shipping-method-select-parent">
-                    <div class="selected-shipping-method">
-                        <ul class="list-unstyled">
-                            {% for method in model.availableShippingMethods %}
-                                {% if model.shippingMethodCode == method.shippingMethodCode %}
-                                    <li class="shipping-method-option">
-                                        <span class="method-name">{% if method.price > 0 %}{{ method.price|currency }} {% endif %}{{ method.shippingMethodName }}</span> - <span>get it Wednesday, January 20</span>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+    <h3 class="mz-formstep-header mz-checkoutform-header">
+        {{ labels.shippingMethod }}
+    </h3>
+    <div class="mz-formstep-body mz-checkoutform">
+        {% if model.requiresFulfillmentInfo %}
+            {% if model.availableShippingMethods.length %}
+                {% for method in model.availableShippingMethods %}
+                    <div>
+                        <label>
+                            <input type="radio" name="shippingMethod"
+                                   value="{{ method.shippingMethodCode }}" data-mz-value="shippingMethodCode" data-mz-shipping-method
+                                   {% if model.shippingMethodCode == method.shippingMethodCode %} checked="checked" {% endif %}>
+                            {{ method.shippingMethodName }} {{ method.price|currency }}
+                        </label>
                     </div>
-                    <md-radio-group ng-model="shipping.code" ng-change="syncShippingMethod()" ng-click="shippingMethodClick()" id="shipping-methods" data-mz-shipping-method>
-                        <ul class="list-unstyled hide-loading-el">
-                            {% for method in model.availableShippingMethods %}
-                                <li class="shipping-method-option" data-cost="{{method.price}}">
-                                    <md-radio-button value="{{method.shippingMethodCode}}" data-currency="{{method.currencyCode}}", data-valid="{{method.isValid}}" data-price="{{method.price}}" data-code="{{method.shippingMethodCode}}" data-name="{{method.shippingMethodName}}" data-zone="{{method.shippingZoneCode}}"><span class="method-name">{% if method.price > 0 %}{{ method.price|currency }} {% endif %}{{ method.shippingMethodName }} -</span> <span> get it Wednesday, January 20</span></md-radio-button>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </md-radio-group>
-                </div>
-            <span class="mz-validationmessage" data-mz-validationmessage-for="shippingMethodCode"></span>
+                {% endfor %}
+                <span class="mz-validationmessage" data-mz-validationmessage-for="shippingMethodCode"></span>
+            {% else %}
+                <p>{{ labels.noShippingMethods }}</p>
+            {% endif %}
         {% else %}
-            <p>{{ labels.noShippingMethods }}</p>
+            {{ labels.noFulfillmentInfoRequired }}
         {% endif %}
+        <div class="mz-formstep-next">
+            <button type="button" class="mz-button" data-mz-action="next">{{ labels.next }}</button>
+        </div>
     </div>
-</div>
-<div class="mz-formstep-next">
-    <button class="mz-button" data-mz-action="next">
-        <span class="thin-chevron-right"></span>
-        {{ labels.proccedToNextStep }}
-    </button>
-</div>

@@ -1,4 +1,4 @@
-{% extends "modules/common/address-form" %}
+﻿{% extends "modules/common/address-form" %}
 {% block address-form %}
     {% set addresscontext="editingContact." %}
     {% if model.isShippingContact %}
@@ -6,7 +6,7 @@
     {% endif %}
     <li class="mz-accountaddressbook-contact mz-accountaddressbook-form">
     {% parent %}
-    <div class="mz-contacttypes">
+<div class="mz-contacttypes">
         <div class="mz-l-formfieldgroup mz-l-formfieldgroup-norows mz-contacttype">
             <label>
                 <input type="checkbox" data-mz-value="editingContact.isBillingContact" value="true" {% if model.isBillingContact %} checked="checked" {% endif %}> {{ labels.billingContact }}

@@ -1,183 +1,228 @@
 /* global module: true */
 module.exports = function (grunt) {
-    'use strict';
-    var pkg = grunt.file.readJSON('./package.json');
-    require('time-grunt')(grunt);
-    grunt.initConfig({
-        mozuconfig: grunt.file.exists('./mozu.config.json') ? grunt.file.readJSON('./mozu.config.json') : {},
-        pkg: pkg,
-        bower: {
-            install: {
-                options: {
-                    targetDir: './scripts/vendor',
-                    layout: 'byComponent',
-                    cleanBowerDir: true,
-                    bowerOptions: {
-                        production: true,
-                        forceLatest: true
-                    }
+  'use strict';
+  var pkg = grunt.file.readJSON('./package.json');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-mozu-appdev-sync');
+  grunt.loadNpmTasks('grunt-newer');
+  grunt.loadNpmTasks('mozu-theme-helpers');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  require('time-grunt')(grunt);
+
+  grunt.initConfig({
+    mozuconfig: grunt.file.exists('./mozu.config.json') ? grunt.file.readJSON('./mozu.config.json') : {},
+    pkg: pkg,
+    copy: {
+      packagedeps: {
+        files: [
+          {
+            expand: true,
+            cwd: 'node_modules/',
+            src: Object.keys(pkg.dependencies || {}).map(function (dep) {
+              var depPkg;
+              if (pkg.exportsOverride && pkg.exportsOverride[dep]) {
+                return pkg.exportsOverride[dep].map(function (o) {
+                  return dep + '/' + o;
+                });
+              } else {
+                depPkg = require(dep + '/package.json');
+                if (!depPkg.main) {
+                  try {
+                    depPkg = require(dep + '/bower.json');
+                  } catch (e) {}
                 }
-            }
-        },
-        jshint: {
-            production: {
-                src: [
-                  'theme.json',
-                  'theme-ui.json',
-                  'labels/**/*.json',
-                  'Gruntfile.js',
-                  'scripts/**/*.js'
-                ]
-            },
-            develop: {
-                src: '{<%= jshint.production.src %>}',
-                options: {
-                    devel: true
-                }
-            },
-            options: {
-                es3: true,
-                browser: true,
-                undef: true,
-                nonstandard: true,
-                ignores: ['scripts/vendor/**/*.js', 'scripts/**/**/*.min.js'],
-                globals: {
-                    JSON: true,
-                    define: true,
-                    require: true,
-                    Modernizr: true
-                }
-            }
-        },
-        compress: {
-            build: {
-                options: {
-                    archive: '<%= pkg.name %>-<%= pkg.version %>.zip',
-                    pretty: true
-                },
-                files: [
-                  {
-                      src: [
-                        'admin/**/*',
-                        'compiled/**/*',
-                        'labels/**/*',
-                        'packageconfig.xml',
-                        'resources/**/*',
-                        'scripts/**/*',
-                        'stylesheets/**/*',
-                        'templates/**/*',
-                        'theme.json',
-                        '*thumb.png',
-                        '*thumb.jpg',
-                        'theme-ui.json',
-                        '!*.orig',
-                        '!.inherited'
-                      ],
-                      dest: '/'
-                  }
-                ]
-            }
-        },
-        mozutheme: {
-            check: {
-                command: 'check'
-            },
-            fullcompile: {
-                command: 'compile'
-            },
-            quickcompile: {
-                command: 'compile',
-                opts: {
-                    skipminification: true
-                }
-            }
-        },
-         "mozusync": {
-            "options": {
-                "applicationKey": "<%= mozuconfig.workingApplicationKey %>",
-                "context": "<%= mozuconfig %>",
-                "watchAdapters": [
-                  {
-                      "src": "mozusync.upload.src",
-                      "action": "upload"
-                  },
-                  {
-                      "src": "mozusync.del.remove",
-                      "action": "delete"
-                  }
-                ]
-            },
-            "upload": {
-                "options": {
-                    "action": "upload",
-                    "noclobber": true
-                },
-                "src": [
-                  "admin/**/*",
-                  "compiled/**/*",
-                  "labels/**/*",
-                  "resources/**/*",
-                  "scripts/**/*",
-                  "stylesheets/**/*",
-                  "templates/**/*",
-                  "theme.json",
-                  "*thumb.png",
-                  "*thumb.jpg",
-                  "theme-ui.json",
-                  "!*.orig",
-                  "!.inherited"
-                ],
-                "filter": "isFile"
-            },
-            "del": {
-                "options": {
-                    "action": "delete"
-                },
-                "src": "<%= mozusync.upload.src %>",
-                "filter": "isFile",
-                "remove": []
-            },
-            "wipe": {
-                "options": {
-                    "action": "deleteAll"
-                },
-                "src": "<%= mozusync.upload.src %>"
-            }
+                return dep + (depPkg.main ? '/' + depPkg.main : '/**/*');
+              }
+            }).concat(['!node_modules/**/*']),
+            dest: 'scripts/vendor/'
+          }
+        ]
+      }
+    },
+    jshint: {
+      production: {
+        src: [
+          'theme.json',
+          'theme-ui.json',
+          'labels/**/*.json',
+          'Gruntfile.js',
+          'scripts/**/*.js'
+        ]
+      },
+      develop: {
+        src: '{<%= jshint.production.src %>}',
+        options: {
+          devel: true
         }
-    });
+      },
+      options: {
+        es3: true,
+        browser: true,
+        undef: true,
+        nonstandard: true,
+        ignores: ['scripts/vendor/**/*.js'],
+        globals: {
+          JSON: true,
+          define: true,
+          require: true,
+          Modernizr: true
+        }
+      }
+    },
+    compress: {
+      build: {
+        options: {
+          archive: '<%= pkg.name %>-<%= pkg.version %>.zip',
+          pretty: true
+        },
+        files: [
+          {
+            src: [
+              'admin/**/*',
+              'compiled/**/*',
+              'labels/**/*',
+              'packageconfig.xml',
+              'resources/**/*',
+              'scripts/**/*',
+              'stylesheets/**/*',
+              'templates/**/*',
+              'theme.json',
+              '*thumb.png',
+              '*thumb.jpg',
+              'theme-ui.json',
+              '!**/*.orig',
+              '!.inherited'
+            ],
+            dest: '/'
+          }
+        ]
+      }
+    },
+    mozutheme: {
+      check: {
+        command: 'check'
+      },
+      fullcompile: {
+        command: 'compile'
+      },
+      quickcompile: {
+        command: 'compile',
+        opts: {
+          skipminification: true
+        }
+      }
+    },
+    watch: {
+      gruntfile: {
+        files: [
+          'Gruntfile.js'
+        ],
+        tasks: [
+          'newer:jshint:develop'
+        ]
+      },
+      json: {
+        files: [
+          'theme.json',
+          'theme-ui.json',
+          'labels/*.json'
+        ],
+        tasks: [
+          'newer:jshint:develop',
+          'newer:mozusync:upload'
+        ]
+      },
+      javascript: {
+        files: [
+          'scripts/**/*.js'
+        ],
+        tasks: [
+          'newer:jshint:develop',
+          'mozutheme:quickcompile',
+          'newer:mozusync:upload'
+        ]
+      },
+      sync: {
+        files: [
+          'admin/**/*',
+          'resources/**/*',
+          'packageconfig.xml',
+          'stylesheets/**/*',
+          'templates/**/*',
+          '*thumb.png',
+          '*thumb.jpg',
+          '!*.orig',
+          '!.inherited'
+        ],
+        tasks: [
+          'newer:mozusync:upload'
+        ]
+      }
+    },
+    mozusync: {
+      options: {
+        applicationKey: '<%= mozuconfig.workingApplicationKey %>',
+        context: '<%= mozuconfig %>'
+      },
+      upload: {
+        options: {
+          'action': 'upload',
+          'noclobber': true
+        },
+        src: [
+          'admin/**/*',
+          'compiled/**/*',
+          'labels/**/*',
+          'resources/**/*',
+          'packageconfig.xml',
+          'scripts/**/*',
+          'stylesheets/**/*',
+          'templates/**/*',
+          'theme.json',
+          '*thumb.png',
+          '*thumb.jpg',
+          'theme-ui.json',
+          '!*.orig',
+          '!.inherited'
+        ]
+      },
+      del: {
+        options: {
+          action: 'delete'
+        },
+        src: '<%= mozusync.upload.src %>',
+        remove: []
+      },
+      wipe: {
+        options: {
+          action: 'deleteAll'
+        },
+        src: '<%= mozusync.upload.src %>'
+      }
+    }
+  });
 
-    ['grunt-bower-task',
-      'grunt-contrib-jshint',
-      'grunt-contrib-watch',
-      'grunt-contrib-compress',
-      'grunt-mozu-appdev-sync',
-      'mozu-theme-helpers'
-    ].forEach(grunt.loadNpmTasks);
+  grunt.registerTask('build', [
+    'jshint:develop',
+    'copy',
+    'mozutheme:quickcompile'
+  ]);
 
-    grunt.registerTask('build', [
-      'jshint:develop',
-      'bower',
-      'mozutheme:quickcompile'
+  grunt.registerTask('build-production', [
+    'jshint:production',
+    'mozutheme:fullcompile',
+    'compress'
+  ]);
+
+  grunt.registerTask('reset', [
+    'mozusync:wipe',
+    'mozusync:upload'
+  ]);
+
+  grunt.registerTask('default', [
+    'build',
+    'mozusync:upload'
     ]);
-
-     grunt.registerTask('upload', [
-      'jshint',
-      'bower',
-      'mozutheme:quickcompile',
-      'mozusync:upload'
-    ]); // no bower necessary for now
-
-    grunt.registerTask('build-production', [
-      'jshint:production',
-      'mozutheme:fullcompile',
-      'compress'
-    ]);
-
-    grunt.registerTask('default', ['build']);
-
-    grunt.registerTask('setver', function () {
-        var b = grunt.file.readJSON('./bower.json');
-        b.version = pkg.version;
-        grunt.file.write('./bower.json', JSON.stringify(b, null, 4));
-    });
 };

@@ -3,140 +3,18 @@
 {% block title-tag-content %}{% firstof pageContext.metaTitle model.name %}  - {% parent %}{% endblock title-tag-content %}
 
 
-{% block body-tag-classes %} mz-parent-category {% endblock body-tag-classes %}
+{% block body-tag-classes %} mz-category {% endblock body-tag-classes %}
 
 {% block body-content %}
 
-    <div data-mz-category="{{model.categoryId}}" class="mz-l-container">
-        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-        	<div class="row">
-                <div class="category-hero-image-video-slider-container">
-                    {% if pageContext.isEditMode %}*** Drop image-video slider widget ***{% endif %}
-                    {% dropzone "category-hero-image-video-slider" scope="page" %}
-                </div>
-            </div>
-        </div>
-        {% for images in model.content.categoryImages %}
-            {% if images.alttext == "cat_page_header_img" %}
-                <div class="row banner-container">
-                    <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-                        <div class="banner lazyload"
-                            data-bgset="{{ images.imageUrl }}?max=2000"
-                            data-sizes="auto"
-                            data-absurl="false" 
-                            data-optimumx="2" 
-                            data-quality="75"
-                        >
-                            <span class="mz-pagetitle">{{ model.name }}</span>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-        	<div class="row">
-                <div class="sub-category-container">
-                    {% for subCatModel in model.childrenCategories %}
-                        <div class="col-xs-24 col-sm-12 col-md-8 col-lg-8">
-                            <div class="row">
-                                <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-                                    <div class="categoryGrid row">
-                                        <a href={{subCatModel.url}}>
-                                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                                            </div>
-                                            <div class="col-xs-5 col-sm-6 col-md-6 col-lg-5 imgHeight">
-                                                <div class="subCatImage">
-                                                    {% for images in subCatModel.content.categoryImages %}
-                                                        {% if images.length == 0 %}
-                                                            <img src="http://placehold.it/90x105&text=No+Image" alt="{{ subCatModel.content.name }}" />
-                                                        {% else %}
-                                                        {% if images.alttext == "parent_cat_thumb_img" %}
-                                                            <img class="lazyload" data-main-image-src="{{images.imageUrl}}" data-srcset="{{ images.imageUrl }}?max=320 320w 160h,
-                                                                {{ images.imageUrl }}?max=480 480w 240h,
-                                                                {{ images.imageUrl }}?max=675 675w 337h,
-                                                                {{ images.imageUrl }}?max=800 1024w 472h,
-                                                                {{ images.imageUrl }}?max=800 1920w 472h, 
-                                                                {{ images.imageUrl }}?max=2600 2600w 472h,
-                                                                {{ images.imageUrl }}?max=5500 5500w 472h" 
-                                                            data-parent-fit="contain"
-                                                            data-sizes="auto"
-                                                            data-absurl="false" 
-                                                            data-optimumx="2" 
-                                                            data-quality="75"
-                                                            data-widths="[160, 320, 375, 414, 480, 640, 800, 960, 1280, 1349, 1536, 1920, 2560, 5500]"
-                                                            {% if images.altText %}alt="{{ images.altText }}"{% endif %}
-                                                        />
-                                                        {% endif %} 
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                                            </div>
-                                            <div class="col-xs-14 col-sm-13 col-md-13 col-lg-13 imgHeight">
-                                                <div class="subCatName">
-                                                    <span>
-                                                        {{ subCatModel.name }}
-                                                    </span>
-                                                    <div class="subCatDesc">
-                                                        <span>
-                                                            {{ subCatModel.content.description }}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 imgHeight">
-                                                <div class="subCatArrow">
-                                                    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                                                    <svg width="23px" height="58px" viewBox="0 0 23 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                                                        <!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
-                                                        <title>chevron right for subcategory tiles</title>
-                                                        <desc>Created with Sketch Beta.</desc>
-                                                        <defs></defs>
-                                                        <g id="Category" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                                            <g id="Category:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-436.000000, -315.000000)" stroke-linecap="square" stroke-width="2" stroke="#D7D7D7">
-                                                                <g id="Subs:-Photo-next-to-names" sketch:type="MSLayerGroup" transform="translate(0.000000, 280.000000)">
-                                                                    <g id="Tents" sketch:type="MSShapeGroup">
-                                                                        <path d="M438,37 L457.5,63.8300839 L438.133573,91.2595215" id="chevron-right-for-subcategory-tiles"></path>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-        	<div class="row">
-                <div class="new-arrivals-container">
-                    {% if pageContext.isEditMode %}*** Drop here new arrivals widget ***{% endif %}
-                    {% dropzone "new-arrivals" scope="page" %}
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-        	<div class="row">
-                <div class="popular-products-container">
-                    {% if pageContext.isEditMode %}*** Drop here popular products widget ***{% endif %}
-                    {% dropzone "popular-products" scope="page" %}
-                </div>
-            </div>
-        </div>
-        {# todo list of child cats #}
-        {# include_products "modules/product/faceted-products" with includeFacets=themeSettings.showCategoryFacets and pageWithUrl=true and pageSize=themeSettings.defaultPageSize as_parameter #}
-</div>
+{% require_script "pages/category" %}
 
-<!--color code and name from theme settings-->
-{% include "modules/color-name-code" %}
-<!--color code and name from theme settings-->
+<div data-mz-category="{{model.categoryId}}" class="mz-l-container">
+    <h1 class="mz-pagetitle">parent cat{{ model.name }}</h1>
+	{% dropzone "parent-category-page-top" scope="page" %}
+	{# todo list of child cats #}
+    {% include_products "modules/product/faceted-products" with includeFacets=themeSettings.showCategoryFacets and pageWithUrl=true and pageSize=themeSettings.defaultPageSize as_parameter %}
+	{% dropzone "parent-category-page-bottom" scope="page" %}
+</div>
 
 {% endblock body-content %}

@@ -1,76 +1,31 @@
-<nav class="mz-utilitynav">
+﻿<nav class="mz-utilitynav">
     <ul class="mz-utilitynav-list">
+        <li class="mz-utilitynav-item">
+            <a href="/user/order-status?returnUrl=/myaccount" data-mz-action="anon-order" class="mz-utilitynav-link">{{ labels.orderStatus }}</a>
+        </li>
+        {% comment %}
+        The below require_script tag does not render anything in the place it's actually inserted; it instead adds the script to a list of scripts  which are then included at the end of the page by RequireJS.
+        Use require_script to load AMD modules that are wrapped in define() or require() function calls.
+        {% endcomment %}
+        {% require_script "modules/login-links" %}
         {% if not user.isAnonymous %}
         <li class="mz-utilitynav-item">
-            <div class="firstandlastname">
-                <a class="show_hide user-initial" id="user-initials"></a>
-                <div class="slidingDiv hidden">
-                    <div class="firstlastname show_hide">
-                        <a class="mz-user-initial" id="user-initials"></a>
-                    </div>
-                    <div class="linkstyle">
-                        <a href="/myaccount" class="show_hide">{{ labels.yourAccount }}</a>
-                    </div>
-                    <div class="links">
-                        <a href="/logout" class="show_hide">{{ labels.signOut }}</a>
-                    </div>
-                </div> 
-            </div>
+            <div id="mz-logged-in-notice">
+            Welcome, <a href="/myaccount" class="mz-utilitynav-link">{{user.firstName|default(user.emailAddress)}}</a>! (<a href="/logout" data-mz-action="logout" class="mz-utilitynav-link">{{ labels.logOut }}</a>)
+            </div> 
         </li>
-        <li class="mz-utilitynav-item wishlist-icon" id="myWishlist">
-            <span class="blank-heart">
-                <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                <svg width="31px" height="19px" viewBox="0 0 21 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                    <!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
-                    <title>Heart Icon</title>
-                    <desc>Created with Sketch Beta.</desc>
-                    <defs></defs>
-                    <g id="Product-Grid" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                        <g id="Product-Grid:-Desktop:-Tile-View" sketch:type="MSArtboardGroup" transform="translate(-483.000000, -329.000000)" fill="#4A4A4A">
-                            <g id="Product-Grid:-Tile-View:-Tablet" sketch:type="MSLayerGroup" transform="translate(256.000000, 321.000000)">
-                                <g id="Hearts" transform="translate(227.000000, 8.000000)" sketch:type="MSShapeGroup">
-                                    <g id="Row-1">
-                                        <path d="M15.3243243,3.826536e-15 C13.919027,3.826536e-15 12.5682162,0.531485275 11.5193514,1.49750737 C11.1209189,1.86394945 10.7798108,2.28059697 10.5,2.74052505 C10.2201892,2.28059697 9.87908108,1.86394945 9.48064865,1.4969303 C8.43178378,0.531485275 7.08097297,4.33908079e-15 5.67567568,4.33908079e-15 C2.54610811,4.33908079e-15 0,2.58875456 0,5.77074132 C0,7.91861124 0.657243243,9.61405504 2.19705405,11.4404947 C4.43440541,14.0950357 10.097027,18.1460961 10.3371081,18.3174871 C10.3859189,18.3526886 10.4432432,18.3700008 10.5,18.3700008 C10.5567568,18.3700008 10.6140811,18.3526886 10.6628919,18.3174871 C10.902973,18.1460961 16.5655946,14.0950357 18.8035135,11.4404947 C20.3427568,9.61405504 21,7.91861124 21,5.77074132 C21,2.58875456 18.4538919,1.77635684e-15 15.3243243,1.77635684e-15 L15.3243243,3.826536e-15 Z M18.3727297,11.0653965 C16.3890811,13.4175506 11.4597568,17.0329201 10.5,17.7277173 C9.54024324,17.0329201 4.61091892,13.4175506 2.62783784,11.0653965 C1.18337838,9.35206338 0.567567568,7.76857196 0.567567568,5.77074132 C0.567567568,2.9067224 2.85940541,0.577074132 5.67567568,0.577074132 C6.93964865,0.577074132 8.15594595,1.05546859 9.09924324,1.92454223 C9.57486486,2.36311857 9.96081081,2.88017699 10.2457297,3.46186772 C10.3422162,3.65807292 10.6577838,3.65807292 10.7542703,3.46186772 C11.0391892,2.88017699 11.4251351,2.36311857 11.9007568,1.9251193 C12.8440541,1.05546859 14.0603514,0.577074132 15.3243243,0.577074132 C18.1405946,0.577074132 20.4324324,2.9067224 20.4324324,5.77074132 C20.4324324,7.76857196 19.8166216,9.35206338 18.3727297,11.0653965 L18.3727297,11.0653965 Z" id="Heart-Icon"></path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-            </span>
-        <span class="wishlistcount">
-            <span class="mz-wishlistmonitor">{{ model.commerceSummary.wishlistCount }}</span> 
-        </span>
-        </a>
-        </li> 
         {%else%}
         <li class="mz-utilitynav-item">
-            <a href="/user/login" data-placement="bottom" class="mz-utilitynav-link sign-in-container">{{ labels.signIn }}</a>  
+            <a href="/user/login" data-mz-action="login" data-placement="bottom" class="mz-utilitynav-link">{{ labels.logIn }}</a>
         </li>
-        {% require_script "modules/login-links" %} 
+        <li class="mz-utilitynav-item">
+            <a href="/user/signup" data-mz-action="signup" data-placement="bottom" class="mz-utilitynav-link">{{ labels.signUp }}</a>
+        </li>
         {% endif %}
-        <li class="mz-utilitynav-item" id="myBag">
-            <a class="mz-utilitynav-link" href="javascript:;" >
-                <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-                <svg {% if pageContext.isDesktop %} width="22px" height="16px" {% endif %} {% if pageContext.isTablet %} width="22px" height="16px" {% endif %} or {% if pageContext.isMobile %} width="19.1px" height="13.9px" {% endif %}  viewBox="0 0 23 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                    <!-- Generator: Sketch Beta 3.3.2 (12041) - http://www.bohemiancoding.com/sketch -->
-                    <title>cart icon</title>
-                    <desc>Created with Sketch Beta.</desc>
-                    <defs></defs>
-                    <g id="Header:-Default" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                        <g id="Header:-Desktop-HD" sketch:type="MSArtboardGroup" transform="translate(-1390.000000, -23.000000)" fill="#4A4A4A">
-                            <g sketch:type="MSLayerGroup" id="Cart-Icon">
-                                <g transform="translate(1390.500000, 8.500000)" sketch:type="MSShapeGroup">
-                                    <path d="M22,17.9090909 L18.4516125,26.6363636 L4.96774189,26.6363636 L2.83870968,17.1818182 L6.39822876e-10,17.1818182 C4.02780463e-09,17.1317869 -1.86483421e-09,15 6.39822876e-10,15 L4.96774194,15 C4.96774194,15 6.93079893,24.1422041 6.93079893,24.1422041 L16.671945,24.1422041 L19.1612903,17.9090909 L22,17.9090909 Z M5.67743594,29.2858367 C5.67743594,28.3396186 6.47197899,27.5716735 7.45096954,27.5716735 C8.42996009,27.5716735 9.22450314,28.3396186 9.22450314,29.2858367 C9.22450314,30.2320549 8.42996009,31 7.45096954,31 C6.47197899,31 5.67743594,30.2320549 5.67743594,29.2858367 L5.67743594,29.2858367 Z M14.1936644,29.2858367 C14.1936644,28.3396186 14.9882075,27.5716735 15.967198,27.5716735 C16.9461886,27.5716735 17.7407316,28.3396186 17.7407316,29.2858367 C17.7407316,30.2320549 16.9461886,31 15.967198,31 C14.9882075,31 14.1936644,30.2320549 14.1936644,29.2858367 L14.1936644,29.2858367 Z" id="cart-icon"></path>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-                <span class="mybag-icon">
-                    <span class="mz-cartmonitor" data-mz-role="cartmonitor">{{ model.count }}</span>
-                </span> 
-                {% require_script "modules/cart-monitor" %}
+        <li class="mz-utilitynav-item">
+            <a class="mz-utilitynav-link mz-utilitynav-link-cart" href="{% make_url "cart" %}">
+            {{ labels.viewCart }} (<span class="mz-cartmonitor" data-mz-role="cartmonitor">0</span>)
+            {% require_script "modules/cart-monitor" %}
             </a>
         </li>
     </ul>

@@ -14,21 +14,6 @@
                     "xtype": "mz-input-checkbox",
                     "name": "enablePartialCaching",
                     "fieldLabel": "Enable partial caching using the Hypr {% partial_cache %} tag"
-                },
-                {
-                    "xtype": "checkbox",
-                    "name": "useDebugScripts",
-                    "fieldLabel": "Debug Mode (use unminified JavaScript)"
-                },
-                {
-                    "xtype": "checkbox",
-                    "name": "facetPriceSlider",
-                    "fieldLabel": "Price Slider (show price slider in facet section)"
-                },
-                {
-                    "xtype": "mz-input-text",
-                    "name": "homePageCategoryWidgetAltText",
-                    "fieldLabel": "Home Page Category Widget Image Alt Text"
                 }
             ]
         },
@@ -63,6 +48,11 @@
                     "xtype": "mz-input-checkbox",
                     "name": "listProductShortDesc",
                     "fieldLabel": "Show product short description in product lists"
+                },
+                {
+                    "xtype": "mz-input-checkbox",
+                    "name": "listVolumePricing",
+                    "fieldLabel": "Show volume pricing bands in product lists"
                 }
             ]
         },
@@ -120,7 +110,7 @@
                     "name": "isCvvSuppressed",
                     "fieldLabel": "CVV Suppressed"
                 }
-                    ]
+            ]
         },
         {
             "xtype": "panel",
@@ -157,8 +147,10 @@
                     "forceSelection": true,
                     "store": [
                         "Source Sans Pro",
-                        "Montserrat:400,700:latin",
-                        "Roboto:100,300,400,500,700"
+                        "Open Sans",
+                        "Raleway",
+                        "Lora",
+                        "Rokkitt"
                     ]
                 },
                 {
@@ -220,7 +212,7 @@
                     "storeFrom": "pageSizeOptions"
                 },
                 {
-                   "fieldLabel": "Default Sort Order, you must input both a field to sort on and the sort direction i.e(price desc) ",
+                    "fieldLabel": "Default Sort Order",
                     "xtype": "mz-input-text",
                     "name": "defaultSort",
                     "allowBlank": true      ,

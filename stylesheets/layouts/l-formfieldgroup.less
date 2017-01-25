@@ -32,12 +32,10 @@
     input[type="tel"],
     input[type="email"],
     select {
+        width: 220px;
         box-sizing: border-box;
         &.is-invalid {
-            //background-color: @errorBackground;
-            border-bottom-color: @mysticError !important;
-            border-bottom-width: 2px !important;
-            padding-bottom: 0 !important;
+            background-color: @errorBackground;
         }
         &.mz-l-formfieldgroup-halfsize {
             width: 100px;
@@ -48,5 +46,3 @@
         margin-bottom: @gutter/2;
     }
 }
-
-

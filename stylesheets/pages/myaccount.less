@@ -1,434 +1,13 @@
-.mz-myaccount {
-    .mz-product__title-container::after {
-        z-index: 1;
-        position: absolute;
-        top: 43%;
-        left: 0;
-        width: 100%;
-        height: 0;
-        border-top: 1px solid lightgray;
-        content: '';
-    }
-    .mz-l-wrapper {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 90%;
-        width: 100%;
-    }
-    .border-top {
-        border-top: 1px solid #000;
-    }
-    
+﻿.mz-myaccount {
     .mz-myaccount-panels {
-        float: right;
-        position: relative;
-        width: 80%;
-        @media (max-width: 480px) {width: 100%;}
+        margin-left: 200px;
     }
-    .mz-scrollnav.affix {
-        top: 7rem;
-    }
+
     .mz-myaccount-nav {
-        max-width: 20%;
-        width: 100%;
-        float: left;
+        width: 200px;
         box-sizing: border-box;
     }
-    
-    .mz-l-stack-section {
-        position: relative;
-        display: block;
-        text-align: left;
-        padding: 0 0 1rem 0;
-    }
-    button {
-        background-clip: padding-box;
-        background-color: @masala;
-        font-size: 1.071rem;
-        padding: 5px 6.25px;
-        min-width: 40px;
-        margin: 0 2px;
-    }
-    
-    .mz-product__title-container {
-        padding-top: 0;
-        padding-bottom: 0;
-        position: relative;
-        padding: 20px 0;
-        .mz-title-block {
-            color: #666;
-            margin: 0;
-            padding-bottom: 1.5em;
-            padding-top: 0.6em;
-            text-align: center;
-            span {
-                z-index: 111;
-                position: relative;
-            }
-        }
-        .bg-white {
-            color: @white;
-            .roboto-light;
-            margin: 10px 0;
-            display:-moz-box;
-            -moz-box-pack:center;
-            -moz-box-align:center;
-        
-            /* Safari and Chrome */
-            display:-webkit-box;
-            -webkit-box-pack:center;
-            -webkit-box-align:center;
-        
-            /* W3C */
-            display:box;
-            box-pack:center;
-            box-align:center;
-            span {
-                background-color: @masala;
-                padding: 0 1rem;
-            }
-        }
-    }
-    /*.mz-l-sidebar {
-        float: left;
-        width: 15%;
-        position: fixed;
-        top: 15.5em;
-        text-align: initial;
-        font-size: 1rem;
-        .mz-scrollnav.affix {
-            position: fixed;
-            top: 15.55em;
-        }
-    }*/
-    
-    .mz-myaccount-panels {
-        input {
-            visibility: visible;
-        }
-        .mz-accountsettings {
-            .mz-accountsettings-section {
-                margin: 1% 0;
-                padding: 0;
-                min-height: auto;
-                &.is-editing {
-                    width: 40%;
-                }
-            }
-            button[data-mz-action="startEdit"] {
-                position: absolute;
-                right: 0;
-                top: 0;
-            }
-            .mz-accountsettings-name {
-                text-transform: capitalize;
-                padding: 0;
-                position: relative;
-                .mz-accountsettings-displayname {
-                    vertical-align: middle;
-                }
-                .mz-accountsettings-nameedit {
-                    margin: 0;
-                }
-                input {
-                    height: auto;
-                    width: 100%;
-                    font-size: 1rem;
-                }
-            }
-            .mz-accountsettings-email {
-                
-            }
-            .mz-accountsettings-password {
-                padding: 0;
-            }
-            .mz-accountsettings-acceptsmarketing {
-                
-            }
-        }
-        .mz-passwordsection {
-            width: 100%;
-            div.mz-accountsettings-password {
-                width: 40%;
-                display: block;
-            }
-        }
-        .mz-orderhistory-section {
-            .mz-l-paginatedlist-list .mz-orderlist {
-                padding: 0;
-                margin: 0;
-                .mz-orderlisting {
-                    position: relative;
-                    width: 100%;
-                    display: inline-block;
-                    .box-shadow(0px 4px 11px 1px rgba(0,0,0,0.15));
-                    border: 1px solid #ccc;
-                    margin: 2% 0;
-                    background-color: #EEE;
-                    .mz-orderlisting-detail {
-                        box-sizing: border-box;
-                        width: 20%;
-                        float: left;
-                        padding: 12.5px;
-                        @media (max-width: 480px) {
-                            text-align: center;
-                        }
-                        .mz-propertylist {
-                            display: inline-block;
-                            width: 100%;
-                            margin: 0;
-                        }
-                    }
-                    .mz-orderlisting-date {
-                        margin: 6.25px 0;
-                        font-size: 1rem;
-                    }
-                    .mz-propertylist dt {
-                        float: left;
-                        width: 100%;
-                        font-weight: bold;
-                        font-size: 1.143rem;
-                        color: #000;
-                    }
-                    .mz-propertylist dd {
-                        float: right;
-                        clear: right;
-                        font-size: 1.071rem;
-                        margin-left: 6.5px; 
-                        @media (max-width: 480px) {
-                            float: none;
-                        }
-                    }
-                    .mz-orderlisting-items { 
-                        width: 78%;
-                        height: auto;
-                        min-height: 14.5rem;
-                        float: right;
-                        position: relative;
-                        padding: 12.5px;
-                        background-color: @body-bg;
-                        .mz-itemlisting {
-                            min-height: 105px;
-                            display: -webkit-box;
-                            display: -webkit-flex;
-                            display: -moz-box;
-                            display: -ms-flexbox;
-                            display: flex;
-                            -webkit-flex-align: center;
-                            -ms-flex-align: center;
-                            -webkit-align-items: center;
-                            align-items: center;
-                            .mz-itemlisting-details {
-                                float: left;
-                                margin: 0 4% 0 0;
-                                max-width: 250px;
-                                width: auto;
-                            }
-                            .mz-itemlisting-thumb {
-                                float: left;
-                                margin: 0 2%;
-                                width: 15%;
-                                .mz-itemlisting-thumb-img {
-                                    max-width: 100%;
-                                }
-                                @media (max-width: 480px) {
-                                    width: 50%
-                                }
-                            }
-                            .mz-itemlisting-title {
-                                font-weight: bold;
-                                color: #666;
-                                text-decoration: none;
-                            }
-                            .mz-itemlisting-description {
-                                margin: 4px 0px;
-                                font-size: 1.071rem;
-                            }
-                            .mz-itemlisting-actions {
-                                float: right;
-                                text-align: right;
-                                width: 100%;
-                                @media (max-width: 480px) {
-                                    text-align: center;
-                                }
-                            }
-                            .mz-itemlisting-actions a {
-                                display: block;
-                                margin: 4px 0;
-                                font-size: 1.071rem;
-                                color: #666;
-                                text-decoration: none;
-                            }
-                            .mz-itemlisting-prompt.is-warning {
-                                width: 100%;
-                            }
-                        }
-                        .mz-itemlisting-rmaitem .mz-itemlisting-rmaitem-details {
-                            margin-top: 25px;
-                            clear: both;
-                        }
-                    }
-                }
-            }
-        }
-        .mz-accountpaymentmethods {
-            .mz-paymentmethod-actions {
-                position: absolute;
-                right: 0;
-                text-align: right;
-                a {
-                    cursor: pointer;
-                    padding: 0 @gutter/4;
-                    border-right: 1px solid #eee;
-                    &:last-child {
-                        border-right-width: 0;
-                        padding-right: 0;
-                    }
-                }
-            }
-            .mz-accountpaymentmethods-cardedit {
-                border: 0;
-            }
-            .mz-accountpaymentmethods-list {
-                padding: 0;
-                .mz-accountpaymentmethods-form {
-                    width: 100%;
-                    float: none;
-                    .mz-creditcardform {
-                        @media (min-width: 1025px) {width: 50%;}
-                        @media (max-width: 1024px) {width: 100%;}
-                        input[type="text"], input[type="password"], select {
-                            width: 100%;
-                        }
-                        .mz-payment-credit-card-number-row {
-                            width: 100%;
-                        }
-                        .mz-payment-credit-card-expiration-row {
-                            width: 100%;
-                        }
-                        .mz-payment-credit-card-name-row {
-                            width: 100%;
-                            margin: 2% 0;
-                        }
-                        .mz-creditcard-billingaddresses {
-                            width: 100%;
-                        }
-                        label { text-align: left; }
-                        label.mz-contactselector-contact {
-                            text-align: left;
-                            max-width: 100%;
-                            width: auto;
-                            span {
-                                float: left;
-                                &:last-child {
-                                    margin-left: 1rem;
-                                    div {
-                                        margin-top: -2rem;
-                                    }
-                                }
-                            }
-                            &.mz-contactselector-new {
-                                span:last-child {
-                                    margin-left: 0;
-                                    div {
-                                        margin-top: 0;
-                                    }
-                                }
-                            }
-                        }
-                        div.mz-contactselector-contact.mz-contactselector-new {
-                            float: left;
-                            width: 100%;
-                            .mz-contactselector-summarywrapper {
-                                margin-left: 1rem;
-                                width: 90%;
-                                float: right;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .mz-accountaddressbook {
-            .mz-accountaddressbook-form {
-                float: none;
-            }
-            .mz-addressbookform {
-                @media (min-width: 1025px) {width: 50%;}
-                @media (max-width: 1024px) {width: 100%;}
-                input[type="text"], input[type="password"], select {
-                    width: 100%;
-                }
-            }
-            .mz-accountaddressbook-list {
-                padding: 0;
-                .mz-accountaddressbook-contact {
-                    width: 100%;
-                    .mz-accountaddressbook-actions {
-                        margin: 0;
-                        a {
-                            cursor: pointer;
-                        }
-                    }
-                }
-            }
-        }
-        .mz-accountstorecredit {
-            
-            .mz-accountstorecredit-table {
-                .mz-accountstorecredit-totallabel, .mz-accountstorecredit-totalamount {
-                    font-size: 1rem;
-                }
-                th, td {
-                    padding: 4px;
-                }
-            }
-        }
-        .mz-accountreturnhistory {
-            .mz-itemlisting-actions {
-                display: none;
-            }
-        }
-    }
-    
-    .mz-l-paginatedlist {
-        overflow: auto;
-        position: relative;
-        
-       .mz-pagingcontrols {
-            text-align: right;
-            margin: 0;
-            padding: 0;
-            color: @white;
-            font-size: 1.12em;
-            position: relative;
-            right: 0;
-            bottom: 0;
-            .mz-pagingcontrols-pageresult-label {
-                display: block;
-                cursor: pointer;
-                margin: 0 15px;
-            }
-            .mz-pagingcontrols-pagesize-label {
-                display: block;
-                margin: -3px 15px;
-                color: @masala
-            }
-        }
-        .mz-l-paginatedlist .mz-l-paginatedlist-list {
-            clear: both;
-        }
-        
-        .mz-pagenumbers {
-            float: right;
-            text-align: right;
-            clear: both;
-            margin: 0;
-            color: @white;
-            font-size: 1.12em;
-        }
-    }
-    
+
     .mz-contacttype-isprimary {
         font-size: @fontSizeSmall;
         font-style: italic;
@@ -437,69 +16,61 @@
         text-indent: @gutter;
     }
 
-/*================================wish list start==================================*/
-    .mz-accountwishlist {
-        .mz-accountwishlist-list .mz-itemlisting {
-            min-height: 105px;
-            width: 100%;
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-flex-align: center;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            .box-shadow(0px 2px 2px 0px rgba(0,0,0,0.15));
-            margin: 1% 0;
-            .mz-itemlisting-thumb {
+    @media (max-width: 600px) {
+        .mz-myaccount-panels {
+            margin-left: 0;
+        }
+
+        .mz-myaccount-nav {
+            float: none;
+            width: auto;
+            margin-bottom: @gutter;
+            .clearfix();
+
+            .mz-scrollnav-item {
                 float: left;
-                width: 18%;
-                margin: 0 2%;
-                .mz-itemlisting-thumb-img {
-                    float: left;
-                    max-width: 100%;
-                }
-            }
-            .mz-itemlisting-details {
-            float: left;
-            margin-right: 0;
-            min-width: 120px;
-            width: 56%;
-            margin: 0 4% 0 0;
-                .mz-itemlisting-title {
-                    font-size: 1.071rem;
-                    font-weight: bold;
-                    color: @masala;
-                    text-decoration: none;
-                }
-                .mz-itemlisting-description {
-                    margin: 4px 0px;
-                    font-size: 1rem;
-                }
-            }
-            .mz-itemlisting-actions {
-                float: right;
-                text-align: center;
-                width: 18%;
-                a {
-                    display: block;
-                }
+                margin: @gutter/4;
             }
         }
     }
-    /*====================================wish list end==================================*/
-}  
 
-.mz-myaccount.iphone-screen {
-    .mz-myaccount-panels {
-        margin: 0 3%;
+    .mz-l-stack-section {
+        min-height: inherit;
     }
-    .mz-accountaddressbook-contacttype {
-        display: block;
+
+    #account-settings {
+        clear: none;
+
+        .mz-link-edit-accountsettings {
+            float: none;
+            line-height: inherit;
+        }
+
+        .mz-accountsettings-label {
+            display: block;
+            color: #999;
+            font-size: 80%;
+        }
     }
+
+    .mz-orderlisting {
+
+        .mz-orderlisting-detail {
+            overflow: auto;
+        }
+
+        .mz-orderlisting-attribute {
+            margin-bottom: @gutter/2;
+
+            span {
+                font-weight: bold;
+            }
+        }
+        
+    }
+
+    #mz-printReturnLabelView {
+        display: none;
+    }
+
 }
-
-
-

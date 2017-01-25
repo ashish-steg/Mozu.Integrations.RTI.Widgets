@@ -1,957 +1,687 @@
 {
-  "about": {
-    "name": "Mystic-Version-4.0.0",
-    "defaultLanguage": "en-US",
-    "extends": null,
-    "isDesktop": true,
-    "isTablet": true,
-    "isMobile": true,
-    "version": "0.1.0",
-    "allowProduction": true
-  },
-  "editors": [
-      {
+    "about": {
+        "author": "Mozu",
+        "defaultLanguage": "en-US",
+        "extends": null,
+        "isDesktop": true,
+        "isMobile": false,
+        "isTablet": false,
+        "name": "Mozu.CoreTheme",
+        "allowProduction": true
+    },
+    "editors": [
+
+        {
+            "id": "rti-recommended-products",
+            "path": "rti-editor.js"
+        },
+        {
             "id": "layout",
             "path": "layout.js"
         },
-      {
-      "documentTypes": [
-        "web_page@mozu"
-      ],
-      "id": "web_page@mozu",
-      "path": "web_page.js",
-      "priority": 0.2
-    },
-     {
-        "id": "amp",
-        "path": "amp.js"
-    },
-    {
-      "id": "about-us@mozu",
-      "path": "about-us.js"
-    },
-    {
-      "id": "email-orderconfirmation",
-      "path": "email-orderconfirmation.js"
-    },
-    {
-      "id": "back-office@mozu",
-      "path": "back-office.js"
-    },
-    {
-      "id": "email@mozu",
-      "path": "email.js",
-      "documentLists": [
-        "emailTemplateContent@mozu"
-      ],
-      "priority": 0.2
-    },
-    {
-      "id": "image",
-      "path": "image.js"
-    },
-    {
-      "id": "horizontalrule",
-      "path": "horizontalRule.js"
-    },
-    {
-      "id": "pageTemplateContent@mozu",
-      "path": "pageTemplateContent.js",
-      "documentTypes": [
-        "pageTemplateContent@mozu"
-      ],
-      "priority": 0.2
-    },
-    {
-      "id": "productContent@mozu",
-      "path": "productContent.js",
-      "documentTypes": [
-        "productContent@mozu"
-      ],
-      "priority": 0.2
-    },
-    {
-      "id": "categoryContent@mozu",
-      "path": "categoryContent.js",
-      "documentTypes": [
-        "categoryContent@mozu"
-      ],
-      "priority": 0.2
-    },
-    {
-      "id": "socialContentEditor",
-      "path": "socialContentEditor.js"
-    }
-  ],
-  "emailTemplates": [
-    {
-      "id": "order.shipped",
-      "properties": { },
-      "template": "email/order-shipped",
-      "title": "Your Order Has Shipped"
-    },
-    {
-      "id": "order.changed",
-      "customEditor": "email-orderconfirmation",
-      "properties": { },
-      "template": "email/order-confirmation",
-      "title": "Order Confirmation"
-    },
-    {
-      "id": "refund.created",
-      "properties": { },
-      "template": "email/order-refund-issued",
-      "title": "Refund Issued"
-    },
-    {
-      "id": "return.created",
-      "properties": { },
-      "template": "email/product-return-changed",
-      "title": "Return Created"
-    },
-    {
-      "id": "return.authorized",
-      "properties": { },
-      "template": "email/product-return-authorized",
-      "title": "Return Authorized"
-    },
-    {
-      "id": "return.rejected",
-      "properties": { },
-      "template": "email/product-return-rejected",
-      "title": "Return Request Rejected"
-    },
-    {
-      "id": "return.closed",
-      "properties": { },
-      "template": "email/product-return-received",
-      "title": "Return Item Received"
-    },
-    {
-      "id": "return.changed",
-      "properties": { },
-      "template": "email/product-return-changed",
-      "title": "Return Has Been Updated"
-    },
-    {
-      "id": "user.created",
-      "properties": { },
-      "template": "email/new-user",
-      "title": "Welcome"
-    },
-    {
-      "id": "user.passwordreset",
-      "properties": { },
-      "template": "email/password-reset",
-      "title": "Password Reset"
-    },
-    {
-      "id": "product.instock",
-      "properties": { },
-      "template": "email/product-instock",
-      "title": "Back in Stock"
-    },
-    {
-      "id": "giftcard.created",
-      "properties": { },
-      "template": "email/giftcard-created",
-      "title": "Gift Card Created"
-    }
-  ],
-  "backOfficeTemplates": [
-    {
-      "id": "order-details",
-      "title": "Order Details",
-      "template": "back-office/order-details",
-      "customEditor": "back-office@mozu"
-    },
-    {
-      "id": "packing-slip",
-      "title": "Packing Slip",
-      "template": "back-office/packing-slip",
-      "customEditor": "back-office@mozu"
-    }
-  ],
-  "pageTypes": [
-    {
-      "documentType": "web_page",
-      "entityType": "webpage",
-      "id": "about-us",
-      "template": "about-us",
-      "customEditor": "about-us",
-      "title": "About Us",
-      "userCreatable": true,
-      "zones": [
         {
-          "id": "body",
-          "rows": [
-            {
-              "columns": [
-                {
-                  "rows": null,
-                  "span": 12,
-                  "widgets": [
-                    {
-                      "config": {
-                        "body": "<h2>Insert Title</h2><p>Insert Content</p>"
-                      },
-                      "definitionId": "content",
-                      "isRichText": true
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+            "documentTypes": [
+                "web_page@mozu"
+            ],
+            "id": "web_page@mozu",
+            "path": "web_page.js",
+            "priority": 0.2
+        },
+        {
+            "id": "about-us@mozu",
+            "path": "about-us.js"
+        },
+        {
+            "id": "email-orderconfirmation",
+            "path": "email-orderconfirmation.js"
+        },
+        {
+            "id": "back-office@mozu",
+            "path": "back-office.js"
+        },
+        {
+            "id": "email@mozu",
+            "path": "email.js",
+            "documentLists": [
+                "emailTemplateContent@mozu"
+            ],
+            "priority": 0.2
+        },
+        {
+            "id": "image",
+            "path": "image.js"
+        },
+        {
+            "id": "horizontalrule",
+            "path": "horizontalRule.js"
+        },
+        {
+            "id": "pageTemplateContent@mozu",
+            "path": "pageTemplateContent.js",
+            "documentTypes": [
+                "pageTemplateContent@mozu"
+            ],
+            "priority": 0.2
+        },
+        {
+            "id": "productContent@mozu",
+            "path": "productContent.js",
+            "documentTypes": [
+                "productContent@mozu"
+            ],
+            "priority": 0.2
+        },
+        {
+            "id": "categoryContent@mozu",
+            "path": "categoryContent.js",
+            "documentTypes": [
+                "categoryContent@mozu"
+            ],
+            "priority": 0.2
         }
-      ]
-    },
-    {
-      "entityType": "siteTemplate",
-      "id": "site_page",
-      "template": "page",
-      "title": "Default Site Template"
-    },
-    {
-      "documentType": "web_page",
-      "entityType": "webpage",
-      "id": "blank-page",
-      "template": "blank-page",
-      "title": "Blank Page",
-      "userCreatable": true
-    },
-    {
-     "documentType": "web_page",
-     "entityType": "webpage",
-     "id": "blank-splash-page",
-     "template": "blank-splash-page",
-     "title": "Blank Splash Page",
-     "userCreatable": true
-    },
-    {
-     "documentType": "web_page",
-     "entityType": "webpage",
-     "id": "minimal-splash-page",
-     "template": "minimal-splash-page",
-     "title": "Minimal Splash Page",
-     "userCreatable": true
-    },
-    {
-      "documentType": "web_page",
-      "editor": "landing-page",
-      "entityType": "webpage",
-      "id": "landing",
-      "template": "blank-page",
-      "title": "Landing Page",
-      "userCreatable": true
-    },
-    {
-      "documentType": "web_page",
-      "entityType": "webpage",
-      "id": "home",
-      "template": "home",
-      "title": "Home Page",
-      "userCreatable": true
-    },
-    {
-      "documentType": "web_page",
-      "entityType": "webpage",
-      "id": "location",
-      "template": "location",
-      "title": "Store Locator",
-      "userCreatable": true
-    },
-    {
-      "entityType": "category",
-      "id": "category",
-      "template": "category",
-      "title": "Category",
-      "userCreatable": false
-    },
-    {
-      "entityType": "category",
-      "id": "parent-category",
-      "template": "parent-category",
-      "title": "ParentCategory",
-      "userCreatable": false,
-      "customEditor": "categoryContent@mozu"
-    },
-    {
-      "entityType": "product",
-      "id": "product",
-      "template": "product",
-      "title": "Product",
-      "userCreatable": false,
-      "customEditor": "productContent@mozu"
-    },
-    {
-      "entityType": "searchresult",
-      "id": "search-results",
-      "template": "search-results",
-      "title": "Search Results",
-      "userCreatable": false
-    },
-    {
-      "entityType": "nosearchresult",
-      "id": "no-search-results",
-      "template": "no-search-results",
-      "title": "Empty Search Results",
-      "userCreatable": false
-    },
-    {
-      "documentType": "web_page",
-      "entityType": "webpage",
-      "id": "404",
-      "template": "404",
-      "title": "404 Not Found",
-      "userCreatable": false
-    },
-    {
-      "entityType": "cart",
-      "id": "cart",
-      "template": "cart",
-      "title": "Cart",
-      "userCreatable": false
-    },
-    {
-      "entityType": "order",
-      "id": "checkout",
-      "template": "checkout",
-      "title": "Checkout",
-      "userCreatable": false
-    },
-    {
-      "entityType": "order",
-      "id": "confirmation",
-      "template": "confirmation",
-      "title": "Confirmation",
-      "userCreatable": false
-    },
-    {
-      "entityType": "customer",
-      "id": "my_account",
-      "template": "my-account",
-      "title": "My Account",
-      "userCreatable": false
-    },
-    {
-      "entityType": "login",
-      "id": "login",
-      "template": "login",
-      "title": "Login",
-      "userCreatable": false
-    },
-    {
-      "entityType": "resetPasswordConfirmDetails",
-      "id": "reset_password",
-      "template": "reset-password",
-      "title": "Reset Password",
-      "userCreatable": false
-    },
-    {
-      "entityType": "anonymous_account",
-      "id": "my_anonymous_account",
-      "template": "my-anonymous-account",
-      "title": "Anonymous Order Status",
-      "userCreatable": false
-    },
-    {
-        "entityType": "signup",
-        "id": "signup",
-        "template": "signup",
-        "title": "Sign Up",
-        "userCreatable": false
-    },
-    {
-      "entityType": "forgotpassword",
-      "id": "forgotpassword",
-      "template": "forgot-password",
-      "title": "Forgot Password",
-      "userCreatable": false
-    }
-  ],
-  "settings": {
-    "allowCustomerInitiatedReturns": true,
-    "backofficeDateTimeFormat": "m/d/Y H:i:s O",
-    "bannerImage": "/resources/images/banner.jpg",
-    "bannerImageEnabled": false,
-    "bannerImageRepeat": "repeat-x",
-    "billingEmailEnabled": true,
-    "bodyBackgroundColor": "#FFFFFF",
-    "cmsTextStyles": [
-      {
-        "className": "mz-style-1",
-        "label": "Heading 1",
-        "tagName": "h1"
-      },
-      {
-        "label": "Heading 2",
-        "tagName": "h2"
-      },
-      {
-        "label": "Paragraph",
-        "tagName": "p"
-      }
     ],
-    "carouselThumbImageSize": 100,
-    "colorNameAndColorHexCodeArray": [
-      {
-        "colorName": "antiquegold",
-        "colorValue": "#CEAC41"
-      },
-      {
-        "colorName": "applegreen",
-        "colorValue": "#5BC236"
-      },
-      {
-        "colorName": "aqua",
-        "colorValue": "#028482"
-      },
-      {
-        "colorName": "bronze",
-        "colorValue": "#CD7F32"
-      },
-      {
-        "colorName": "burntorange",
-        "colorValue": "#CF5300"
-      },
-      {
-        "colorName": "champagne",
-        "colorValue": "#F7E7CE"
-      },
-      {
-        "colorName": "chocolate",
-        "colorValue": "#4E2E28"
-      },
-      {
-        "colorName": "coralorange",
-        "colorValue": "#f88379"
-      },
-      {
-        "colorName": "cream",
-        "colorValue": "#FFFFCC"
-      },
-      {
-        "colorName": "eggplant",
-        "colorValue": "#430541"
-      },
-      {
-        "colorName": "emerald",
-        "colorValue": "#55D43F"
-      },
-      {
-        "colorName": "fushia",
-        "colorValue": "#FF0080"
-      },
-      {
-        "colorName": "huntergreen",
-        "colorValue": "#355E3B"
-      },
-      {
-        "colorName": "iridescent",
-        "colorValue": "#152324"
-      },
-      {
-        "colorName": "lavender",
-        "colorValue": "#D8B2D1"
-      },
-      {
-        "colorName": "lightblue",
-        "colorValue": "#82CAFA"
-      },
-      {
-        "colorName": "lightgreen",
-        "colorValue": "#90EE90"
-      },
-      {
-        "colorName": "lime",
-        "colorValue": "#32cd32"
-      },
-      {
-        "colorName": "limegreen",
-        "colorValue": "#32cd32"
-      },
-      {
-        "colorName": "mauve",
-        "colorValue": "#CC99FF"
-      },
-      {
-        "colorName": "mint",
-        "colorValue": "#98ff98"
-      },
-      {
-        "colorName": "mocha",
-        "colorValue": "#9d7651"
-      },
-      {
-        "colorName": "mustard",
-        "colorValue": "#F5D04C"
-      },
-      {
-        "colorName": "natural",
-        "colorValue": "#8C8984"
-      },
-      {
-        "colorName": "navyblue",
-        "colorValue": "#000080"
-      },
-      {
-        "colorName": "newblue",
-        "colorValue": "#008080"
-      },
-      {
-        "colorName": "ocean",
-        "colorValue": "#2B65EC"
-      },
-      {
-        "colorName": "peach",
-        "colorValue": "#FFCC99"
-      },
-      {
-        "colorName": "periwinkle",
-        "colorValue": "#CCCCFF"
-      },
-      {
-        "colorName": "pewter",
-        "colorValue": "#8e9294"
-      },
-      {
-        "colorName": "royalblue",
-        "colorValue": "#4169e1"
-      },
-      {
-        "colorName": "sagegreen",
-        "colorValue": "#9C9F84"
-      },
-      {
-        "colorName": "teagreen",
-        "colorValue": "#D8F3C9"
-      },
-      {
-        "colorName": "teal",
-        "colorValue": "#008080"
-      },
-      {
-        "colorName": "topaz",
-        "colorValue": "#ffc87c"
-      },
-      {
-        "colorName": "toffee",
-        "colorValue": "#a1845e"
-      },
-      {
-        "colorName": "violet",
-        "colorValue": "#8D38C9"
-      },
-      {
-        "colorName": "watermelon",
-        "colorValue": "#FC6C85"
-      },
-      {
-        "colorName": "willowgreen",
-        "colorValue": "#6e8b3d"
-      },
-      {
-        "colorName": "winered",
-        "colorValue": "#990012"
-      },
-      {
-        "colorName": "yellow",
-        "colorValue": "#FFD623"
-      },
-      {
-        "colorName": "silver",
-        "colorValue": "#CDD7D7"
-      },
-      {
-        "colorName": "roseGold",
-        "colorValue": "#EDBD98"
-      },
-      {
-        "colorName": "red",
-        "colorValue": "#B6071A"
-      },
-      {
-        "colorName": "red_Burgundy",
-        "colorValue": "#B6071A"
-      },
-      {
-        "colorName": "purple",
-        "colorValue": "#48198D"
-      },
-      {
-        "colorName": "pink",
-        "colorValue": "#DF318E"
-      },
-      {
-        "colorName": "orange",
-        "colorValue": "#E36B05"
-      },
-      {
-        "colorName": "green",
-        "colorValue": "#04803A"
-      },
-      {
-        "colorName": "gold",
-        "colorValue": "#EAD686"
-      },
-      {
-        "colorName": "clear",
-        "colorValue": "transparent"
-      },
-      {
-        "colorName": "brown",
-        "colorValue": "#754736"
-      },
-      {
-        "colorName": "blue",
-        "colorValue": "#04349C"
-      },
-      {
-        "colorName": "black",
-        "colorValue": "#000000"
-      },
-      {
-        "colorName": "other",
-        "colorValue": "#CDD7D7"
-      },
-      {
-        "colorName": "off_White_Ivory",
-        "colorValue": "#F8F8FF"
-      },
-      {
-        "colorName": "ivory",
-        "colorValue": "#FFF8DA"
-      },
-      {
-        "colorName": "copper",
-        "colorValue": "#000000"
-      },
-      {
-        "colorName": "burgundy",
-        "colorValue": "#6E0B16"
-      },
-      {
-        "colorName": "assorted",
-        "colorValue": "radial-gradient(red, green, blue)"
-      },
-      {
-        "colorName": "turquoise",
-        "colorValue": "#00C8FA"
-      },
-      {
-        "colorName": "highlighter_Invisible",
-        "colorValue": "#F7F300"
-      },
-      {
-        "colorName": "grey", 
-        "colorValue": "#9AA0B0"
-      },
-      {
-        "colorName": "multi",
-        "colorValue": "transparent linear-gradient(#F00, #008000, #00F) repeat scroll 0% 0%"
-      }
+    "emailTemplates": [
+        {
+            "id": "order.shipped",
+            "properties": { },
+            "template": "email/order-shipped",
+            "title": "Your Order Has Shipped"
+        },
+        {
+            "id": "order.changed",
+            "customEditor": "email-orderconfirmation",
+            "properties": { },
+            "template": "email/order-confirmation",
+            "title": "Order Confirmation"
+        },
+        {
+            "id": "refund.created",
+            "properties": { },
+            "template": "email/order-refund-issued",
+            "title": "Refund Issued"
+        },
+        {
+            "id": "return.created",
+            "properties": { },
+            "template": "email/product-return-changed",
+            "title": "Return Created"
+        },
+        {
+            "id": "return.authorized",
+            "properties": { },
+            "template": "email/product-return-authorized",
+            "title": "Return Authorized"
+        },
+        {
+            "id": "return.rejected",
+            "properties": { },
+            "template": "email/product-return-rejected",
+            "title": "Return Request Rejected"
+        },
+        {
+            "id": "return.closed",
+            "properties": { },
+            "template": "email/product-return-received",
+            "title": "Return Item Received"
+        },
+        {
+            "id": "return.changed",
+            "properties": { },
+            "template": "email/product-return-changed",
+            "title": "Return Has Been Updated"
+        },
+        {
+            "id": "user.created",
+            "properties": { },
+            "template": "email/new-user",
+            "title": "Welcome"
+        },
+        {
+            "id": "user.passwordreset",
+            "properties": { },
+            "template": "email/password-reset",
+            "title": "Password Reset"
+        },
+        {
+            "id": "product.instock",
+            "properties": { },
+            "template": "email/product-instock",
+            "title": "Back in Stock"
+        },
+        {
+            "id": "giftcard.created",
+            "properties": { },
+            "template": "email/giftcard-created",
+            "title": "Gift Card Created"
+        }
     ],
-    "defaultPageSize": 10,
-    "defaultSort": "createDate asc",
-    "enablePartialCaching": true,
-    "extendedPropertiesEnabled": false,
-    "extendedPropertyParameters": "",
-    "fontSize": "14px",
-    "facetPriceSlider": true,
-    "homePageCategoryWidgetAltText": "home_cat_widget_img",
-    "gutterWidth": "25px",
-    "images": {
-      "product": "/resources/images/productpage/selfie avatar 1@2x.png"
+    "backOfficeTemplates": [
+        {
+            "id": "order-details",
+            "title": "Order Details",
+            "template": "back-office/order-details",
+            "customEditor": "back-office@mozu"
+        },
+        {
+            "id": "packing-slip",
+            "title": "Packing Slip",
+            "template": "back-office/packing-slip",
+            "customEditor": "back-office@mozu"
+        }
+    ],
+    "pageTypes": [
+      {
+        "documentType": "web_page",
+        "entityType": "webpage",
+        "id": "about-us",
+        "template": "about-us",
+        "customEditor": "about-us",
+        "title": "About Us",
+        "userCreatable": true,
+        "zones": [
+          {
+            "id": "body",
+            "rows": [
+              {
+                "columns": [
+                  {
+                    "rows": null,
+                    "span": 12,
+                    "widgets": [
+                      {
+                        "config": {
+                          "body": "<h2>Insert Title</h2><p>Insert Content</p>"
+                        },
+                        "definitionId": "content",
+                        "isRichText": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+        {
+          "entityType": "siteTemplate",
+          "id": "site_page",
+          "template": "page",
+          "title": "Default Site Template"
+        },
+        {
+          "documentType": "web_page",
+          "entityType": "webpage",
+          "id": "blank-page",
+          "template": "blank-page",
+          "title": "Blank Page",
+          "userCreatable": true
+        },
+        {
+          "documentType": "web_page",
+          "entityType": "webpage",
+          "id": "blank-splash-page",
+          "template": "blank-splash-page",
+          "title": "Blank Splash Page",
+          "userCreatable": true
+        },
+        {
+            "documentType": "web_page",
+            "editor": "landing-page",
+            "entityType": "webpage",
+            "id": "landing",
+            "template": "blank-page",
+            "title": "Landing Page",
+            "userCreatable": true
+        },
+        {
+            "documentType": "web_page",
+            "entityType": "webpage",
+            "id": "home",
+            "template": "home",
+            "title": "Home Page",
+            "userCreatable": true
+        },
+        {
+            "documentType": "web_page",
+            "entityType": "webpage",
+            "id": "location",
+            "template": "location",
+            "title": "Store Locator",
+            "userCreatable": true
+        },
+        {
+            "entityType": "category",
+            "id": "category",
+            "template": "category",
+            "title": "Category",
+            "userCreatable": false
+        },
+        {
+            "entityType": "category",
+            "id": "parent-category",
+            "template": "parent-category",
+            "title": "ParentCategory",
+            "userCreatable": false,
+            "customEditor": "categoryContent@mozu"
+        },
+        {
+            "entityType": "product",
+            "id": "product",
+            "template": "product",
+            "title": "Product",
+            "userCreatable": false,
+            "customEditor": "productContent@mozu"
+        },
+        {
+            "entityType": "searchresult",
+            "id": "search-results",
+            "template": "search-results",
+            "title": "Search Results",
+            "userCreatable": false
+        },
+        {
+            "entityType": "nosearchresult",
+            "id": "no-search-results",
+            "template": "no-search-results",
+            "title": "Empty Search Results",
+            "userCreatable": false
+        },
+        {
+            "documentType": "web_page",
+            "entityType": "webpage",
+            "id": "404",
+            "template": "404",
+            "title": "404 Not Found",
+            "userCreatable": false
+        },
+        {
+            "entityType": "cart",
+            "id": "cart",
+            "template": "cart",
+            "title": "Cart",
+            "userCreatable": false
+        },
+        {
+            "entityType": "order",
+            "id": "checkout",
+            "template": "checkout",
+            "title": "Checkout",
+            "userCreatable": false
+        },
+        {
+            "entityType": "order",
+            "id": "confirmation",
+            "template": "confirmation",
+            "title": "Confirmation",
+            "userCreatable": false
+        },
+        {
+            "entityType": "customer",
+            "id": "my_account",
+            "template": "my-account",
+            "title": "My Account",
+            "userCreatable": false
+        },
+        {
+            "entityType": "login",
+            "id": "login",
+            "template": "login",
+            "title": "Login",
+            "userCreatable": false
+        },{
+            "entityType": "resetPasswordConfirmDetails",
+            "id": "reset_password",
+            "template": "reset-password",
+            "title": "Reset Password",
+            "userCreatable": false
+        },
+        {
+            "entityType": "anonymous_account",
+            "id": "my_anonymous_account",
+            "template": "my-anonymous-account",
+            "title": "Anonymous Order Status",
+            "userCreatable": false
+        },
+        {
+            "entityType": "signup",
+            "id": "signup",
+            "template": "signup",
+            "title": "Sign Up",
+            "userCreatable": false
+        },
+        {
+            "entityType": "forgotpassword",
+            "id": "forgotpassword",
+            "template": "forgot-password",
+            "title": "Forgot Password",
+            "userCreatable": false
+        },
+        {
+            "entityType": "orderStatus",
+            "id": "orderStatus",
+            "template": "order-status",
+            "title": "Order Status",
+            "userCreatable": false
+        }
+    ],
+    "settings": {
+        "backofficeDateTimeFormat": "m/d/Y H:i:s O",
+        "extendedPropertiesEnabled": false,
+        "extendedPropertyParameters": "",
+        "isCvvSuppressed": false,
+        "zipCodeEnabled": true,
+        "phoneNumberEnabled": true,
+        "billingEmailEnabled": true,
+        "bannerImage": "/resources/images/banner.jpg",
+        "bannerImageEnabled": false,
+        "bannerImageRepeat": "repeat-x",
+        "bodyBackgroundColor": "#FFFFFF",
+        "cmsTextStyles": [
+            {
+                "className": "mz-style-1",
+                "label": "Heading 1",
+                "tagName": "h1"
+            },
+            {
+                "label": "Heading 2",
+                "tagName": "h2"
+            },
+            {
+                "label": "Paragraph",
+                "tagName": "p"
+            }
+        ],
+        "defaultPageSize": 15,
+        "defaultSort": "createDate asc",
+        "enablePartialCaching": true,
+        "loadGoogleFonts": [
+            "Source Sans Pro"
+        ],
+        "primaryFont": "Source Sans Pro",
+        "fontSize": "14px",
+        "gutterWidth": "25px",
+        "internal-themeAddons": [ ],
+        "itemListingThumbSize": 80,
+        "listProductCode": true,
+        "listProductShortDesc": true,
+        "listVolumePricing": false,
+        "listProductThumbSize": 160,
+        "maxProductImageThumbnailSize": 50,
+        "maxProductSummaryWords": 40,
+        "maxTopLevelNavItems": 8,
+        "maxTopLevelNavLabelLength": 20,
+        "pageSizeOptions": [
+            15,
+            25,
+            50,
+            100
+        ],
+        "preselectCountryCode": "US",
+        "productImagesContainerWidth": 350,
+        "requireCheckoutAgreeToTerms": true,
+        "suggestPriorSearchTerms": true,
+        "searchExpandOnFocus": true,
+        "showAddressTypeDropdown": true,
+        "showBreadcrumbs": true,
+        "showCartItemDimensions": true,
+        "showCartItemImage": true,
+        "showCartItemOptions": true,
+        "showCartItemWeight": true,
+        "showCategoryFacets": true,
+        "showChildCategoriesInFaceting": true,
+        "showCheckoutCommentsField": true,
+        "showMSRP": true,
+        "showProductDetailMeasurements": true,
+        "showProductDetailMfgPartNumber": true,
+        "showProductDetailProperties": true,
+        "showProductDetailShortDesc": true,
+        "showProductDetailUPC": true,
+        "textColor": "#444444",
+        "usStates": [
+            {
+                "abbreviation": "AL",
+                "name": "Alabama"
+            },
+            {
+                "abbreviation": "AK",
+                "name": "Alaska"
+            },
+            {
+                "abbreviation": "AS",
+                "name": "American Samoa"
+            },
+            {
+                "abbreviation": "AZ",
+                "name": "Arizona"
+            },
+            {
+                "abbreviation": "AR",
+                "name": "Arkansas"
+            },
+            {
+                "abbreviation": "CA",
+                "name": "California"
+            },
+            {
+                "abbreviation": "CO",
+                "name": "Colorado"
+            },
+            {
+                "abbreviation": "CT",
+                "name": "Connecticut"
+            },
+            {
+                "abbreviation": "DE",
+                "name": "Delaware"
+            },
+            {
+                "abbreviation": "DC",
+                "name": "District Of Columbia"
+            },
+            {
+                "abbreviation": "FM",
+                "name": "Federated States Of Micronesia"
+            },
+            {
+                "abbreviation": "FL",
+                "name": "Florida"
+            },
+            {
+                "abbreviation": "GA",
+                "name": "Georgia"
+            },
+            {
+                "abbreviation": "GU",
+                "name": "Guam"
+            },
+            {
+                "abbreviation": "HI",
+                "name": "Hawaii"
+            },
+            {
+                "abbreviation": "ID",
+                "name": "Idaho"
+            },
+            {
+                "abbreviation": "IL",
+                "name": "Illinois"
+            },
+            {
+                "abbreviation": "IN",
+                "name": "Indiana"
+            },
+            {
+                "abbreviation": "IA",
+                "name": "Iowa"
+            },
+            {
+                "abbreviation": "KS",
+                "name": "Kansas"
+            },
+            {
+                "abbreviation": "KY",
+                "name": "Kentucky"
+            },
+            {
+                "abbreviation": "LA",
+                "name": "Louisiana"
+            },
+            {
+                "abbreviation": "ME",
+                "name": "Maine"
+            },
+            {
+                "abbreviation": "MH",
+                "name": "Marshall Islands"
+            },
+            {
+                "abbreviation": "MD",
+                "name": "Maryland"
+            },
+            {
+                "abbreviation": "MA",
+                "name": "Massachusetts"
+            },
+            {
+                "abbreviation": "MI",
+                "name": "Michigan"
+            },
+            {
+                "abbreviation": "MN",
+                "name": "Minnesota"
+            },
+            {
+                "abbreviation": "MS",
+                "name": "Mississippi"
+            },
+            {
+                "abbreviation": "MO",
+                "name": "Missouri"
+            },
+            {
+                "abbreviation": "MT",
+                "name": "Montana"
+            },
+            {
+                "abbreviation": "NE",
+                "name": "Nebraska"
+            },
+            {
+                "abbreviation": "NV",
+                "name": "Nevada"
+            },
+            {
+                "abbreviation": "NH",
+                "name": "New Hampshire"
+            },
+            {
+                "abbreviation": "NJ",
+                "name": "New Jersey"
+            },
+            {
+                "abbreviation": "NM",
+                "name": "New Mexico"
+            },
+            {
+                "abbreviation": "NY",
+                "name": "New York"
+            },
+            {
+                "abbreviation": "NC",
+                "name": "North Carolina"
+            },
+            {
+                "abbreviation": "ND",
+                "name": "North Dakota"
+            },
+            {
+                "abbreviation": "MP",
+                "name": "Northern Mariana Islands"
+            },
+            {
+                "abbreviation": "OH",
+                "name": "Ohio"
+            },
+            {
+                "abbreviation": "OK",
+                "name": "Oklahoma"
+            },
+            {
+                "abbreviation": "OR",
+                "name": "Oregon"
+            },
+            {
+                "abbreviation": "PW",
+                "name": "Palau"
+            },
+            {
+                "abbreviation": "PA",
+                "name": "Pennsylvania"
+            },
+            {
+                "abbreviation": "PR",
+                "name": "Puerto Rico"
+            },
+            {
+                "abbreviation": "RI",
+                "name": "Rhode Island"
+            },
+            {
+                "abbreviation": "SC",
+                "name": "South Carolina"
+            },
+            {
+                "abbreviation": "SD",
+                "name": "South Dakota"
+            },
+            {
+                "abbreviation": "TN",
+                "name": "Tennessee"
+            },
+            {
+                "abbreviation": "TX",
+                "name": "Texas"
+            },
+            {
+                "abbreviation": "UT",
+                "name": "Utah"
+            },
+            {
+                "abbreviation": "VT",
+                "name": "Vermont"
+            },
+            {
+                "abbreviation": "VI",
+                "name": "Virgin Islands"
+            },
+            {
+                "abbreviation": "VA",
+                "name": "Virginia"
+            },
+            {
+                "abbreviation": "WA",
+                "name": "Washington"
+            },
+            {
+                "abbreviation": "WV",
+                "name": "West Virginia"
+            },
+            {
+                "abbreviation": "WI",
+                "name": "Wisconsin"
+            },
+            {
+                "abbreviation": "WY",
+                "name": "Wyoming"
+            }
+        ],
+        "useDebugScripts": false,
+        "useSearchAutocomplete": true,
+        "allowCustomerInitiatedReturns": true,
+        "visaCheckoutSdkUrl": "https://sandbox-assets.secure.checkout.visa.com/checkout-widget/resources/js/integration/v1/sdk.js"
     },
-    "internal-themeAddons": [ ],
-    "isCvvSuppressed": false,
-    "itemListingThumbSize": 80,
-    "loadGoogleFonts": [
-      "Source Sans Pro",
-      "Montserrat:400,700:latin",
-      "Roboto:100,300,400,500,700"
-    ],
-    "listProductCode": true,
-    "listProductShortDesc": true,
-    "listProductThumbSize": 160,
-    "maxProductImageThumbnailSize": 50,
-    "maxProductSummaryWords": 40,
-    "maxTopLevelNavItems": 8,
-    "maxTopLevelNavLabelLength": 20,
-    "pageSizeOptions": [
-      15,
-      25,
-      50,
-      100
-    ],
-    "phoneNumberEnabled": true,
-    "preselectCountryCode": "US",
-    "primaryFont": "'Roboto', sans-serif",
-    "showBreadcrumbs": false,
-    "productImagesContainerWidth": 350,
-    "requireCheckoutAgreeToTerms": true,
-    "searchExpandOnFocus": true,
-    "showAddressTypeDropdown": true,
-    "showCartItemDimensions": true,
-    "showCartItemImage": true,
-    "showCartItemOptions": true,
-    "showCartItemWeight": true,
-    "showCategoryFacets": true,
-    "showCheckoutCommentsField": true,
-    "showChildCategoriesInFaceting": true,
-    "showMSRP": true,
-    "showProductDetailMeasurements": true,
-    "showProductDetailMfgPartNumber": true,
-    "showProductDetailProperties": true,
-    "showProductDetailShortDesc": true,
-    "showProductDetailUPC": true,
-    "suggestPriorSearchTerms": true,
-    "textColor": "#444444",
-    "useDebugScripts": false,
-    "useSearchAutocomplete": true,
-    "usStates": [
-      {
-        "abbreviation": "AL",
-        "name": "Alabama"
-      },
-      {
-        "abbreviation": "AK",
-        "name": "Alaska"
-      },
-      {
-        "abbreviation": "AS",
-        "name": "American Samoa"
-      },
-      {
-        "abbreviation": "AZ",
-        "name": "Arizona"
-      },
-      {
-        "abbreviation": "AR",
-        "name": "Arkansas"
-      },
-      {
-        "abbreviation": "CA",
-        "name": "California"
-      },
-      {
-        "abbreviation": "CO",
-        "name": "Colorado"
-      },
-      {
-        "abbreviation": "CT",
-        "name": "Connecticut"
-      },
-      {
-        "abbreviation": "DE",
-        "name": "Delaware"
-      },
-      {
-        "abbreviation": "DC",
-        "name": "District Of Columbia"
-      },
-      {
-        "abbreviation": "FM",
-        "name": "Federated States Of Micronesia"
-      },
-      {
-        "abbreviation": "FL",
-        "name": "Florida"
-      },
-      {
-        "abbreviation": "GA",
-        "name": "Georgia"
-      },
-      {
-        "abbreviation": "GU",
-        "name": "Guam"
-      },
-      {
-        "abbreviation": "HI",
-        "name": "Hawaii"
-      },
-      {
-        "abbreviation": "ID",
-        "name": "Idaho"
-      },
-      {
-        "abbreviation": "IL",
-        "name": "Illinois"
-      },
-      {
-        "abbreviation": "IN",
-        "name": "Indiana"
-      },
-      {
-        "abbreviation": "IA",
-        "name": "Iowa"
-      },
-      {
-        "abbreviation": "KS",
-        "name": "Kansas"
-      },
-      {
-        "abbreviation": "KY",
-        "name": "Kentucky"
-      },
-      {
-        "abbreviation": "LA",
-        "name": "Louisiana"
-      },
-      {
-        "abbreviation": "ME",
-        "name": "Maine"
-      },
-      {
-        "abbreviation": "MH",
-        "name": "Marshall Islands"
-      },
-      {
-        "abbreviation": "MD",
-        "name": "Maryland"
-      },
-      {
-        "abbreviation": "MA",
-        "name": "Massachusetts"
-      },
-      {
-        "abbreviation": "MI",
-        "name": "Michigan"
-      },
-      {
-        "abbreviation": "MN",
-        "name": "Minnesota"
-      },
-      {
-        "abbreviation": "MS",
-        "name": "Mississippi"
-      },
-      {
-        "abbreviation": "MO",
-        "name": "Missouri"
-      },
-      {
-        "abbreviation": "MT",
-        "name": "Montana"
-      },
-      {
-        "abbreviation": "NE",
-        "name": "Nebraska"
-      },
-      {
-        "abbreviation": "NV",
-        "name": "Nevada"
-      },
-      {
-        "abbreviation": "NH",
-        "name": "New Hampshire"
-      },
-      {
-        "abbreviation": "NJ",
-        "name": "New Jersey"
-      },
-      {
-        "abbreviation": "NM",
-        "name": "New Mexico"
-      },
-      {
-        "abbreviation": "NY",
-        "name": "New York"
-      },
-      {
-        "abbreviation": "NC",
-        "name": "North Carolina"
-      },
-      {
-        "abbreviation": "ND",
-        "name": "North Dakota"
-      },
-      {
-        "abbreviation": "MP",
-        "name": "Northern Mariana Islands"
-      },
-      {
-        "abbreviation": "OH",
-        "name": "Ohio"
-      },
-      {
-        "abbreviation": "OK",
-        "name": "Oklahoma"
-      },
-      {
-        "abbreviation": "OR",
-        "name": "Oregon"
-      },
-      {
-        "abbreviation": "PW",
-        "name": "Palau"
-      },
-      {
-        "abbreviation": "PA",
-        "name": "Pennsylvania"
-      },
-      {
-        "abbreviation": "PR",
-        "name": "Puerto Rico"
-      },
-      {
-        "abbreviation": "RI",
-        "name": "Rhode Island"
-      },
-      {
-        "abbreviation": "SC",
-        "name": "South Carolina"
-      },
-      {
-        "abbreviation": "SD",
-        "name": "South Dakota"
-      },
-      {
-        "abbreviation": "TN",
-        "name": "Tennessee"
-      },
-      {
-        "abbreviation": "TX",
-        "name": "Texas"
-      },
-      {
-        "abbreviation": "UT",
-        "name": "Utah"
-      },
-      {
-        "abbreviation": "VT",
-        "name": "Vermont"
-      },
-      {
-        "abbreviation": "VI",
-        "name": "Virgin Islands"
-      },
-      {
-        "abbreviation": "VA",
-        "name": "Virginia"
-      },
-      {
-        "abbreviation": "WA",
-        "name": "Washington"
-      },
-      {
-        "abbreviation": "WV",
-        "name": "West Virginia"
-      },
-      {
-        "abbreviation": "WI",
-        "name": "Wisconsin"
-      },
-      {
-        "abbreviation": "WY",
-        "name": "Wyoming"
-      }
-    ],
-    "visaCheckoutSdkUrl": "https://sandbox-assets.secure.checkout.visa.com/checkout-widget/resources/js/integration/v1/sdk.js",
-    "zipCodeEnabled": true
-  },
-"layoutWidgets": [
+    "layoutWidgets": [
         {
             "id": "mz-1-col",
             "category": "*",
@@ -1063,1221 +793,436 @@
             ]
         }
     ],
-  "widgets": [
-    {
-      "defaultConfig": {
-        "template": "modules/product/product-list"
-      },
-      "displayName": "Featured Products",
-      "displayTemplate": "catalog/featuredproducts",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Products",
-          "name": "productCodes",
-          "xtype": "mz-input-productmulti"
-        },
-        {
-          "anchor": "100%",
-          "fieldLabel": "Template",
-          "name": "template",
-          "store": [
-            [
-              "modules/product/product-list-tiled",
-              "tiled"
-            ],
-            [
-              "modules/product/product-list",
-              "list"
-            ],
-            [
-              "modules/product/product-list-carousel",
-              "carousel"
+    "widgets": [
+
+          {
+            "displayName": "RTI Recommended Products",
+            "displayTemplate": "RTI/rti-recommended-products",
+            "customEditor": "rti-recommended-products",
+            "icon": "/resources/admin/widgets/23_cross_sells.png",
+            "id": "rti-recommended-products",
+            "validPageTypes": [
+              "*"
             ]
-          ],
-          "xtype": "mz-input-dropdown"
-        }
-      ],
-      "icon": "/resources/admin/widgets/01_photo_text.png",
-      "id": "featured_product",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "id": "home-amplience",
-      "displayName": "Home Amplience",
-      "displayTemplate": "homepage/home-amplience",
-      "customEditor": "amp",
-      "icon": "/resources/admin/widgets/amplience_poi.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "displayName": "Video",
-      "displayTemplate": "cms/video",
-      "editViewFields": [
+        },
+
         {
-          "anchor": "100%",
-          "fieldLabel": "Video URL",
-          "name": "url",
-          "xtype": "mz-input-text"
-        }
-      ],
-      "icon": "/resources/admin/widgets/08_video.png",
-      "id": "video",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "attributeId": "tenant~product-crosssell",
-        "count": "4",
-        "template": "modules/product/product-list-carousel",
-        "title": "Related Items"
-      },
-      "displayName": "Cross Sells",
-      "displayTemplate": "catalog/related-products",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
+          "displayName": "RTI Observation Tag",
+          "displayTemplate": "RTI/rti-observation.hypr",
+          "icon": "/resources/admin/widgets/07_code.png",
+          "id": "rti-observation-tag",
+          "validPageTypes":[ "*" ]
+
         },
         {
-          "anchor": "100%",
-          "fieldLabel": "Template",
-          "name": "template",
-          "store": [
-            [
-              "modules/product/product-list-carousel",
-              "carousel"
+            "defaultConfig": {
+                "template": "modules/product/product-list"
+            },
+            "displayName": "Featured Products",
+            "displayTemplate": "catalog/featuredproducts",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Products",
+                    "name": "productCodes",
+                    "xtype": "mz-input-productmulti"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Template",
+                    "name": "template",
+                    "store": [
+                        [
+                            "modules/product/product-list-tiled",
+                            "tiled"
+                        ],
+                        [
+                            "modules/product/product-list",
+                            "list"
+                        ],
+                        [
+                            "modules/product/product-list-carousel",
+                            "carousel"
+                        ]
+                    ],
+                    "xtype": "mz-input-dropdown"
+                }
             ],
-            [
-              "modules/product/product-list-tiled",
-              "tiled"
-            ],
-            [
-              "modules/product/product-list",
-              "list"
+            "icon": "/resources/admin/widgets/01_photo_text.png",
+            "id": "featured_product",
+            "validPageTypes": [
+                "*"
             ]
-          ],
-          "xtype": "mz-input-dropdown"
         },
         {
-          "anchor": "100%",
-          "fieldLabel": "Number to display",
-          "name": "count",
-          "xtype": "mz-input-number"
-        }
-      ],
-      "icon": "/resources/admin/widgets/23_cross_sells.png",
-      "id": "crosssells",
-      "validPageTypes": [
-        "product",
-        "cart"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "attributeId": "tenant~product-upsell",
-        "count": "4",
-        "template": "modules/product/product-list-carousel",
-        "title": "Other Items"
-      },
-      "displayName": "Up Sells",
-      "displayTemplate": "catalog/related-products",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
-        },
-        {
-          "anchor": "100%",
-          "fieldLabel": "Template",
-          "name": "template",
-          "store": [
-            [
-              "modules/product/product-list-carousel",
-              "carousel"
+            "defaultConfig": {
+                "heightResizable": false
+            },
+            "displayName": "Video",
+            "displayTemplate": "cms/video",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Video URL",
+                    "name": "url",
+                    "xtype": "mz-input-text"
+                }
             ],
-            [
-              "modules/product/product-list-tiled",
-              "tiled"
-            ],
-            [
-              "modules/product/product-list",
-              "list"
+            "icon": "/resources/admin/widgets/08_video.png",
+            "id": "video",
+            "validPageTypes": [
+                "*"
             ]
-          ],
-          "xtype": "mz-input-dropdown"
         },
         {
-          "anchor": "100%",
-          "fieldLabel": "Number to display",
-          "name": "count",
-          "xtype": "mz-input-number"
-        }
-      ],
-      "icon": "/resources/admin/widgets/27_up_sells.png",
-      "id": "upsells",
-      "validPageTypes": [
-        "product",
-        "cart"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "attributeId": "tenant~product-related",
-        "count": "4",
-        "template": "modules/product/product-list-carousel",
-        "title": "Other Items"
-      },
-      "displayName": "Related Products",
-      "displayTemplate": "catalog/related-products",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
-        },
-        {
-          "anchor": "100%",
-          "fieldLabel": "Template",
-          "name": "template",
-          "store": [
-            [
-              "modules/product/product-list-carousel",
-              "carousel"
+            "defaultConfig": {
+                "numberToDisplay": 4,
+                "template": "primary"
+            },
+            "displayName": "Navigation Subsection",
+            "displayTemplate": "misc/category-navigation",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Parent Navigation Node",
+                    "name": "mainCategory",
+                    "xtype": "mz-input-navnode"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Template",
+                    "name": "template",
+                    "store": [
+                        [
+                            "primary",
+                            "primary"
+                        ],
+                        [
+                            "secondary",
+                            "secondary"
+                        ],
+                        [
+                            "tertiary",
+                            "tertiary"
+                        ]
+                    ],
+                    "xtype": "mz-input-dropdown"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Number to display",
+                    "name": "numberToDisplay",
+                    "xtype": "mz-input-number"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Hide Empty Child Nodes",
+                    "name": "hideEmptyChildNodes",
+                    "xtype": "mz-input-checkbox"
+                }
             ],
-            [
-              "modules/product/product-list-tiled",
-              "tiled"
-            ],
-            [
-              "modules/product/product-list",
-              "list"
+            "icon": "/resources/admin/widgets/22_category_navigation.png",
+            "id": "catNav",
+            "validPageTypes": [
+                "*"
             ]
-          ],
-          "xtype": "mz-input-dropdown"
         },
         {
-          "anchor": "100%",
-          "fieldLabel": "Number to display",
-          "name": "count",
-          "xtype": "mz-input-number"
-        }
-      ],
-      "icon": "/resources/admin/widgets/26_related_products.png",
-      "id": "relatedproducts",
-      "validPageTypes": [
-        "product",
-        "cart"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "title": "Related Items"
-      },
-      "displayName": "Instock Request",
-      "displayTemplate": "misc/instock-request",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "xtype": "mz-input-text"
-        }
-      ],
-      "icon": "/resources/admin/widgets/25_instock_requests.png",
-      "id": "instockrequest",
-      "validPageTypes": [
-        "product"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "body": "<h2>Insert Title</h2><p>Insert Content</p>"
-      },
-      "displayName": "Content",
-      "displayTemplate": "cms/content",
-      "icon": "/resources/admin/widgets/03_heading_p.png",
-      "id": "content",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "height": 400,
-        "heightResizable": true,
-        "imageHeight": 400,
-        "imageSource": "file",
-        "linkSource": "externalUrl"
-      },
-      "displayName": "Image",
-      "displayTemplate": "cms/image",
-      "customEditor": "image",
-      "icon": "/resources/admin/widgets/00_photo.png",
-      "id": "cms-image",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "hrBorderColor": "#000",
-        "hrBorderStyle": "solid",
-        "hrBorderWidth": "1px",
-        "hrMarginBottom": "0px",
-        "hrMarginTop": "0px"
-      },
-      "displayName": "Horizontal Rule",
-      "displayTemplate": "cms/horizontalrule",
-      "customEditor": "horizontalrule",
-      "icon": "/resources/admin/widgets/05_horizontal_divider.png",
-      "id": "horizontal_rule",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "body": "<h2>Insert Markup</h2>"
-      },
-      "displayName": "HTML",
-      "displayTemplate": "cms/content",
-      "editViewFields": [
-        {
-          "fieldLabel": "Enter HTML",
-          "fieldStyle": "resize:both;font-family:Monaco, Menlo, Consolas, 'Droid Sans Mono', Inconsolata, 'Courier New', monospace;height:100%",
-          "height": 400,
-          "name": "body",
-          "width": "100%",
-          "mode": "html",
-          "xtype": "mz-input-code"
-        }
-      ],
-      "icon": "/resources/admin/widgets/07_code.png",
-      "id": "html",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "category": "social",
-      "defaultConfig": {
-        "style": "1"
-      },
-      "displayName": "Add This",
-      "displayTemplate": "social/addthis",
-      "editViewFields": [
-        {
-          "xtype": "mz-input-dropdown",
-          "name": "style",
-          "fieldLabel": "AddThis Button Style",
-          "store": [
-            [
-              "1",
-              "small"
+            "defaultConfig": {
+                "attributeId": "tenant~product-crosssell",
+                "count": "4",
+                "template": "modules/product/product-list-carousel",
+                "title": "Related Items"
+            },
+            "displayName": "Cross Sells",
+            "displayTemplate": "catalog/related-products",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Title",
+                    "name": "title",
+                    "xtype": "mz-input-text"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Template",
+                    "name": "template",
+                    "store": [
+                        [
+                            "modules/product/product-list-carousel",
+                            "carousel"
+                        ],
+                        [
+                            "modules/product/product-list-tiled",
+                            "tiled"
+                        ],
+                        [
+                            "modules/product/product-list",
+                            "list"
+                        ]
+                    ],
+                    "xtype": "mz-input-dropdown"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Number to display",
+                    "name": "count",
+                    "xtype": "mz-input-number"
+                }
             ],
-            [
-              "2",
-              "medium"
-            ],
-            [
-              "3",
-              "large"
-            ],
-            [
-              "4",
-              "compact"
+            "icon": "/resources/admin/widgets/23_cross_sells.png",
+            "id": "crosssells",
+            "validPageTypes": [
+                "product",
+                "cart"
             ]
-          ]
         },
         {
-          "html":
-          "Register with <a target='_blank' href='https://www.addthis.com'>AddThis</a> for a free in-depth analytics reports and better understand your site's social traffic.",
-          "xtype": "box"
-        },
-        {
-          "allowBlank": true,
-          "fieldLabel": "AddThis<br/> profile ID",
-          "name": "profileId",
-          "xtype": "mz-input-text"
-        }
-      ],
-      "icon": "/resources/admin/widgets/13_social.png",
-      "id": "addthis",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "category": "catalog",
-      "displayName": "Deal of the Day",
-      "displayTemplate": "catalog/deal-of-the-day",
-      "editView": "taco-dealoftheday-widgeteditor",
-      "icon": "/resources/admin/widgets/28_deal_of_the_day.png",
-      "id": "deal-of-the-day",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "displayName": "Social Content",
-      "displayTemplate": "social/socialcontent",
-      "customEditor": "socialContentEditor",
-      "icon": "/resources/admin/widgets/widget-icon-socialcontent.png",
-      "id": "socialcontent-widget-2",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "id": "social-icons",
-      "displayName": "Social Icons",
-      "displayTemplate": "social/social-icons",
-      "editViewFields": [
-        {
-          "name": "facebooklinks",
-          "fieldLabel": "Facebook Links",
-          "xtype": "textfield",
-          "allowBlank": true
-        },
-        {
-          "name": "twitterlinks",
-          "fieldLabel": "Twitter Link",
-          "xtype": "textfield",
-          "allowBlank": true
-        },
-        {
-          "name": "instagramlinks",
-          "fieldLabel": "Instagram Links",
-          "xtype": "textfield",
-          "allowBlank": true
-        },
-        {
-          "name": "youtubelinks",
-          "fieldLabel": "Youtube Link",
-          "xtype": "textfield",
-          "allowBlank": true
-        }
-      ],
-      "icon": "/resources/admin/widgets/social.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "id": "Image-video-slide_widget",
-      "displayName": "Image-Video-Slider",
-      "displayTemplate": "cms/image-video-slider",
-      "editViewFields": [
-        {
-          "xtype": "fieldcontainer",
-          "anchor": "100%",
-          "fieldlabel": "Select / Upload",
-          "items": [
-            {
-              "name": "images",
-              "fieldLabel": "Select / Upload Images (Image first for first slide & last for last Slide)",
-              "xtype": "taco.imagefield"
-            }
-          ]
-        },
-        {
-          "name": "sliderHeight",
-          "style": "width: 52%",
-          "fieldLabel": "Slider Height",
-          "xtype": "textfield"
-        },
-        {
-          "name": "sliderImageHeight",
-          "style": "width: 52%",
-          "fieldLabel": "Slider Image Height",
-          "xtype": "textfield"
-        },
-        {
-          "name": "sliderDuration",
-          "style": "width: 52%",
-          "fieldLabel": "Slider Duration (In Seconds)",
-          "xtype": "textfield"
-        },
-        {
-          "name": "slide1panel",
-          "xtype": "panel",
-          "style": "background:#ccb;margin:10px; padding:20px",
-          "title": "First Slider",
-          "items": [
-            {
-              "style": "width: 52%",
-              "fieldLabel": "first slider option",
-              "name": "firstslider",
-              "xtype": "mz-input-dropdown",
-              "store": [
-                [
-                  "1",
-                  "Image Slide"
-                ],
-                [
-                  "2",
-                  "Video Slide"
-                ]
-              ]
+            "defaultConfig": {
+                "attributeId": "tenant~product-upsell",
+                "count": "4",
+                "template": "modules/product/product-list-carousel",
+                "title": "Other Items"
             },
-            {
-              "name": "viderourlfirst",
-              "style": "width: 52%",
-              "fieldLabel": "Link for first video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "videroStartTimefirst",
-              "style": "width: 52%",
-              "fieldLabel": "Start duration for first video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "videroEndTimefirst",
-              "style": "width: 52%",
-              "fieldLabel": "End duration for first video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "labelfirst",
-              "style": "width: 52%",
-              "fieldLabel": "Title for first image",
-              "xtype": "textfield"
-            },
-            {
-              "name": "firstSliderImageSizePositionForDesktop",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Desktop",
-              "xtype": "textfield"
-            },
-            {
-              "name": "firstSliderImageSizePositionForTablet",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Tablet",
-              "xtype": "textfield"
-            },
-            {
-              "name": "firstSliderImageSizePositionForMobile",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Mobile",
-              "xtype": "textfield"
-            },
-            {
-              "xtype": "displayfield",
-              "style": "margin-top: 2rem",
-              "value": "<p>Select a Category or enter an URL for Slide 1:</br><span style='font-size:smaller;'>Note: if both configured, the category will take precedent.</span></p>"
-            },
-            {
-              "fieldLabel": "Select link to category on Button click",
-              "name": "firstcategoryUrl",
-              "xtype": "mz-input-category",
-              "displayField": "name",
-              "anchor": "60%",
-              "valueField": "id",
-              "queryMode": "local",
-              "allowMultiple": false,
-              "store": {
-                "type": "Taco.store.Categories"
-              }
-            },
-            {
-              "xtype": "displayfield",
-              "value": "<b>OR</b>"
-            },
-            {
-              "name": "linkfirst",
-              "style": "width: 52%",
-              "fieldLabel": "Enter link to category on Button click",
-              "xtype": "textfield"
-            }
-          ]
-        },
-        {
-          "name": "slide2panel",
-          "xtype": "panel",
-          "style": "background:#ccc;margin:10px; padding:10px",
-          "title": "Second Slider",
-          "items": [
-            {
-              "style": "width: 52%",
-              "fieldLabel": "second slider option",
-              "name": "secondslider",
-              "xtype": "mz-input-dropdown",
-              "store": [
-                [
-                  "1",
-                  "Image Slide"
-                ],
-                [
-                  "2",
-                  "Video Slide"
-                ]
-              ]
-            },
-            {
-              "name": "viderourlsecond",
-              "style": "width: 52%",
-              "fieldLabel": "Link for second video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "videroStartTimesecond",
-              "style": "width: 52%",
-              "fieldLabel": "Start duration for second video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "videroEndTimesecond",
-              "style": "width: 52%",
-              "fieldLabel": "End duration for second video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "labelsecond",
-              "style": "width: 52%",
-              "fieldLabel": "Title for second Image",
-              "xtype": "textfield"
-            },
-            {
-              "name": "secondSliderImageSizePositionForDesktop",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Desktop",
-              "xtype": "textfield"
-            },
-            {
-              "name": "secondSliderImageSizePositionForTablet",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Tablet",
-              "xtype": "textfield"
-            },
-            {
-              "name": "secondSliderImageSizePositionForMobile",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Mobile",
-              "xtype": "textfield"
-            },
-            {
-              "xtype": "displayfield",
-              "style": "margin-top: 2rem",
-              "value": "<p>Select a Category or enter an URL for Slide 2:</br><span style='font-size:smaller;'>Note: if both configured, the category will take precedent.</span></p>"
-            },
-            {
-              "fieldLabel": "Select link to category on Button click",
-              "name": "secondcategoryUrl",
-              "xtype": "mz-input-category",
-              "displayField": "name",
-              "anchor": "60%",
-              "valueField": "id",
-              "queryMode": "local",
-              "allowMultiple": false,
-              "store": {
-                "type": "Taco.store.Categories"
-              }
-            },
-            {
-              "xtype": "displayfield",
-              "value": "<b>OR</b>"
-            },
-            {
-              "name": "linksecond",
-              "style": "width: 52%",
-              "fieldLabel": "Select link to category on Button click",
-              "xtype": "textfield"
-            }
-          ]
-        },
-        {
-          "name": "slide3panel",
-          "xtype": "panel",
-          "style": "background:#ccb;margin:10px; padding:10px",
-          "title": "Third Slider",
-          "items": [
-            {
-              "fieldLabel": "Third slider option",
-              "name": "thirdslider",
-              "xtype": "mz-input-dropdown",
-              "style": "width: 52%",
-              "store": [
-                [
-                  "1",
-                  "Image Slide"
-                ],
-                [
-                  "2",
-                  "Video Slide"
-                ]
-              ]
-            },
-            {
-              "name": "viderourlthird",
-              "style": "width: 52%",
-              "fieldLabel": "Link for third video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "videroStartTimethird",
-              "style": "width: 52%",
-              "fieldLabel": "Start duration for third video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "videroEndTimethird",
-              "style": "width: 52%",
-              "fieldLabel": "End duration for third video",
-              "xtype": "textfield"
-            },
-            {
-              "name": "labelthird",
-              "style": "width: 52%",
-              "fieldLabel": "Title for third Image",
-              "xtype": "textfield"
-            },
-            {
-              "name": "thirdSliderImageSizePositionForDesktop",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Desktop",
-              "xtype": "textfield"
-            },
-            {
-              "name": "thirdSliderImageSizePositionForTablet",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Tablet",
-              "xtype": "textfield"
-            },
-            {
-              "name": "thirdSliderImageSizePositionForMobile",
-              "style": "width: 52%",
-              "fieldLabel": "Slider Image Size and Position For Mobile",
-              "xtype": "textfield"
-            },
-            {
-              "xtype": "displayfield",
-              "style": "margin-top: 2rem",
-              "value": "<p>Select a Category or enter an URL for Slide 3:</br><span style='font-size:smaller;'>Note: if both configured, the category will take precedent.</span></p>"
-            },
-            {
-              "fieldLabel": "Select link to category on Button click",
-              "name": "thirdcategoryUrl",
-              "xtype": "mz-input-category",
-              "displayField": "name",
-              "anchor": "60%",
-              "valueField": "id",
-              "queryMode": "local",
-              "allowMultiple": false,
-              "store": {
-                "type": "Taco.store.Categories"
-              }
-            },
-            {
-              "xtype": "displayfield",
-              "value": "<b>OR</b>"
-            },
-            {
-              "name": "linkthird",
-              "style": "width: 52%",
-              "fieldLabel": "Select link to category on Button click",
-              "xtype": "textfield"
-            }
-          ]
-        }
-      ],
-      "icon": "/resources/admin/widgets/image_video_slider.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "id": "home-page-video-widge",
-      "displayName": "Home Page Video Widget",
-      "displayTemplate": "homepage/home-page-video",
-      "editViewFields": [
-        {
-          "name": "homepagevideotitle",
-          "fieldLabel": "Title",
-          "xtype": "textfield",
-          "width": "60%"
-        },
-        {
-          "name": "homepagevideosubtitle",
-          "fieldLabel": "Sub Title",
-          "xtype": "textfield",
-          "width": "60%"
-        },
-        {
-          "name": "homepageviewvideo",
-          "fieldLabel": "Video Link",
-          "xtype": "textfield",
-          "width": "60%"
-        },
-        {
-          "name": "homepagevideoimageurl",
-          "fieldLabel": "Image",
-          "xtype": "taco.imagefield"
-        }
-      ],
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "icon": "/resources/admin/widgets/homepage_video.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "displayName": "Home Page Sub Category",
-      "displayTemplate": "homepage/home-sub-categories",
-      "editViewFields": [
-        {
-          "fieldLabel": "Categories",
-          "name": "categories",
-          "xtype": "boxselect",
-          "anchor": "100%",
-          "displayField": "name",
-          "valueField": "id",
-          "queryMode": "local",
-          "store": {
-            "type": "Taco.store.Categories"
-          }
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor1",
-          "fieldLabel": "Strip Color 1"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor2",
-          "fieldLabel": "Strip Color 2"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor3",
-          "fieldLabel": "Strip Color 3"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor4",
-          "fieldLabel": "Strip Color 4"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor5",
-          "fieldLabel": "Strip Color 5"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor6",
-          "fieldLabel": "Strip Color 6"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor7",
-          "fieldLabel": "Strip Color 7"
-        },
-        {
-          "xtype": "mz-input-color",
-          "name": "stripColor8",
-          "fieldLabel": "Strip Color 8"
-        }
-      ],
-      "icon": "/resources/admin/widgets/subcategory.png",
-      "id": "catNav",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "id": "Whats-Trending-Now_widget",
-      "displayName": "Home Page Whats Trending Now",
-      "displayTemplate": "homepage/home-trend-now",
-      "editViewFields": [
-        {
-          "xtype": "fieldcontainer",
-          "anchor": "100%",
-          "fieldlabel": "Select / Upload",
-          "items": [
-            {
-              "name": "trendingimages1",
-              "fieldLabel": "Select / Upload Images",
-              "xtype": "taco.imagefield"
-            }
-          ]
-        },
-        {
-          "name": "trendName1",
-          "fieldLabel": "Title for the trending image",
-          "xtype": "textfield"
-        },
-        {
-          "name": "trendDesc1",
-          "fieldLabel": "Description for the trending image",
-          "xtype": "textfield",
-          "width": "100%"
-        },
-        {
-          "name": "linkTrend1",
-          "fieldLabel": "Embedded link for Trending Now",
-          "xtype": "textfield"
-        }
-      ],
-      "icon": "/resources/admin/widgets/trending.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "id": "home-page-instagram-slider",
-      "displayName": "Home Page Instagram Slider Widget",
-      "displayTemplate": "homepage/home-page-instagram-slider",
-      "editViewFields": [
-        {
-          "name": "profilename",
-          "fieldLabel": "Instagram Profile Name",
-          "xtype": "textfield",
-          "width": "60%"
-        },
-        {
-          "name": "UserId",
-          "fieldLabel": "Instagram User Id",
-          "xtype": "textfield",
-          "width": "60%"
-        },
-        {
-          "name": "accessToken",
-          "fieldLabel": "Instagram Access Token",
-          "xtype": "textfield",
-          "width": "60%"
-        }
-      ],
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "icon": "/resources/admin/widgets/instragram.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "displayName": "Recommended Product Widget",
-      "displayTemplate": "catalog/recommended-products",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
-        }
-      ],
-      "icon": "/resources/admin/widgets/23_cross_sells.png",
-      "id": "recommended-products",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "displayName": "RTI Recommended Products",
-      "displayTemplate": "catalog/rti-recommended-products",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
-        },
-        {
-          "anchor": "100%",
-          "fieldLabel": "Demo URL",
-          "name": "demoUrl",
-          "xtype": "mz-input-text"
-        },
-        {
-          "name": "demoItems",
-          "fieldLabel": "Enable Demo Data?",
-          "xtype": "checkbox"
-        }
-      ],
-      "icon": "/resources/admin/widgets/23_cross_sells.png",
-      "id": "rti-recommended-products",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "displayName": "Popular Products",
-      "displayTemplate": "catalog/popular-products",
-      "id": "popularProducts",
-      "defaultConfig": {
-        "title": "Popular Products"
-      },
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Slider Title",
-          "name": "title",
-          "xtype": "mz-input-category"
-        },
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "configurableTitle",
-          "xtype": "mz-input-text"
-        }
-      ],
-      "icon": "/resources/admin/widgets/top_selling.png",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "displayName": "New Arrivals",
-      "displayTemplate": "catalog/new-arrivals",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
-        },
-        {
-          "anchor": "100%",
-          "fieldLabel": "Products",
-          "name": "productCodes",
-          "xtype": "mz-input-productmulti"
-        }
-      ],
-      "icon": "/resources/admin/widgets/new_arrival.png",
-      "id": "new_arrivals_product",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "displayName": "Recent History widget",
-      "displayTemplate": "catalog/recent-history",
-      "editViewFields": [
-        {
-          "anchor": "100%",
-          "fieldLabel": "Title",
-          "name": "title",
-          "xtype": "mz-input-text"
-        }
-      ],
-      "icon": "",
-      "id": "recentHistory",
-      "validPageTypes": [
-        "product",
-        "cart"
-      ]
-    },
-    {
-      "id": "product-page-img-widget",
-      "icon": "/resources/admin/widgets/product_page_image.png",
-      "displayName": "Product Page Image Widget",
-      "displayTemplate": "catalog/product-page-img-widget",
-      "editViewFields": [
-        {
-          "name": "images",
-          "fieldLabel": "PDPContentImages",
-          "xtype": "taco.imagefield"
-        },
-        {
-          "name": "DesktopImageSizePosition",
-          "style": "width: 52%",
-          "fieldLabel": "Desktop Image Size and Position",
-          "xtype": "textfield",
-          "allowBlank": false
-        },
-        {
-          "name": "TabletImageSizePosition",
-          "style": "width: 52%",
-          "fieldLabel": "Tablet Image Size and Position",
-          "xtype": "textfield",
-          "allowBlank": false
-        },
-        {
-          "name": "MobileImageSizePosition",
-          "style": "width: 52%",
-          "fieldLabel": "Mobile Image Size and Position",
-          "xtype": "textfield",
-          "allowBlank": false
-        },
-        {
-          "style": "width: 52%",
-          "fieldLabel": "Select Top / bottom",
-          "name": "textoptiontopbottom",
-          "xtype": "mz-input-dropdown",
-          "store": [
-            [
-              "top",
-              "Top"
+            "displayName": "Up Sells",
+            "displayTemplate": "catalog/related-products",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Title",
+                    "name": "title",
+                    "xtype": "mz-input-text"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Template",
+                    "name": "template",
+                    "store": [
+                        [
+                            "modules/product/product-list-carousel",
+                            "carousel"
+                        ],
+                        [
+                            "modules/product/product-list-tiled",
+                            "tiled"
+                        ],
+                        [
+                            "modules/product/product-list",
+                            "list"
+                        ]
+                    ],
+                    "xtype": "mz-input-dropdown"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Number to display",
+                    "name": "count",
+                    "xtype": "mz-input-number"
+                }
             ],
-            [
-              "bottom",
-              "Bottom"
+            "icon": "/resources/admin/widgets/27_up_sells.png",
+            "id": "upsells",
+            "validPageTypes": [
+                "product",
+                "cart"
             ]
-          ]
         },
         {
-          "style": "width: 52%",
-          "fieldLabel": "Select Left / Right",
-          "name": "textoptionleftright",
-          "xtype": "mz-input-dropdown",
-          "store": [
-            [
-              "left",
-              "Left"
+            "defaultConfig": {
+                "attributeId": "tenant~product-related",
+                "count": "4",
+                "template": "modules/product/product-list-carousel",
+                "title": "Other Items"
+            },
+            "displayName": "Related Products",
+            "displayTemplate": "catalog/related-products",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Title",
+                    "name": "title",
+                    "xtype": "mz-input-text"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Template",
+                    "name": "template",
+                    "store": [
+                        [
+                            "modules/product/product-list-carousel",
+                            "carousel"
+                        ],
+                        [
+                            "modules/product/product-list-tiled",
+                            "tiled"
+                        ],
+                        [
+                            "modules/product/product-list",
+                            "list"
+                        ]
+                    ],
+                    "xtype": "mz-input-dropdown"
+                },
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Number to display",
+                    "name": "count",
+                    "xtype": "mz-input-number"
+                }
             ],
-            [
-              "right",
-              "Right"
+            "icon": "/resources/admin/widgets/26_related_products.png",
+            "id": "relatedproducts",
+            "validPageTypes": [
+                "product",
+                "cart"
             ]
-          ]
         },
         {
-          "style": "width: 52%",
-          "fieldLabel": "Text Color",
-          "name": "textcoloroption",
-          "xtype": "mz-input-color"
-        },
-        {
-          "style": "width: 52%",
-          "fieldLabel": "Text Background-Color",
-          "name": "textbackgroundcoloroption",
-          "xtype": "mz-input-color"
-        },
-        {
-          "style": "width: 52%",
-          "fieldLabel": "Text Font",
-          "name": "textfont",
-          "xtype": "mz-input-dropdown",
-          "store": [
-            [
-              "roboto-light",
-              "Roboto Light"
+            "defaultConfig": {
+                "title": "Related Items"
+            },
+            "displayName": "Instock Request",
+            "displayTemplate": "misc/instock-request",
+            "editViewFields": [
+                {
+                    "anchor": "100%",
+                    "fieldLabel": "Title",
+                    "xtype": "mz-input-text"
+                }
             ],
-            [
-              "roboto-thin",
-              "Roboto Thin"
-            ],
-            [
-              "roboto-normal",
-              "Roboto Normal"
-            ],
-            [
-              "roboto-medium",
-              "Roboto Medium"
-            ],
-            [
-              "roboto-bold",
-              "Roboto Bold"
+            "icon": "/resources/admin/widgets/25_instock_requests.png",
+            "id": "instockrequest",
+            "validPageTypes": [
+                "product"
             ]
-          ]
         },
         {
-          "name": "body",
-          "fieldLabel": "Enter Text",
-          "fieldStyle": "resize:both;font-family:Monaco, Menlo, Consolas, 'Droid Sans Mono', Inconsolata, 'Courier New', monospace;height:100%",
-          "width": "100%",
-          "height": 100,
-          "mode": "html",
-          "xtype": "mz-input-code"
+            "defaultConfig": {
+                "body": "<h2>Insert Title</h2><p>Insert Content</p>"
+            },
+            "displayName": "Content",
+            "displayTemplate": "cms/content",
+            "icon": "/resources/admin/widgets/03_heading_p.png",
+            "id": "content",
+            "validPageTypes": [
+                "*"
+            ]
+        },
+        {
+            "defaultConfig": {
+                "height": 400,
+                "heightResizable": true,
+                "imageHeight": 400,
+                "imageSource": "file",
+                "linkSource": "externalUrl"
+            },
+            "displayName": "Image",
+            "displayTemplate": "cms/image",
+            "customEditor": "image",
+            "icon": "/resources/admin/widgets/00_photo.png",
+            "id": "cms-image",
+            "validPageTypes": [
+                "*"
+            ]
+        },
+        {
+            "defaultConfig": {
+                "hrBorderColor": "#000",
+                "hrBorderStyle": "solid",
+                "hrBorderWidth": "1px",
+                "hrMarginBottom": "0px",
+                "hrMarginTop": "0px"
+            },
+            "displayName": "Horizontal Rule",
+            "displayTemplate": "cms/horizontalrule",
+            "customEditor": "horizontalrule",
+            "icon": "/resources/admin/widgets/05_horizontal_divider.png",
+            "id": "horizontal_rule",
+            "validPageTypes": [
+                "*"
+            ]
+        },
+        {
+            "defaultConfig": {
+                "body": "<h2>Insert Markup</h2>"
+            },
+            "displayName": "HTML",
+            "displayTemplate": "cms/content",
+            "editViewFields": [
+                {
+                    "fieldLabel": "Enter HTML",
+                    "fieldStyle": "resize:both;font-family:Monaco, Menlo, Consolas, 'Droid Sans Mono', Inconsolata, 'Courier New', monospace;height:100%",
+                    "height": 400,
+                    "name": "body",
+                    "width": "100%",
+                    "mode": "html",
+                    "xtype": "mz-input-code"
+                }
+            ],
+            "icon": "/resources/admin/widgets/07_code.png",
+            "id": "html",
+            "validPageTypes": [
+                "*"
+            ]
+        },
+        {
+            "category": "social",
+            "defaultConfig": {
+                "style": "1"
+            },
+            "displayName": "Add This",
+            "displayTemplate": "social/addthis",
+            "editViewFields": [
+                {
+                    "xtype": "mz-input-dropdown",
+                    "name": "style",
+                    "fieldLabel": "AddThis Button Style",
+                    "store": [
+                        [
+                            "1",
+                            "small"
+                        ],
+                        [
+                            "2",
+                            "medium"
+                        ],
+                        [
+                            "3",
+                            "large"
+                        ],
+                        [
+                            "4",
+                            "compact"
+                        ]
+                    ]
+                },
+                {
+                    "html": "Register with <a target=\"_blank\" href=\"https://www.addthis.com\">AddThis</a> for a free in-depth analytics reports and better understand your site's social traffic.",
+                    "xtype": "box"
+                },
+                {
+                    "allowBlank": true,
+                    "fieldLabel": "AddThis<br/> profile ID",
+                    "name": "profileId",
+                    "xtype": "mz-input-text"
+                }
+            ],
+            "icon": "/resources/admin/widgets/13_social.png",
+            "id": "addthis",
+            "validPageTypes": [
+                "*"
+            ]
+        },
+        {
+            "category": "catalog",
+            "displayName": "Deal of the Day",
+            "displayTemplate": "catalog/deal-of-the-day",
+            "editView": "taco-dealoftheday-widgeteditor",
+            "icon": "/resources/admin/widgets/28_deal_of_the_day.png",
+            "id": "deal-of-the-day",
+            "validPageTypes": [
+                "*"
+            ]
         }
-      ],
-      "defaultConfig": {
-        "heightResizable": false
-      },
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "defaultConfig": {
-        "heightResizable": true
-      },
-      "displayName": "Amplience Player",
-      "displayTemplate": "misc/amplience-player",
-      "icon": "/resources/admin/widgets/08_video.png",
-      "id": "ampliencePlayer",
-      "validPageTypes": [
-        "*"
-      ]
-    },
-    {
-      "category": "catalog",
-      "id": "pr_product_review",
-      "displayName": "PowerReviews Product Reviews",
-      "displayTemplate": "PowerReviews/pr-product-reviews",
-      "editViewFields": [
-        {
-          "name": "widgetType",
-          "fieldLabel": "Widget Type",
-          "xtype": "combo",
-          "store": [
-            [
-              "reviewSnippet",
-              "Review Snippet"
-            ],
-            [
-              "socialAnswerSnippet",
-              "Q&A Snippet"
-            ],
-            [
-              "reviewDisplay",
-              "Review Display"
-            ],
-            [
-              "socialAnswerDisplay",
-              "Q&A Display"
-            ]
-          ]
-        },
-        {
-          "name": "isTab",
-          "fieldLabel": "Is Tab Enabled?",
-          "xtype": "checkbox"
-        },
-        {
-          "name": "tabCode",
-          "fieldLabel": "Tab Code"
-        }
-      ],
-      "icon": "/resources/admin/widgets/power_review_icon.png",
-      "validPageTypes": [
-        "product"
-      ]
-    },
-    {
-      "category": "catalog",
-      "id": "pr_roibeacon",
-      "displayName": "PowerReviews ROI Beacon",
-      "displayTemplate": "PowerReviews/pr-roi-beacon",
-      "icon": "/resources/admin/widgets/icon-powerreview-beacone.png",
-      "validPageTypes": [
-        "order"
-      ]
-    } 
-  ]
+    ]
 }

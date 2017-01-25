@@ -1,4 +1,4 @@
-define(['underscore', 'modules/backbone-mozu', 'modules/api', 'hyprlive', 'modules/cart-monitor'], function(_, Backbone, api, Hypr, CartMonitor) {
+﻿define(['underscore', 'modules/backbone-mozu', 'hyprlive', "modules/api"], function (_, Backbone, Hypr, api) {
 
     var CartItemProduct = Backbone.MozuModel.extend({
         helpers: ['mainImage'],
@@ -34,12 +34,16 @@ define(['underscore', 'modules/backbone-mozu', 'modules/api', 'hyprlive', 'modul
             return price.baseAmount != price.discountedAmount;
         },
         saveQuantity: function() {
-            if (this.hasChanged("quantity"))
-            {
-                this.apiUpdateQuantity(this.get("quantity")).then(function(){
-                    CartMonitor.update();
-                });
-        }
+            var self = this;
+            var oldQuantity = this.previous("quantity");
+            if (this.hasChanged("quantity")) {
+                this.apiUpdateQuantity(this.get("quantity"))
+                    .then(null, function() {
+                        // Quantity update failed, e.g. due to limited quantity or min. quantity not met. Roll back.
+                        self.set("quantity", oldQuantity);
+                        self.trigger("quantityupdatefailed", self, oldQuantity);
+                    });
+            }
         }
     }),
 

@@ -1,4 +1,4 @@
-{% extends "modules/common/address-form-checkout" %}
+﻿{% extends "modules/common/address-form" %}
 {% block address-form %}
 {% set addresscontext="billingContact." %}
 {% parent %}

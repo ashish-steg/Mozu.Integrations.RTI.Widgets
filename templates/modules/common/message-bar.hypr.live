@@ -1,13 +1,26 @@
 ﻿<div class="mz-messagebar" data-mz-message-bar>
     {% if model.length > 0 %}
-    <ul class="is-showing mz-errors">
         {% for msg in model %}
-            {% if msg.message == "Missing or invalid parameter: variationProductCode Product is configurable. Variation code must be specified" %}
-                <li>{{ labels.productWishlistError }}</li>
+            {% if msg.messageType and msg.messageType == "exclusivePricelist" %}
+                <ul class="is-showing mz-infos">
+                    <li class="mz-message-item" >{{ labels|prop(msg.messageType) }}</li>
+                    <ul>
+                        {% for itemsRemoved in msg.productsRemoved %}
+                        <li class="mz-message-item">{{itemsRemoved.name}} ({% if itemsRemoved.variationProductCode %}{{itemsRemoved.variationProductCode}}{%else%}{{itemsRemoved.productCode}}{%endif%})</li>
+                        {% endfor %}
+                    </ul>
+                </ul>
             {% else %}
-                <li>{{ msg.message }}</li>
+                {% if msg.messageType and msg.messageType == "newPricelist" %}
+                    <ul class="is-showing mz-success">
+                        <li class="mz-message-item" >{{ labels|prop(msg.messageType) }}</li>
+                    </ul>
+                {% else %}
+                    <ul class="is-showing mz-errors">
+                        <li class="mz-message-item" >{{ msg.message }}</li>
+                    </ul>
+                {% endif %}
             {% endif %}
         {% endfor %}
-    </ul>
     {% endif %}
 </div>

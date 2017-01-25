@@ -1,77 +1,65 @@
-    <h3 class="mz-checkout-step-title">
-        <strong class="mz-title-no">3</strong>{{ labels.checkoutReviewTitle }}
+﻿    <h3 class="mz-formstep-header mz-checkoutform-header">
+        {{ labels.reviewOrder }}
     </h3>
-    <div class="mz-formstep-body">
+    <div class="mz-formstep-body mz-checkoutform">
+        {% if model.isReady %}
+            <p class="mz-formstep-desc">{{ labels.reviewOrderText }}</p>
 
-        <!-- Place order -->
-        <div class="mz-formstep-next">
-            <button type="button" class="mz-button mz-button-large place-order" data-mz-action="submit" disabled="disabled">
-                <span class="thin-chevron-right"></span>{{ labels.placeOrder }}
-            </button>
-        </div>
+            <div class="mz-orderattributes">
+                {% include "modules/checkout/checkout-attributes" with model=model.orderAttributes %}
+            </div>
 
-        <!-- Terms -->
-        <p class="mz-formstep-desc">By placing your order, you agree to the <a href="javascript:void(0);">terms of service</a></p>
-
-        <!-- Items -->
-        {% include "modules/checkout/step-review-items" with model=model %}
-
-        <!-- Unused -->
-        <div style="display: none;">
             {% if themeSettings.requireCheckoutAgreeToTerms %}
-            <div class="mz-l-formfieldgroup mz-l-formfieldgroup-norows">
-            <label class='inline mz-terms-and-conditions-container' data-mz-action="tcvalidation">
-                <input type="checkbox" name="terms-and-conditions" id="mz-terms-and-conditions" data-mz-value="agreeToTerms" {% if model.agreeToTerms %} checked="checked"{% endif %}> <span>{{ labels.agreeToTerms }}</sapn>
+            <div class="mz-l-formfieldgroup mz-l-formfieldgroup-norows mz-checkoutform">
+            <label class='inline'>
+                <input type="checkbox" name="terms-and-conditions" id="mz-terms-and-conditions" data-mz-value="agreeToTerms" {% if model.agreeToTerms %} checked="checked"{% endif %}> {{ labels.agreeToTerms }}
             </label>
-            <span class="mz-validationmessage t-c-msg">You must agree to the terms and conditions</span>
+            <span class="mz-validationmessage" data-mz-validationmessage-for="agreeToTerms"></span>
             </div>
             {% endif %}
 
             {% if not user or user.isAnonymous %}
-            <div class="mz-l-formfieldgroup mz-l-formfieldgroup-norows">
+            <div class="mz-l-formfieldgroup mz-l-formfieldgroup-norows mz-checkoutform">
                 <label class='inline'>
-                    <input type="checkbox" name="create-new-account" data-mz-value="createAccount" {% if model.createAccount %} checked="checked"{% endif %} > <span>{{ labels.createAccount }}</span>
+                    <input type="checkbox" name="create-new-account" data-mz-value="createAccount" {% if model.createAccount %} checked="checked"{% endif %} > {{ labels.createAccount }}
                 </label>
             </div>
 
                 {% if model.createAccount %}
-                <div class="mz-create-account-fields">
-                    <div class="">
-                      <div class="">
-                    <label for="new-account-email"> {{ labels.email }}<span class="is-required"> *</span> </label>
+                <div class="mz-l-formfieldgroup mz-create-account-fields mz-checkoutform mz-checkoutform-active">
+                    <div class="mz-l-formfieldgroup-row">
+                      <div class="mz-l-formfieldgroup-cell">
+                    <label for="new-account-email"> {{ labels.email }}<span class="is-required"> *</span>: </label>
                       </div>
-                      <div class="">
+                      <div class="mz-l-formfieldgroup-cell">
                         <input type="text" name="new-account-email" data-mz-value="emailAddress" value="{{ model.emailAddress|default(model.billingInfo.billingContact.email) }}">
                         <span class="mz-validationmessage" data-mz-validationmessage-for="emailAddress"></span>
                        </div>
                     </div>
-                  <div class="">
-                      <div class="">
-                    <label for="new-account-password"> {{ labels.password }}<span class="is-required"> *</span> </label>
+                  <div class="mz-l-formfieldgroup-row">
+                      <div class="mz-l-formfieldgroup-cell">
+                    <label for="new-account-password"> {{ labels.password }}<span class="is-required"> *</span>: </label>
                       </div>
-                      <div class="">
+                      <div class="mz-l-formfieldgroup-cell">
                         <input type="password" name="new-account-password" data-mz-value="password" value="{{ model.password }}">
                         <span class="mz-validationmessage" data-mz-validationmessage-for="password"></span>
                        </div>
                     </div>
-                  <div class="">
-                      <div class="">
-                    <label for="new-account-password"> {{ labels.confirmPassword }}<span class="is-required"> *</span> </label>
+                  <div class="mz-l-formfieldgroup-row">
+                      <div class="mz-l-formfieldgroup-cell">
+                    <label for="new-account-password"> {{ labels.confirmPassword }}<span class="is-required"> *</span>: </label>
                       </div>
-                      <div class="">
+                      <div class="mz-l-formfieldgroup-cell">
                         <input type="password" name="new-account-confirm" data-mz-value="confirmPassword" value="{{ model.confirmPassword }}">
                         <span class="mz-validationmessage" data-mz-validationmessage-for="confirmPassword"></span>
                        </div>
                     </div>
                 </div>
                 {% endif %}
-                {% endif %}
-        </div>
+            {% endif %}
 
-        <!-- Back button -->
-        <button class="edit-prev-step" data-mz-action="editPreviousStep">
-            <div class="back-arrow"><div class="back-arrow-tip"></div><div class="back-arrow-shaft"></div></div>
-            Back
-        </button>
-
+            <div class="mz-formstep-next">
+                <button type="button" class="mz-button mz-button-large" data-mz-action="submit">{{ labels.placeOrder }}</button>
+            </div>
+        {% endif %}
     </div>

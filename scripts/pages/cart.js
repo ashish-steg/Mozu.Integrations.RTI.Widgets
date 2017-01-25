@@ -16,6 +16,7 @@ define(['modules/backbone-mozu', 'underscore', 'modules/jquery-mozu', 'modules/m
                 }
             });
 
+            this.listenTo(this.model.get('items'), 'quantityupdatefailed', this.onQuantityUpdateFailed, this);
 
             var visaCheckoutSettings = HyprLiveContext.locals.siteContext.checkoutSettings.visaCheckout;
             var pageContext = require.mozuData('pagecontext');
@@ -25,7 +26,7 @@ define(['modules/backbone-mozu', 'underscore', 'modules/jquery-mozu', 'modules/m
             }
         },
         render: function() {
-            preserveElement(this, ['.v-button', '.p-button'], function() {
+            preserveElement(this, ['.v-button'], function() {
                 Backbone.MozuView.prototype.render.call(this);
             });
         },
@@ -40,6 +41,15 @@ define(['modules/backbone-mozu', 'underscore', 'modules/jquery-mozu', 'modules/m
                 item.saveQuantity();
             }
         },400),
+        onQuantityUpdateFailed: function(model, oldQuantity) {
+            var field = this.$('[data-mz-cart-item=' + model.get('id') + ']');
+            if (field) {
+                field.val(oldQuantity);
+            }
+            else {
+                this.render();
+            }
+        },
         removeItem: function(e) {
             if(require.mozuData('pagecontext').isEditMode) {
                 // 65954
@@ -131,15 +141,6 @@ define(['modules/backbone-mozu', 'underscore', 'modules/jquery-mozu', 'modules/m
 
             });
 
-            // for debugging purposes only. don't use this in production
-            window.V.on("payment.cancel", function(payment) {
-                console.log({ cancel: JSON.stringify(payment) });
-            });
-
-            // for debugging purposes only. don't use this in production
-            window.V.on("payment.error", function(payment, error) {
-                console.warn({ error: JSON.stringify(error) });
-            });
         }
 
         // delay V.init() while we wait for MozuView to re-render

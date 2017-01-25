@@ -1,11 +1,12 @@
-.mz-checkout-digitalcredit {
+﻿.mz-checkout-digitalcredit {
     th {
-        text-align: center;
-        color: #333;
-        font-size: 0.875rem;
+        text-align: right;
+        padding: @gutter/2 @gutter;
+        color: #eee;
+        background-color: #666;
         border-bottom: 1px solid #fff;
         &.mz-checkout-digitalcredit-header-code {
-            text-align: center;
+            text-align: left;
         }
         &.mz-checkout-digitalcredit-header-unlabeled {
             padding-right: 0;
@@ -13,8 +14,8 @@
         }
     }
     td {
-        text-align: center;
-        font-size: 0.875rem;
+        text-align: right;
+        padding: @gutter/2 @gutter;
         &.mz-checkout-digitalcredit-cell-enable, &.mz-checkout-digitalcredit-cell-code,
         &.mz-checkout-digitalcredit-cell-savetoaccount, &.mz-checkout-digitalcredit-cell-savetoaccount-label {
             text-align: left;
@@ -23,27 +24,14 @@
     }
     input {
         text-align: left;
-        font-size: 0.875rem;
         &.data-mz-credit-amt-to-apply {
             text-align: right;
-            width: 60%;
-        }
-        &[type="checkbox"] {
-            display: inline-block;
-            padding: 5px;
-            border: 1px solid #afafaf;
-            background: #fff;
-            border-radius: 0;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            -ms-appearance: none;
-            -o-appearance: none;
-            appearance: none;
-        }
-        &[type="checkbox"]:checked {
-            background: #333;
+            width: 100px;
         }
     }
+
+   
+
+    
+
 }
-
-

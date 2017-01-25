@@ -6,9 +6,7 @@
     {% if model.address.address3 %}
         {{ model.address.address3 }}<br />
     {% endif %}
-    {% if model.address.cityOrTown %}
-        {{ model.address.cityOrTown }}, {{ model.address.stateOrProvince }} {{ model.address.postalOrZipCode }}<br />
-    {% endif %}
+    {{ model.address.cityOrTown }}, {{ model.address.stateOrProvince }} {{ model.address.postalOrZipCode }}<br />
     {{ model.address.countryCode }}<br />
     {% if model.phoneNumbers.home %}
         {{ model.phoneNumbers.home }}<br />

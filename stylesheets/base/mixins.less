@@ -122,11 +122,11 @@
 	
 }
 
-
-.animation (@name, @duration: 300ms, @delay: 0, @ease: ease) {
-	-webkit-animation: @name @duration @delay @ease;
-	-moz-animation:    @name @duration @delay @ease;
-	-ms-animation:     @name @duration @delay @ease;
+.animation (@name, @duration: 300ms, @delay: 0, @ease: ease, @direction: normal, @iteration-count: 1, @fill-mode: none, @play-state: running) {
+  animation:         @name @duration @ease @delay @iteration-count @direction @fill-mode @play-state;
+	-webkit-animation: @name @duration @ease @delay @iteration-count @direction @fill-mode @play-state;
+  -moz-animation:    @name @duration @ease @delay @iteration-count @direction @fill-mode @play-state;
+  -ms-animation:     @name @duration @ease @delay @iteration-count @direction @fill-mode @play-state;
 }
 
 .transition (@transition) {
@@ -140,14 +140,12 @@
 	-moz-transition-delay:    @arguments;
 	-ms-transition-delay:     @arguments;
 	-o-transition-delay:      @arguments;
-}
-.transition-timing-function (...) {
+}.transition-timing-function (...) {
     -webkit-transition-timing-function: @arguments;
 	-moz-transition-timing-function:    @arguments;
 	-ms-transition-timing-function:     @arguments;
 	-o-transition-timing-function:      @arguments;
-}
-.transition-duration (...) {
+}.transition-duration (...) {
     -webkit-transition-duration: @arguments;
 	-moz-transition-duration:    @arguments;
 	-ms-transition-duration:     @arguments;
@@ -206,11 +204,4 @@
 	-moz-transform-origin:    @x @y;
 	-ms-transform-origin:     @x @y;
 	-o-transform-origin:      @x @y;
-}
-.blurMe(@blurAmount: 2px) {
-	-webkit-filter: blur(@blurAmount);
-	-moz-filter: blur(@blurAmount);
-	-o-filter: blur(@blurAmount);
-	-ms-filter: blur(@blurAmount);
-	filter: blur(@blurAmount);	
 }

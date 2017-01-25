@@ -1,18 +1,17 @@
-<h3 class="mz-l-stack-sectiontitle">{{ labels.accountSettings }}</h3>
-<hr>
+﻿<h3 class="mz-l-stack-sectiontitle">{{ labels.accountSettings }}{% if not editing %}<a href class="mz-link-edit-accountsettings" data-mz-action="startEdit">{{ labels.edit }}</a>{% endif %}</h3>
 <div class="mz-accountsettings-section mz-accountsettings-name {% if editing %} is-editing {% endif %}">
-  <!--<span class="mz-accountsettings-label mz-account-settings-label-name">{{ labels.firstName }} / {{ labels.lastName }}</span>-->
+  <span class="mz-accountsettings-label mz-account-settings-label-name">{{ labels.firstName }} / {{ labels.lastName }}</span>
   {% if editing %}
   <input class="mz-accountsettings-firstname" type="text" placeholder="{{ labels.firstName }}" data-mz-value="firstName" value="{{ model.firstName }}" />
   <input class="mz-accountsettings-lastname" type="text" placeholder="{{ labels.lastName }}" data-mz-value="lastName" value="{{ model.lastName }}" />
   <span class="mz-validationmessage" data-mz-validationmessage-for="firstName"></span>
   <span class="mz-validationmessage" data-mz-validationmessage-for="lastName"></span>
   {% else %}
-  <div class="mz-accountsettings-displayname" id="account-settings-name">{{ model.firstName }} {{ model.lastName }} <button class="mz-button mz-button-small mz-accountsettings-nameedit" data-mz-action="startEdit">{{ labels.edit }}</button></div>
+  <div class="mz-accountsettings-displayname" id="account-settings-name">{{ model.firstName }} {{ model.lastName }}</div>
   {% endif %}
 </div>
-<div class="mz-accountsettings-section mz-accountsettings-email {% if editing %} is-editing {% endif %}">
-  <!--<span class="mz-accountsettings-label mz-account-settings-label-email">{{ labels.emailAddress }}</span>-->
+<div class="mz-accountsettings-section mz-accountsettings-email">
+  <span class="mz-accountsettings-label mz-account-settings-label-email">{{ labels.emailAddress }}</span>
   {% if editing %}
   <input class="mz-accountsettings-email" type="email" placeholder="{{ labels.emailAddress }}" data-mz-value="emailAddress" value="{{ model.emailAddress }}" />
   <span class="mz-validationmessage" data-mz-validationmessage-for="emailAddress"></span>

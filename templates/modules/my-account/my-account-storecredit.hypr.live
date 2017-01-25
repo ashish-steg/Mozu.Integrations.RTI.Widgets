@@ -1,12 +1,11 @@
-<h3 class="mz-l-stack-sectiontitle">{{ labels.storeCredit }}</h3>
-<hr>
+﻿<h3 class="mz-l-stack-sectiontitle">{{ labels.digitalCredit }}</h3>
 <div class="mz-accountstorecredit-form">
   <input type="text" placeholder="{{ labels.enterDigitalCredit }}" class="mz-accountstorecredit-input" data-mz-entering-credit />
   <button class="mz-button mz-button-small mz-accountstorecredit-add" data-mz-action="addStoreCredit">{{ labels.add }}</button>
 </div>
 <div class="mz-accountstorecredit-table">
   {% if model.credits %}
-  <table class="mz-table table table-bordered">
+  <table class="mz-table">
     <thead>
       <tr>
         <th class="mz-accountstorecredit-header-creditnumber">{{ labels.digitalCreditCode }}</th>

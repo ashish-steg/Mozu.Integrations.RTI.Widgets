@@ -68,7 +68,6 @@
         {% endif %}
 
         {% block stylesheets %}
-        	{{ "/stylesheets/storefront.less"|stylesheet_tag:"default" }}
 			<link rel="stylesheet" href="{% make_url "stylesheet" "/stylesheets/pages/splash-page.less" %}" title="default" />
         {% endblock stylesheets %}
         

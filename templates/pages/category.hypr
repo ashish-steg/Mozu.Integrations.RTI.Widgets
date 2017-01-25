@@ -2,56 +2,13 @@
 
 {% block title-tag-content %}{% firstof pageContext.metaTitle model.name %}  - {% parent %}{% endblock title-tag-content %}
 
-<div class="row">
-    <div>
-        {% dropzone "ImageVideoSlider" scope="page" %}
-    </div>
-</div>
 {% block body-tag-classes %} mz-category {% endblock body-tag-classes %}
-
-
 
 {% block body-content %}
 
 {% require_script "pages/category" %}
 
-{% for images in model.content.categoryImages %}
-    {% if images.alttext == "cat_page_header_img" %}
-        <!-- <div class="row banner-container">
-            <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-                <div class="banner lazyload"
-                    data-bgset="{{ images.imageUrl }}?max=2000"
-                    data-sizes="auto"
-                    data-absurl="false" 
-                    data-optimumx="2" 
-                    data-quality="75"
-                >
-                    <span class="mz-pagetitle">{{ model.name }}</span>
-                </div>
-            </div>
-        </div> -->
-	<div class="row banner-container">
-            <div class="col-xs-24 col-sm-24 col-md-24 col-lg-24">
-        <div class="banner" data-bgset="{{ images.imageUrl }}?max=2000" data-absurl="false" data-optimumx="2" data-quality="75" style="display: block; background-image: url(&quot; http:{{ images.imageUrl }} &quot;);">
-                <span class="mz-pagetitle">{{ model.name }}</span>
-                <picture style="display: none;"><source data-srcset="{{ images.imageUrl }}?max=2000" sizes="1903px" srcset="{{ images.imageUrl }}?max=2000"><img data-parent-fit="cover" class=" lazyautosizes lazyloaded" data-sizes="auto" data-optimumx="2" ></picture></div>
-        </div>
-    </div>
-
-
-    {% endif %}
-{% endfor %}
-
-<div class="category-products" data-mz-category="{{model.categoryId}}">
-   {% include "modules/category-products" %}
+<div data-mz-category="{{model.categoryId}}" class="mz-l-container">
+    {% include "pages/category-interior" %}
 </div>
-
-<div class="scrollTop">
-    <p>{{ labels.backToTop }}</p>
-</div>
-
-<!--color code and name from theme settings-->
-{% include "modules/color-name-code" %}
-<!--color code and name from theme settings-->
-
 {% endblock body-content %}

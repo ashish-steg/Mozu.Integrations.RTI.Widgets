@@ -1,37 +1,4 @@
-define(['modules/backbone-mozu', 
-    'hyprlive', 
-    'hyprlivecontext', 
-    'modules/jquery-mozu', 
-    'underscore', 
-    'modules/models-customer', 
-    'modules/views-paging', 
-    'modules/cart-monitor',
-    'modules/soft-cart'
-    ], function(Backbone, Hypr, HyprLiveContext, $, _, CustomerModels, PagingViews, CartMonitor, SoftCart) {
-    
-    var EditableView = Backbone.MozuView.extend({
-        constructor: function () {
-            Backbone.MozuView.apply(this, arguments);
-            this.editing = {};
-        },
-        getRenderContext: function () {
-            var c = Backbone.MozuView.prototype.getRenderContext.apply(this, arguments);
-            c.editing = this.editing;
-            return c;
-        },
-        doModelAction: function (action, payload) {
-            var self = this,
-                renderAlways = function () {
-                    self.render();
-                };
-            var operation = this.model[action](payload);
-            if (operation && operation.then) {
-                operation.then(renderAlways, renderAlways);
-                return operation;
-            }
-        }
-    });
-
+﻿define(['modules/backbone-mozu', "modules/api", 'hyprlive', 'hyprlivecontext', 'modules/jquery-mozu', 'underscore', 'modules/models-customer', 'modules/views-paging', 'modules/editable-view'], function(Backbone, Api, Hypr, HyprLiveContext, $, _, CustomerModels, PagingViews, EditableView) {
     var AccountSettingsView = EditableView.extend({
         templateName: 'modules/my-account/my-account-settings',
         autoUpdate: [
@@ -50,7 +17,6 @@ define(['modules/backbone-mozu',
                 customer.get('attributes').each(function (attribute) {
                     attribute.set('attributeDefinitionId', attribute.get('id'));
                 });
-
                 return customer;
             });
         },
@@ -59,7 +25,6 @@ define(['modules/backbone-mozu',
             var attributeFQN = e.currentTarget.getAttribute('data-mz-attribute');
             var attribute = this.model.get('attributes').findWhere({ attributeFQN: attributeFQN });
             var nextValue = attribute.get('inputType') === 'YesNo' ? $(e.currentTarget).prop('checked') : $(e.currentTarget).val();
-
             attribute.set('values', [nextValue]);
             attribute.validate('values', {
                 valid: function (view, attr, error) {
@@ -83,7 +48,6 @@ define(['modules/backbone-mozu',
         },
         finishEdit: function () {
             var self = this;
-
             this.doModelAction('apiUpdate').then(function () {
                 self.editing = false;
             }).otherwise(function () {
@@ -94,13 +58,11 @@ define(['modules/backbone-mozu',
         },
         afterEdit: function () {
             var self = this;
-
             self.initialize().ensure(function () {
                 self.render();
             });
         }
     });
-
     var PasswordView = EditableView.extend({
         templateName: 'modules/my-account/my-account-password',
         autoUpdate: [
@@ -128,7 +90,6 @@ define(['modules/backbone-mozu',
         this.render();
     }
     });
-
     var WishListView = EditableView.extend({
         templateName: 'modules/my-account/my-account-wishlist',
         addItemToCart: function (e) {
@@ -136,15 +97,8 @@ define(['modules/backbone-mozu',
                 id = $target.data('mzItemId');
             if (id) {
                 this.editing.added = id;
-                this.doModelAction('addItemToCart', id).then(function(){
-                    CartMonitor.update();
-                    SoftCart.update().then(SoftCart.show).then(function() {
-                        $('.soft-cart-wrap').addClass('is-active');
-                    });
-                });
-                return true;
+                return this.doModelAction('addItemToCart', id);
             }
-            
         },
         doNotRemove: function() {
             this.editing.added = false;
@@ -175,8 +129,6 @@ define(['modules/backbone-mozu',
             }
         }
     });
-
-
     var OrderHistoryView = Backbone.MozuView.extend({
         templateName: "modules/my-account/order-history-list",
         autoUpdate: [
@@ -218,9 +170,8 @@ define(['modules/backbone-mozu',
                 });
             }
         }
-    }),
-
-    ReturnHistoryView = Backbone.MozuView.extend({
+    });
+    var ReturnHistoryView = Backbone.MozuView.extend({
         templateName: "modules/my-account/return-history-list",
         initialize: function () {
             var self = this;
@@ -230,9 +181,58 @@ define(['modules/backbone-mozu',
                 if ($retView.length === 0) $retView = self.$el;
                 $retView.ScrollTo({ axis: 'y' });
             });
+        },
+        printReturnLabel :function(e) {
+             var self= this, 
+             $target = $(e.currentTarget);
+             //Get Whatever Info we need to our shipping label
+             var returnId = $target.data('mzReturnid'),
+                 returnObj = self.model.get('items').findWhere({ id: returnId });
+             var printReturnLabelView =  new PrintView({
+               model: returnObj
+             });
+            var _totalRequestCompleted = 0;
+          
+            _.each(returnObj.get('packages'), function(value, key, list){
+                window.accountModel.apiGetReturnLabel({'returnId': returnId, 'packageId': value.id, 'returnAsBase64Png': true}).then(function(data){
+                    value.labelImageSrc = 'data:image/png;base64,' + data;
+                    _totalRequestCompleted++;
+                    if(_totalRequestCompleted == list.length) {
+                        printReturnLabelView.render();
+                        printReturnLabelView.loadPrintWindow();
+                    }
+                });
+            });
+            
+        } 
+    });
+    var PrintView = Backbone.MozuView.extend({
+        templateName: "modules/my-account/my-account-print-window",
+        el: $('#mz-printReturnLabelView'),
+        initialize: function () {
+        },
+        loadPrintWindow: function(){
+             var host = HyprLiveContext.locals.siteContext.cdnPrefix,
+                printScript = host + "/scripts/modules/print-window.js",
+                printStyles = host + "/stylesheets/modules/my-account/print-window.css";
+            var my_window,
+            self = this,
+            width = window.screen.width - (window.screen.width / 2),
+            height = window.screen.height - (window.screen.height / 2),
+            offsetTop = 200,
+            offset = window.screen.width * 0.25;
+           
+            my_window = window.open("", 'mywindow' + Math.random() + ' ','width=' + width + ',height=' + height + ',top=' + offsetTop + ',left=' + offset + ',status=1');
+            my_window.document.write('<html><head>');
+            my_window.document.write('<link rel="stylesheet" href="' + printStyles +'" type="text/css">');
+            my_window.document.write('</head>');
+            my_window.document.write('<body>');
+            my_window.document.write($('#mz-printReturnLabelView').html());
+            
+            my_window.document.write('<script src="' + printScript + '"></script>');
+            my_window.document.write('</body></html>');
         }
     });
-
     //var scrollBackUp = _.debounce(function () {
     //    $('#orderhistory').ScrollTo({ axis: 'y', offsetTop: Hypr.getThemeSetting('gutterWidth') });
     //}, 100);
@@ -250,10 +250,10 @@ define(['modules/backbone-mozu',
     //        if (op) op.then(scrollBackUp);
     //    }
     //});
-
     var PaymentMethodsView = EditableView.extend({
         templateName: "modules/my-account/my-account-paymentmethods",
         autoUpdate: [
+            'editingCard.isDefaultPayMethod',
             'editingCard.paymentOrCardType',
             'editingCard.nameOnCard',
             'editingCard.cardNumberPartOrMask',
@@ -279,6 +279,7 @@ define(['modules/backbone-mozu',
             'editingContact.isPrimaryShippingContact'
         ],
         renderOnChange: [
+            'editingCard.isDefaultPayMethod',
             'editingCard.contactId',
             'editingContact.address.countryCode'
         ],
@@ -311,7 +312,6 @@ define(['modules/backbone-mozu',
             }
         }
     });
-
     var AddressBookView = EditableView.extend({
         templateName: "modules/my-account/my-account-addressbook",
         autoUpdate: [
@@ -370,8 +370,6 @@ define(['modules/backbone-mozu',
                     return self.doModelAction('deleteContact', contact.id);
                 },
                 go = doDeleteContact;
-
-
             if (associatedCards.length > 0) {
                 windowMessage += ' ' + Hypr.getLabel('confirmDeleteContact2');
                 go = function() {
@@ -379,13 +377,11 @@ define(['modules/backbone-mozu',
                 };
                
             }
-
             if (window.confirm(windowMessage)) {
                 return go();
             }
         }
     });
-
     var StoreCreditView = Backbone.MozuView.extend({
         templateName: 'modules/my-account/my-account-storecredit',
         addStoreCredit: function (e) {
@@ -396,22 +392,9 @@ define(['modules/backbone-mozu',
             });
         }
     });
-
         
     $(document).ready(function () {
-
         var accountModel = window.accountModel = CustomerModels.EditableCustomer.fromCurrent();
-        /*Recommended product code*/
-        var customerSegment = accountModel.get('segments');
-        $.each(customerSegment, function(i, segment) {
-            if(segment.name !== null && segment.name !== undefined && segment.name !== '')
-                $.cookie('customerSegment', customerSegment[0].name,  { expires : 10});
-        });
-        if(customerSegment.length === 0) {
-            $.cookie('customerSegment', '',  { expires : 10});
-        }
-        /*Recommended product code ends*/
-        
         var $accountSettingsEl = $('#account-settings'),
             $passwordEl = $('#password-section'),
             $orderHistoryEl = $('#account-orderhistory'),
@@ -423,7 +406,6 @@ define(['modules/backbone-mozu',
             $storeCreditEl = $('#account-storecredit'),
             orderHistory = accountModel.get('orderHistory'),
             returnHistory = accountModel.get('returnHistory');
-
         var accountViews = window.accountViews = {
             settings: new AccountSettingsView({
                 el: $accountSettingsEl,
@@ -484,11 +466,8 @@ define(['modules/backbone-mozu',
             model: accountModel.get('wishlist'),
             messagesEl: $messagesEl
         });
-
         // TODO: upgrade server-side models enough that there's no delta between server output and this render,
         // thus making an up-front render unnecessary.
         _.invoke(window.accountViews, 'render');
-
     });
 });
-

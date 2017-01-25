@@ -1,20 +1,13 @@
-<span>{{ model.firstName }} {{ model.lastNameOrSurname }}</span>
-<p>{{ model.address.address1 }} </p>
-
-{% if model.address.address2 %}
-<p>{{ model.address.address2 }}</p>
-{% endif %}
-
-{% if model.address.address3 %}
-<p>{{ model.address.address3 }}</p>
-{% endif %}
-
-<p>{{ model.address.cityOrTown }}, {{ model.address.stateOrProvince }} {{ model.address.postalOrZipCode }}</p>
-{% if model.address.countryCode != "US" %}
-    <p>{{ model.address.countryCode }}</p>
-{% endif %}
-
-{% if model.phoneNumbers.home %}
-<p>{{ model.phoneNumbers.home }}</p>
-{% endif %}
-
+﻿    <span>{{ model.firstName }} {{ model.lastNameOrSurname }}</span>
+    <span>{{ model.address.address1 }}</span>
+    {% if model.address.address2 %}
+        <span>{{ model.address.address2 }}</span>
+    {% endif %}
+    {% if model.address.address3 %}
+        <span>{{ model.address.address3 }}</span>
+    {% endif %}
+    <span>{{ model.address.cityOrTown }}, {{ model.address.stateOrProvince }} {{ model.address.postalOrZipCode }}</span>
+    <span>{{ model.address.countryCode }}</span>
+    {% if model.phoneNumbers.home %}
+        <span>{{ model.phoneNumbers.home }}</span>
+    {% endif %}

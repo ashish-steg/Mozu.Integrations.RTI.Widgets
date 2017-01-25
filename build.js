@@ -5,8 +5,7 @@
         hyprlive: "empty:",
         hyprlivecontext: "empty:",
         underscore: "vendor/underscore/underscore",
-        backbone: "vendor/backbone/backbone",
-        bootstrap :  "vendor/bootstrap.min"
+        backbone: "vendor/backbone/backbone"
     },
     dir: "compiled/scripts/",
     locale: "en-us",
@@ -18,12 +17,9 @@
     modules: [
         {
             name: "modules/common",
-           include: [
+            include: [
                 'modules/api',
                 'modules/backbone-mozu',
-                'modules/backbone-mozu-model',
-                'modules/backbone-mozu-view',
-                'modules/backbone-mozu-pagedcollection',
                 'modules/cart-monitor',
                 'modules/contextify',
                 'modules/jquery-mozu',
@@ -34,23 +30,13 @@
                 'modules/models-faceting',
                 'modules/models-messages',
                 'modules/models-product',
-                'modules/models-cart',
                 'modules/scroll-nav',
                 'modules/search-autocomplete',
                 'modules/views-collections',
                 'modules/views-messages',
                 'modules/views-paging',
                 'modules/views-productlists',
-                'modules/menu',
-                'modules/signup',
-                'modules/page-header',
-                'vendor/jquery/bootstrap-slider',
-                'vendor/jquery/instafeed',
-                'vendor/jquery/jquery-ui',
-                'vendor/jquery/lazysizes-custom.min',
                 'vendor/jquery/owl.carousel.min',
-                'vendor/jquery/jquery.bxslider.min',
-                'modules/soft-cart',
             ],
             exclude: ['jquery'],
         },

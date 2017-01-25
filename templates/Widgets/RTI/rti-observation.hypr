@@ -1,0 +1,3 @@
+<div>Observer tag deployed.</div>
+{% require_script "widgets/rti-observation" %}
+{% require_script "modules/baynote" %}

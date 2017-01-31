@@ -1,5 +1,6 @@
 require([
     'modules/jquery-mozu',
+    'hyprlive',
     "hyprlivecontext",
     'underscore',
     'modules/api',
@@ -9,7 +10,7 @@ require([
     'modules/cart-monitor',
     'shim!vendor/jquery/owl.carousel.min'
 ],
-function($, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
+function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
 
 	/*Recommended Product Code Starts*/
 	var pageContext = require.mozuData('pagecontext');
@@ -246,9 +247,16 @@ function($, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMon
             });
         }
     });
+
     var getRecommendedProducts = function(callback) {
-        var demoUrl = config.demoUrl;
-        return $.get(demoUrl, callback);
+      var customerCode = config.customerCode;
+      var customerId = config.customerId;
+      var productUrl;
+
+      productUrl = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '/'+config.params;
+      return $.get(productUrl, callback);
+
+
     };
 
     var productItems = new Backbone.Collection();
@@ -291,9 +299,8 @@ function($, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMon
         var productIdList = [];
 
         if(config.demoItems) {
-
              productIdList = ['ACC1','ACC2', 'ACC3', "BIKE1", "BIKE2", "BIKE3", "BOT1"];
-        }else {
+        } else {
             _.each(widgetResults[0].slotResults, function(prod, key){
                 var attrs = [];
                 _.each(prod.attrs, function(attr, key, list){
@@ -308,6 +315,11 @@ function($, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMon
             getProducts(productIdList).then(function(products){
                 if(products.length !== 0) {
                     var productsByRank = _.sortBy(products, 'rtiRank');
+
+                    var numberOfItems = config.numberOfItems;
+                    if (productsByRank.length>numberOfItems){
+                      productsByRank = productsByRank.slice(0, numberOfItems);
+                    }
                     var prodColl = new ProductModels.ProductCollection();
                     prodColl.set('items', productsByRank);
 

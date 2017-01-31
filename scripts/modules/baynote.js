@@ -1,4 +1,3 @@
-//
 // var BaynoteJSVersion="Version: V1222-03";var BaynoteIgnored=false;var BN_READY_SIGNAL="ReadySignal";var Strategy={"ScriptDOMInject":2,"OnLoadInject":3};if(typeof(baynote_globals)=="undefined")var baynote_globals=new Object();baynote_globals.CommonResourceURL="/baynote/tags3/common";baynote_globals.CommonResourceID="Common";baynote_globals.PolicyResourceID="Policy";baynote_globals.CustomerStatus="/baynote/customerstatus2";baynote_globals.CommonScriptId="commonScriptId";if(typeof(baynote_inject_strategy)!="undefined"){baynote_globals.DefaultInjectStrategy=baynote_inject_strategy;}else{baynote_globals.DefaultInjectStrategy=Strategy.ScriptDOMInject;}
 // if(typeof(baynote_server_timeout)!="undefined"){baynote_globals.ServerTimeout=baynote_server_timeout;}else{baynote_globals.ServerTimeout=undefined;}
 // if(typeof(baynote_use_window_name)!="undefined"){baynote_globals.UseWindowName=baynote_use_window_name;}else{baynote_globals.UseWindowName=false;}

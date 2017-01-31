@@ -1,3 +1,4 @@
+
   Ext.define('myEditors.rti-editor', {
         extend: 'Ext.form.Panel',
         cls: 'editor-body',
@@ -13,6 +14,12 @@
                 var customerCode = response.items[0].item.customerCode;
                 var customerId = response.items[0].item.customerId;
                 var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
+                var customerCodeInput = me.down('#customerCode');
+                var customerIdInput = me.down('#customerId');
+
+                customerCodeInput.setValue(customerCode);
+                customerIdInput.setValue(customerId);
+
                 me.getComboboxOptions(widgetNameReqUrl, 'widget-name');
               }
 
@@ -30,6 +37,7 @@
                     fields: ['placeholders', 'name'],
                     data: []
                  },
+                 allowBlank: false,
                  displayField: 'name',
                  valueField: 'name',
                  queryMode: 'local',
@@ -42,26 +50,80 @@
                  xtype: 'mz-input-dropdown',
                  cls: 'dropdown',
                  name: 'strategy',
+                 allowBlank: false,
                  fieldLabel: 'Strategy',
                  itemId: 'strategy',
-                 store: ['A strategy', 'another strategy'],
-                 displayField: 'name',
-                 valueField: 'name',
+                 store: ['Revenue Optimized', 'Bought together', 'Trending',
+                  'Top Sellers','Popular','Complements','Last Viewed',
+                  'Substitutes', 'Engagement Optimized', 'Bundle', 'Upsell'],
+                //  displayField: 'name',
+                //  valueField: 'name',
+
                  queryMode: 'local',
                  editable: false,
                  forceSelection: true,
-                 margin: '0 0 30px 0'
-
-
+                 margin: '0 0 30px 0',
+                 typeAhead: true
              },
 
              {
                xtype: 'mz-input-text',
                cls: 'textbox',
+               allowBlank: false,
                name: 'title',
                emptyText: 'You may also like:',
                fieldLabel: 'Display Title</br><i>Displayed on storefront</i>',
                margin: '0 0 30px 0'
+            },
+
+            {
+              xtype: 'panel',
+              layout: 'hbox',
+              items: [
+
+                  {
+                    xtype: 'mz-input-text',
+                    cls: 'textbox',
+                    name: 'params',
+                    allowBlank: false,
+                    emptyText: 'Enter query style',
+                    fieldLabel: 'Additional parameters',
+                    margin: '0 0 30px 0'
+                 },
+
+
+             {
+               xtype: 'panel',
+               margin: '0 0 0 30px',
+               items:[
+                 {
+                   xtype: 'box',
+                   html: 'Include in query:'
+                },
+
+                 {
+                     xtype: 'mz-input-checkbox',
+                     name: 'includeTenantId',
+                     fieldLabel: 'Tenant ID',
+                     margin: '0 0 30px 0px'
+                  },
+
+                  {
+                      xtype: 'mz-input-checkbox',
+                      name: 'includeSiteId',
+                      fieldLabel: 'Site ID',
+                      margin: '0 0 30px 0px'
+                   }
+
+               ]
+             },
+
+             ]
+
+            },
+            {
+              xtype: 'box',
+              html: "Here's some text specifying which variables are automatically imported."
             },
 
               {
@@ -72,6 +134,19 @@
                 minValue: 1,
                 value: 5,
                 margin: '0 0 30px 0'
+              },
+
+              {
+                xtype: 'hidden',
+                name: 'customerId',
+                itemId: 'customerId',
+                value: 'noneya'
+              },
+              {
+                xtype: 'hidden',
+                name: 'customerCode',
+                itemId: 'customerCode',
+                value: 'noneya'
               },
 
             //  {

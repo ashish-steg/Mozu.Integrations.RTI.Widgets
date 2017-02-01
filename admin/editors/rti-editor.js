@@ -5,7 +5,6 @@
 
         initComponent: function() {
             var me = this;
-            //Request to
             Ext.Ajax.request({
               url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
               method: 'get',
@@ -85,7 +84,6 @@
                     xtype: 'mz-input-text',
                     cls: 'textbox',
                     name: 'params',
-                    allowBlank: false,
                     emptyText: 'Enter query style',
                     fieldLabel: 'Additional parameters',
                     margin: '0 0 30px 0'

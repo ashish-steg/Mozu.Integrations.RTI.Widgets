@@ -2,7 +2,8 @@
 	<p class="rti-recommended-products-title slider-title">{{ model.config.title }}</p>
 	<div class="rti-recommended-products carousel-parent">
 		<div data-rti-recommended-products >
-		</div> 
+		</div>
 	</div>
 </div>
+{% preload_json siteContext "siteContext" %}
 {% require_script "widgets/rti-recommended-products" %}

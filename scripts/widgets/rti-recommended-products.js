@@ -14,6 +14,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
 	/*Recommended Product Code Starts*/
 	var pageContext = require.mozuData('pagecontext');
+  var siteContext = require.mozuData('siteContext');
+  // var siteContext = HyprLiveContext.locals.siteContext;
     var config = $('#rti-recommended-product-container').data('mzRtiRecommendedProducts');
 	var eFlag = 0;
     var ProductModelColor = Backbone.MozuModel.extend({
@@ -252,10 +254,13 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
       var customerCode = config.customerCode;
       var customerId = config.customerId;
       var productUrl;
+      console.log("Site context attempt");
+      console.log(siteContext.tenantId);
+
+      //get strategy
 
       productUrl = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '/'+config.params;
       return $.get(productUrl, callback);
-
 
     };
 
@@ -297,10 +302,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
         var widgetResults = data.widgetResults;
         var productIdList = [];
-
-        if(config.demoItems) {
-             productIdList = ['ACC1','ACC2', 'ACC3', "BIKE1", "BIKE2", "BIKE3", "BOT1"];
-        } else {
             _.each(widgetResults[0].slotResults, function(prod, key){
                 var attrs = [];
                 _.each(prod.attrs, function(attr, key, list){
@@ -309,7 +310,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                 attrs.rank = prod.rank;
                 productIdList.push(attrs);
             });
-        }
+
 
         if(productIdList.length !== 0) {
             getProducts(productIdList).then(function(products){

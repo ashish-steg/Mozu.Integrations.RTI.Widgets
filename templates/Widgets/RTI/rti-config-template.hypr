@@ -1,0 +1,12 @@
+<div>
+Config template placed.
+</div>
+
+{% preload_json {{model.config.productsUrl}} "productsUrl" %}
+{% preload_json {{ model.config.customerId}} "customerId" %}
+{% preload_json {{ model.config.customerCode}} "customerCode" %}
+{% preload_json {{ model.config.pageTemplate}} "pageTemplate" %}
+
+
+
+{% require_script "widgets/rti-configs-sscript" %}

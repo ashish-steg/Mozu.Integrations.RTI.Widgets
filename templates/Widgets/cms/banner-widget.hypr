@@ -1,0 +1,4 @@
+
+<div class="banner-widget">
+<img src="{{model.config.bannerText}}" />
+</div>

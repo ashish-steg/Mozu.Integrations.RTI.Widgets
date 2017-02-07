@@ -11,10 +11,17 @@
     },
     "editors": [
 
+
+      {
+       "id": "rti-config-editor",
+       "path": "rti-config-editor.js"
+     },
+
         {
-            "id": "rti-recommended-products",
-            "path": "rti-editor.js"
+            "id": "rti-display-editor",
+            "path": "rti-display-editor.js"
         },
+
         {
             "id": "layout",
             "path": "layout.js"
@@ -795,16 +802,38 @@
     ],
     "widgets": [
 
+      {
+      "displayName": "RTI Configuration",
+      "customEditor": "rti-config-editor",
+      "displayTemplate": "RTI/rti-config-template",
+      "id": "rti-config",
+      "validPageTypes": [
+        "*"
+      ],
+      "icon": "/resources/admin/widgets/1-col_icon.png"
+    },
+
           {
             "displayName": "RTI Recommended Products",
-            "displayTemplate": "RTI/rti-recommended-products",
-            "customEditor": "rti-recommended-products",
+            "displayTemplate": "RTI/rti-display-template",
+            "customEditor": "rti-display-editor",
             "icon": "/resources/admin/widgets/23_cross_sells.png",
-            "id": "rti-recommended-products",
+            "id": "rti-display",
             "validPageTypes": [
               "*"
             ]
         },
+
+        {
+          "displayName": "RTI Configuration",
+          "displayTemplate": "RTI/rti-config-template",
+          "customEditor": "rti-editor",
+          "icon": "/resources/admin/widgets/07_code.png",
+          "id": "rti-rec-config",
+          "validPageTypes": [
+            "*"
+          ]
+      },
 
         {
           "displayName": "RTI Observation Tag",

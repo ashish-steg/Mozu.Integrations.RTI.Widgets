@@ -19,6 +19,13 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
   var customerCode = require.mozuData('customerCode');
   var productsUrl = require.mozuData('productsUrl');
   var placeholder = require.mozuData('placeholder');
+  var numberOfItems = require.mozuData('numberOfItems');
+  var pageTemplate = require.mozuData('pageTemplate');
+
+  var displayConfig = $('#rti-recommended-product-container').data('mzRtiRecommendedProducts');
+  console.log(pageTemplate);
+
+
   // var siteContext = HyprLiveContext.locals.siteContext;
     var config = $('#rti-recommended-product-container').data('mzRtiRecommendedProducts');
 	var eFlag = 0;
@@ -309,8 +316,12 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
     var renderSlider = function(data) {
 
         var widgetResults = data.widgetResults;
+        var displayName = widgetResults[0].displayName;
+        $("."+placeholder+".slider-title").text(displayName);
+
         var productIdList = [];
             _.each(widgetResults[0].slotResults, function(prod, key){
+              console.log(prod);
                 var attrs = [];
                 _.each(prod.attrs, function(attr, key, list){
                     attrs[attr.name] = attr.values[0];
@@ -320,12 +331,11 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
             });
 
 
+
         if(productIdList.length !== 0) {
             getProducts(productIdList).then(function(products){
                 if(products.length !== 0) {
                     var productsByRank = _.sortBy(products, 'rtiRank');
-
-                    var numberOfItems = config.numberOfItems;
                     if (productsByRank.length>numberOfItems){
                       productsByRank = productsByRank.slice(0, numberOfItems);
                     }

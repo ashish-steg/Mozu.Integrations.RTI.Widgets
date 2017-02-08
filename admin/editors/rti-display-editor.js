@@ -4,31 +4,26 @@ Ext.widget({
   initComponent: function(){
 
     var me = this;
-    // Ext.Ajax.request({
-    //   url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
-    //   method: 'get',
-    //   success: function (res) {
-    //     var response = JSON.parse(res.responseText);
-    //     var customerCode = response.items[0].item.customerCode;
-    //     var customerId = response.items[0].item.customerId;
-        // var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
-        // me.getComboboxOptions(widgetNameReqUrl, 'page-type');
-    //
-    //   }
-    // });
+    Ext.Ajax.request({
+      url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
+      method: 'get',
+      success: function (res) {
+        var response = JSON.parse(res.responseText);
+        var customerCode = response.items[0].item.customerCode;
+        var customerId = response.items[0].item.customerId;
+        var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
+        me.getComboboxOptions(widgetNameReqUrl, 'page-template');
 
-    var customerCode = "fun2";
-    var customerId = "sun";
-    var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
-    me.getComboboxOptions(widgetNameReqUrl, 'page-type');
+      }
+    });
 
         this.items = [
 
             {
              xtype: 'mz-input-dropdown',
              name: 'pageType',
-             fieldLabel: 'Page Type',
-             itemId: 'page-type',
+             fieldLabel: 'Page Template',
+             itemId: 'page-template',
              store: {
                 fields: ['name', 'placeholders'],
                 data: []
@@ -45,6 +40,7 @@ Ext.widget({
                  var listOfPlaceholders = selection[0].data.placeholders;
                  var select = me.down('#placeholders');
                  var store = select.getStore();
+                 store.removeAll();
                  store.insert(0, listOfPlaceholders);
                }
              }
@@ -87,7 +83,6 @@ Ext.widget({
       if (boxId.charAt(0)!=='#'){
         boxId = '#'+boxId;
       }
-      console.log(reqUrl);
 
       var request = new XMLHttpRequest();
       request.open('GET', reqUrl, true);

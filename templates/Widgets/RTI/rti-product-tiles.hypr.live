@@ -109,7 +109,7 @@
                                         {% if prod.mainImage.altText %}alt="{{ prod.mainImage.altText }}"{% endif %}
                                     />
                                     {% endcomment %}
-                                    <img src="{{ prod.mainImage.imageUrl }}" width="100%"/>
+                                    <img src="{{ prod.mainImage.imageUrl }}" style="max-height: 200px"/>
                                     {% else %}
                                         <span class="mz-productlisting-imageplaceholder"><span class="mz-productlisting-imageplaceholdertext">{{ labels.productImagePlaceholder }}</span></span>
                                     {% endif %}

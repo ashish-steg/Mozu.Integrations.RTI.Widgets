@@ -5,5 +5,3 @@
 		</div>
 	</div>
 </div>
-{% preload_json {{model.config.placeholders}} "placeholder" %}
-{% preload_json {{ model.config.numberOfItems}} "numberOfItems" %}

@@ -4,34 +4,24 @@ Ext.widget({
   initComponent: function(){
     var me = this;
 
-    // Ext.Ajax.request({
-    //   url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
-    //   method: 'get',
-    //   success: function (res) {
-    //     var response = JSON.parse(res.responseText);
-    //     var customerCode = response.items[0].item.customerCode;
-    //     var customerId = response.items[0].item.customerId;
-    //     var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
-    //     var customerCodeInput = me.down('#customerCode');
-    //     var customerIdInput = me.down('#customerId');
-    //
-    //     customerCodeInput.setValue(customerCode);
-    //     customerIdInput.setValue(customerId);
-    //
-    //     me.getComboboxOptions(widgetNameReqUrl, 'page-template');
-    //   }
-    // });
+    Ext.Ajax.request({
+      url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
+      method: 'get',
+      success: function (res) {
+        console.log(res);
+        var response = JSON.parse(res.responseText);
+        var customerCode = response.items[0].item.customerCode;
+        var customerId = response.items[0].item.customerId;
+        var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
+        var customerCodeInput = me.down('#customerCode');
+        var customerIdInput = me.down('#customerId');
+        customerCodeInput.setValue(customerCode);
+        customerIdInput.setValue(customerId);
 
-    var customerCode = "fun2";
-    var customerId = "sun";
-    var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
-    // var customerCodeInput = me.down('#customerCode');
-    // var customerIdInput = me.down('#customerId');
-    //
-    // customerCodeInput.setValue(customerCode);
-    // customerIdInput.setValue(customerId);
+        me.getComboboxOptions(widgetNameReqUrl, 'page-template');
+      }
+    });
 
-    me.getComboboxOptions(widgetNameReqUrl, 'page-template');
 
     this.items = [
 
@@ -107,7 +97,7 @@ Ext.widget({
 
      {
        xtype: 'box',
-       html: "Here's some text specifying which variables are automatically imported."
+       html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
      },
 
        {
@@ -139,7 +129,19 @@ Ext.widget({
 
 
     ];
+
     this.superclass.initComponent.apply(this, arguments);
+  },
+
+  setCustomerInfo: function(customerCode, customerId){
+    var me = this;
+    var customerCodeInput = me.down('#customerCode');
+    var customerIdInput = me.down('#customerId');
+
+    customerCodeInput.setValue(customerCode);
+    customerIdInput.setValue(customerId);
+
+
   },
   getComboboxOptions: function(reqUrl, boxId){
     var me = this;

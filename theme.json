@@ -810,7 +810,7 @@
       "validPageTypes": [
         "*"
       ],
-      "icon": "/resources/admin/widgets/1-col_icon.png"
+      "icon": "/resources/admin/widgets/07_code.png"
     },
 
           {
@@ -823,18 +823,6 @@
               "*"
             ]
         },
-
-        {
-          "displayName": "RTI Configuration",
-          "displayTemplate": "RTI/rti-config-template",
-          "customEditor": "rti-editor",
-          "icon": "/resources/admin/widgets/07_code.png",
-          "id": "rti-rec-config",
-          "validPageTypes": [
-            "*"
-          ]
-      },
-
         {
           "displayName": "RTI Observation Tag",
           "displayTemplate": "RTI/rti-observation.hypr",

@@ -8,7 +8,6 @@ Ext.widget({
       url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
       method: 'get',
       success: function (res) {
-        console.log(res);
         var response = JSON.parse(res.responseText);
         var customerCode = response.items[0].item.customerCode;
         var customerId = response.items[0].item.customerId;
@@ -49,7 +48,7 @@ Ext.widget({
      },
      {
        xtype: 'panel',
-       layout: 'hbox',
+       layout: 'vbox',
        itemId: 'params-box',
        items: [
 
@@ -59,33 +58,32 @@ Ext.widget({
              name: 'params',
              allowBlank: true,
              emptyText: 'Enter query style',
-             fieldLabel: 'Additional parameters',
+             fieldLabel: 'Additional Parameters',
              margin: '0 0 30px 0'
           },
 
 
       {
         xtype: 'panel',
-        margin: '0 0 0 30px',
+        margin: '30px 0 0 0',
         items:[
           {
             xtype: 'box',
-            html: 'Include in query:'
-         },
+            html: 'Include in Query'
+          },
 
           {
               xtype: 'mz-input-checkbox',
               name: 'includeTenantId',
               fieldLabel: 'Tenant ID',
-              margin: '0 0 30px 0px'
-           },
+          },
 
-           {
+          {
                xtype: 'mz-input-checkbox',
                name: 'includeSiteId',
                fieldLabel: 'Site ID',
-               margin: '0 0 30px 0px'
-            }
+               margin: '-5px 0 0 0'
+          }
 
         ]
       },
@@ -95,10 +93,11 @@ Ext.widget({
      },
 
 
-     {
-       xtype: 'box',
-       html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
-     },
+       {
+         xtype: 'box',
+         margin: '30px 0 0 0',
+         html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
+       },
 
        {
          xtype: 'hidden',
@@ -119,15 +118,6 @@ Ext.widget({
         itemId:'isConfigged',
         value: false
       },
-
-      {
-        xtype: 'hidden',
-        name: 'productsUrl',
-        itemId: 'productsUrl',
-        value: '//sun-fun2.baynote.net/recs/1/sun_fun2/?pageTemplate=Home&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url&url=https://t17403-s27146.sandbox.mozu.com/obermeyer-girl-s-patchwork-knit-hat/p/2415064588308&format=json'
-      }
-
-
     ];
 
     this.superclass.initComponent.apply(this, arguments);

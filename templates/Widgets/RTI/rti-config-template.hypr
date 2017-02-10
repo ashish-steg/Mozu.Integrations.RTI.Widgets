@@ -1,4 +1,6 @@
 <div id="config-drop" data-mz-rti-recommended-products={% json_attribute Model.config%}>
 </div>
 
+
+
 {% require_script "widgets/rti-config-script" %}

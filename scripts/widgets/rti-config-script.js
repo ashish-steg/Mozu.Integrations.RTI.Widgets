@@ -12,24 +12,29 @@ require([
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
 
-  var displayConfig = $('#rti-recommended-product-container').data('mzRtiRecommendedProducts');
   var mainConfig = $('#config-drop').data('mzRtiRecommendedProducts');
   var customerId = mainConfig.customerId;
   var customerCode = mainConfig.customerCode;
-  var placeholder = displayConfig.placeholders;
-  var numberOfItems = displayConfig.numberOfItems;
   var pageTemplate = mainConfig.pageTemplate;
   var params = mainConfig.params;
   var includeSiteId = mainConfig.includeSiteId;
   var includeTenantId = mainConfig.includeTenantId;
   var isConfigged = mainConfig.isConfigged;
 
+
+  var containerList = []; //All widgets to be populated
+  $('.recommended-product-container').each(function(a, b){
+    var configData = $(this).data('mzRtiRecommendedProducts');
+    var container = {config: configData};
+    containerList.push(container);
+
+  });
+
   var pageContext = require.mozuData('pagecontext');
   var siteContext = require.mozuData('siteContext');
 
 /*Recommended Product Code Starts*/
-    var config = $('#rti-recommended-product-container').data('mzRtiRecommendedProducts');
-	var eFlag = 0;
+	  var eFlag = 0;
     var ProductModelColor = Backbone.MozuModel.extend({
         mozuType: 'products'
     });
@@ -42,7 +47,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
             "touchstart a.wishlist-button": "addToWishlist"
         },
         initialize: function() {
-            this.owl = null;
+            // this.owl = null;
             var self = this;
             var isUserAnonymous = require.mozuData('user').isAnonymous;
 
@@ -50,7 +55,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                 self.addedToWishlist();
             }
         },
-        render: function() {
+        render: function(placeholder) {
             var self = this;
             var owlItems = 1;
                 if(pageContext.isDesktop) {
@@ -67,59 +72,62 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                 //this.priceFunction();
                 var catTitle = '';
                 $('[data-toolstip="toolstip"]').tooltip();
+                  var owl = $(".rti-recommended-products."+placeholder+" .related-prod-owl-carousel");
+                  owl.owlCarousel({
+                      loop: false,
+                      responsiveClass:true,
+                      responsive:{
+                          0 : {
+                              items: 2,
+                              nav:false
+                          },
+                          480 : {
+                              items: 3,
+                              nav:false
+                          },
+                          1025 : {
+                              items: 4,
+                              nav:false
+                          }
+                      }
+                  });
 
-                var owl = $(".rti-recommended-products ."+placeholder+" #owl-example").owlCarousel({
-                    loop: false,
-                    responsiveClass:true,
-                    responsive:{
-                        0 : {
-                            items: 2,
-                            nav:false
-                        },
-                        480 : {
-                            items: 3,
-                            nav:false
-                        },
-                        1025 : {
-                            items: 4,
-                            nav:false
-                        }
-                    }
-                });
-                owl.on('changed.owl.carousel', function(e) {
-                    if( e.item.index >= 1)
-                        $(".rti-recommended-products").find('.previous').show();
-                    else
-                        $(".rti-recommended-products").find('.previous').hide();
-                    if( e.item.index === e.item.count-owlItems)
-                        $(".rti-recommended-products").find('.next').hide();
-                    else
-                        $(".rti-recommended-products").find('.next').show();
-                });
+                  owl.on('changed.owl.carousel', function(e) {
+                      if( e.item.index >= 1)
+                          $(".rti-recommended-products."+placeholder).find('.previous').show();
+                      else
+                          $(".rti-recommended-products."+placeholder).find('.previous').hide();
+                      if( e.item.index === e.item.count-owlItems)
+                          $(".rti-recommended-products."+placeholder).find('.next').hide();
+                      else
+                          $(".rti-recommended-products."+placeholder).find('.next').show();
+                  });
 
-                if(owl.find('.owl-item').length <= owlItems)
-                    $(".rti-recommended-products").find('.next').hide();
+                  if(owl.find('.owl-item').length <= owlItems)
+                      $(".rti-recommended-products."+placeholder).find('.next').hide();
 
-                $(".rti-recommended-products #owl-example > .owl-item").addClass("mz-productlist-item");
-                $('.rti-recommended-products .next').on('click', function() {
-                    owl.trigger('next.owl.carousel');
-                });
-                $('.rti-recommended-products .previous').on('click', function() {
-                    owl.trigger('prev.owl.carousel');
-                });
+                  $(".rti-recommended-products."+placeholder+" .related-prod-owl-carousel > .owl-item").addClass("mz-productlist-item");
+                  $('.rti-recommended-products.'+placeholder+' .next').on('click', function() {
+                      owl.trigger('next.owl.carousel');
+                  });
+                  $('.rti-recommended-products.'+placeholder+' .previous').on('click', function() {
+                      owl.trigger('prev.owl.carousel');
+                  });
 
-                var owlItemTotal3 = $(".rti-recommended-products .owl-item").length;
-                if(pageContext.isDesktop && owlItemTotal3 >= 5 ) {
-                  $(".rti-recommended-products").css("border-right", "none");
-                }
-                if(pageContext.isTablet && owlItemTotal3 >= 3) {
-                  $(".rti-recommended-products").css("border-right", "none");
-                }
-                if(pageContext.isMobile && owlItemTotal3 >= 2 ) {
-                  $(".rti-recommended-products").css("border-right", "none");
-                }
-                //this.colorSelected();
-                this.manageBlocksHeight();
+                  var owlItemTotal3 = $(".rti-recommended-products."+placeholder+" .owl-item").length;
+                  if(pageContext.isDesktop && owlItemTotal3 >= 5 ) {
+                    $(".rti-recommended-products."+placeholder).css("border-right", "none");
+                  }
+                  if(pageContext.isTablet && owlItemTotal3 >= 3) {
+                    $(".rti-recommended-products."+placeholder).css("border-right", "none");
+                  }
+                  if(pageContext.isMobile && owlItemTotal3 >= 2 ) {
+                    $(".rti-recommended-products."+placeholder).css("border-right", "none");
+                  }
+                  //this.colorSelected();
+                  this.manageBlocksHeight();
+
+
             },
             colorSwatchingRecommend: function(e) {
             $('[data-mz-swatch]').on("click", function(e){
@@ -283,9 +291,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
       }
       location = '&url='+location;
       var jsonFormat = '&format=json';
+      console.log(params);
       var productUrl = firstPart + pageTemplateQuery + requiredParams + location + tenantIdQuery + siteIdQuery + jsonFormat;
-
-
 
       // productUrl = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '/?'+config.params + '&format=json';
       return $.get(productUrl, callback);
@@ -327,45 +334,61 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
 
     var renderSlider = function(data) {
+      //get each possible placeholder on page
+      //make each div hold data about how many products to display and what placeholder
+      //to use
+      //for each possible div
+        //get widgetresults for that placeholder name
+        //populate displayName
+        //
 
-        var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
-        var displayName = widgetResults[0].displayName;
-        $("."+placeholder+".slider-title").text(displayName);
+        _.each(containerList, function(container){
 
-        var productIdList = [];
-            _.each(widgetResults[0].slotResults, function(prod, key){
-                var attrs = [];
-                _.each(prod.attrs, function(attr, key, list){
-                    attrs[attr.name] = attr.values[0];
-                });
-                attrs.rank = prod.rank;
-                productIdList.push(attrs);
-            });
+          var placeholder = container.config.placeholders;
+          var numberOfItems = container.config.numberOfItems;
+
+          var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
+          var displayName = widgetResults[0].displayName;
+          $("."+placeholder+".slider-title").text(displayName);
+
+          var productIdList = [];
+              _.each(widgetResults[0].slotResults, function(prod, key){
+                  var attrs = [];
+                  _.each(prod.attrs, function(attr, key, list){
+                      attrs[attr.name] = attr.values[0];
+                  });
+                  attrs.rank = prod.rank;
+                  productIdList.push(attrs);
+              });
 
 
 
-        if(productIdList.length !== 0) {
-            getProducts(productIdList).then(function(products){
-                if(products.length !== 0) {
-                    var productsByRank = _.sortBy(products, 'rtiRank');
-                    if (productsByRank.length>numberOfItems){
-                      productsByRank = productsByRank.slice(0, numberOfItems);
-                    }
-                    var prodColl = new ProductModels.ProductCollection();
-                    prodColl.set('items', productsByRank);
+          if(productIdList.length !== 0) {
+              getProducts(productIdList).then(function(products){
+                  if(products.length !== 0) {
+                      var productsByRank = _.sortBy(products, 'rtiRank');
+                      if (productsByRank.length>numberOfItems){
+                        productsByRank = productsByRank.slice(0, numberOfItems);
+                      }
+                      var prodColl = new ProductModels.ProductCollection();
+                      prodColl.set('items', productsByRank);
 
-                     var productListView = new ProductListView({
-                        el: $('[data-rti-recommended-products]'),
-                        model: prodColl
-                    });
-                    productListView.render();
-                    return;
-                }
-                $('.recommended-product-container .slider-title').hide();
-                $('.recommended-product-container .rti-recommended-products.carousel-parent').hide();
-                $('#mz-drop-zone-recommended-products-container').removeClass('hidden');
-            });
-        }
+                       var productListView = new ProductListView({
+                          el: $('[data-rti-recommended-products='+placeholder+']'),
+                          model: prodColl
+                      });
+                      productListView.render(placeholder);
+                      return;
+                  }
+                  $('.recommended-product-container .'+placeholder+'.slider-title').hide();
+                  $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
+                  $('.recommended-product-container.'+placeholder).removeClass('hidden');
+              });
+          }
+
+        });
+
+
 
     };
 

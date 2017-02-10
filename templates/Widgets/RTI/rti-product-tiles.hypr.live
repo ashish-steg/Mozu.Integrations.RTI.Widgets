@@ -34,7 +34,7 @@
     <div class="related-title {% if model.items.length == 0 %}hidden{% endif %}">
         <span id="title" class="pull-left title"></span>
     </div>
-    <div id="owl-example" class="related-prod-owl-carousel">
+    <div class="related-prod-owl-carousel">
         {% for prod in model.items %}
             <div class="row mz-productlisting {% block module-classes %}{% endblock module-classes %}" data-mz-product="{{ prod.productCode }}">
                 {% if prod.price.salePrice > 0 and prod.price.price > prod.price.salePrice %}

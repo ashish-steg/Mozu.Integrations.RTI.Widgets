@@ -270,29 +270,94 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
         }
     });
 
-    var getRecommendedProducts = function(callback) {
+    var buildProductUrl = function(pageType){
 
-      var tenantIdQuery = "";
-      var siteIdQuery = "";
+      var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '?';
+      var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
+
+      var bnExtUserId = require.mozuData('user').userId;
+      var userId = getCookie('bn_u');
+      var visits = getCookie('bn_documentVisitsTrail');
+
+      var userIdQuery = "&userId="+userId;
+      var bnExtUserIdQuery = "&User.bnExtUserId="+bnExtUserId;
+
+      var extrasQuery;
+      //If the user has submitted params, they go here
+      if (params) {
+        extrasQuery = params;
+      } else {
+        //If not, the three are submitted blank
+        extrasQuery = "&query=&Override=&Product.Override=";
+      }
+
+      var source = window.location.href;
+      var sourceQuery = "&source="+source;
+
+      var tenantIdQuery = "&tenantId=";
+      var siteIdQuery = "&siteId=";
 
       if (includeTenantId){
-        tenantIdQuery = "&?tenantId="+siteContext.tenantId;
+        tenantIdQuery +=siteContext.tenantId;
       }
       if (includeSiteId){
-        siteIdQuery = "&?siteId="+siteContext.siteId;
+        siteIdQuery +=siteContext.siteId;
       }
 
-      var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode;
-      var pageTemplateQuery = '?pageTemplate='+pageTemplate;
-      var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
-      var location = window.location.href;
-      if (location.startsWith("http://")){
-        location = "https://" + location.slice(7);
+      //The queries stored in pageDependentSection vary between page types
+      var pageDependentSection = "";
+
+      if (pageType=="Home"){
+
+      } else if (pageType=="ProductDetail") {
+        //Url param is same as source
+        //visitstrail
+      } else if (pageType=="Cart"){
+        //productIds
+        //visitstrail?
       }
-      location = '&url='+location;
-      var jsonFormat = '&format=json';
-      console.log(params);
-      var productUrl = firstPart + pageTemplateQuery + requiredParams + location + tenantIdQuery + siteIdQuery + jsonFormat;
+
+      //more than one visitstrail?
+      //more than one url
+
+      var rtn = firstPart +
+       requiredParams +
+        userIdQuery +
+         bnExtUserIdQuery +
+          extrasQuery +
+           sourceQuery +
+            pageDependentSection +
+             tenantIdQuery +
+              siteIdQuery + "&format=json";
+
+      console.log(rtn);
+      return rtn;
+
+    };
+
+    var getRecommendedProducts = function(callback) {
+      // buildProductUrl(pageTemplate);
+      //
+      // var tenantIdQuery = "&?tenantId=";
+      // var siteIdQuery = "&?siteId=";
+      //
+      // if (includeTenantId){
+      //   tenantIdQuery +=siteContext.tenantId;
+      // }
+      // if (includeSiteId){
+      //   siteIdQuery +=siteContext.siteId;
+      // }
+      //
+      // var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode;
+      // var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
+      // var location = window.location.href;
+      // if (location.startsWith("http://")){
+      //   location = "https://" + location.slice(7);
+      // }
+      // location = '&url='+location;
+      // var jsonFormat = '&format=json';
+      // console.log(params);
+      var productUrl = buildProductUrl(pageTemplate);
 
       // productUrl = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '/?'+config.params + '&format=json';
       return $.get(productUrl, callback);
@@ -334,14 +399,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
 
     var renderSlider = function(data) {
-      //get each possible placeholder on page
-      //make each div hold data about how many products to display and what placeholder
-      //to use
-      //for each possible div
-        //get widgetresults for that placeholder name
-        //populate displayName
-        //
-
         _.each(containerList, function(container){
 
           var placeholder = container.config.placeholders;
@@ -391,6 +448,22 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
 
     };
+
+    var getCookie = function(cname){
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+          }
+          if (c.indexOf(name) === 0) {
+              return c.substring(name.length, c.length);
+          }
+      }
+      return "";
+  };
 
     try {
         getRecommendedProducts(function(data) {

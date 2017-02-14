@@ -12,7 +12,11 @@ Ext.widget({
         var customerCode = response.items[0].item.customerCode;
         var customerId = response.items[0].item.customerId;
         var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
-        me.getComboboxOptions(widgetNameReqUrl, 'page-template');
+        me.getComboboxOptions(widgetNameReqUrl, 'page-type');
+        var customerCodeInput = me.down('#customerCode');
+        var customerIdInput = me.down('#customerId');
+        customerCodeInput.setValue(customerCode);
+        customerIdInput.setValue(customerId);
 
       }
     });
@@ -22,15 +26,15 @@ Ext.widget({
             {
              xtype: 'mz-input-dropdown',
              name: 'pageType',
-             fieldLabel: 'Page Template',
-             itemId: 'page-template',
+             fieldLabel: 'Page Type',
+             itemId: 'page-type',
              store: {
                 fields: ['name', 'placeholders'],
                 data: []
               },
              allowBlank: false,
              displayField: 'name',
-             valueField: 'placeholders',
+             valueField: 'name',
              queryMode: 'local',
              editable: true,
              forceSelection: true,
@@ -38,7 +42,7 @@ Ext.widget({
              listeners: {
                select: function(element, selection){
                  var listOfPlaceholders = selection[0].data.placeholders;
-                 var select = me.down('#placeholders');
+                 var select = me.down('#placeholder');
                  var store = select.getStore();
                  store.removeAll();
                  store.insert(0, listOfPlaceholders);
@@ -48,8 +52,8 @@ Ext.widget({
 
           {
             xtype: 'mz-input-dropdown',
-            name: 'placeholders',
-            itemId: 'placeholders',
+            name: 'placeholder',
+            itemId: 'placeholder',
             fieldLabel: 'Placeholder Name',
             store: {
               fields: ['name'],
@@ -69,6 +73,20 @@ Ext.widget({
             minValue: 1,
             value: 5,
             margin: '0 0 30px 0'
+          },
+
+          {
+            xtype: 'hidden',
+            name: 'customerId',
+            itemId: 'customerId',
+            value: 'noneya'
+          },
+
+          {
+            xtype: 'hidden',
+            name: 'customerCode',
+            itemId: 'customerCode',
+            value: 'noneya'
           },
 
       ];

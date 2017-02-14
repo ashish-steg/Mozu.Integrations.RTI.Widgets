@@ -13,13 +13,24 @@ require([
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
 
   var mainConfig = $('#config-drop').data('mzRtiRecommendedProducts');
-  var customerId = mainConfig.customerId;
-  var customerCode = mainConfig.customerCode;
-  var pageTemplate = mainConfig.pageTemplate;
+
   var params = mainConfig.params;
   var includeSiteId = mainConfig.includeSiteId;
   var includeTenantId = mainConfig.includeTenantId;
   var isConfigged = mainConfig.isConfigged;
+
+  //CustomerId, customerCode, and pagetype are all variables used by the
+  //whole page, but are right now being set by each individual display widget.
+  //It's possible that the user could accidentally set the pagetype differently in
+  //the each display widget. So we're going to go with the info that is in the first one
+  //on the page.
+
+  var firstDisplay = $('.recommended-product-container').first();
+  var secondaryConfig = firstDisplay.data('mzRtiRecommendedProducts');
+  var customerId = secondaryConfig.customerId;
+  var customerCode = secondaryConfig.customerCode;
+  var pageType = secondaryConfig.pageType;
+
 
 
   var containerList = []; //All widgets to be populated
@@ -272,12 +283,13 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
     var buildProductUrl = function(pageType){
 
+
       var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '?';
       var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
 
       var bnExtUserId = require.mozuData('user').userId;
       var userId = getCookie('bn_u');
-      var visits = getCookie('bn_documentVisitsTrail');
+
 
       var userIdQuery = "&userId="+userId;
       var bnExtUserIdQuery = "&User.bnExtUserId="+bnExtUserId;
@@ -292,6 +304,9 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
       }
 
       var source = window.location.href;
+      if (source.startsWith("http://")){
+        source = "https://" + source.slice(7);
+      }
       var sourceQuery = "&source="+source;
 
       var tenantIdQuery = "&tenantId=";
@@ -305,22 +320,28 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
       }
 
       //The queries stored in pageDependentSection vary between page types
-      var pageDependentSection = "";
+      //Right now the only difference configured is thatif pageType is cart,
+      //We add productIds to the query.
 
+      var pageDependentSection = "";
       if (pageType=="Home"){
 
       } else if (pageType=="ProductDetail") {
-        //Url param is same as source
-        //visitstrail
+
       } else if (pageType=="Cart"){
-        //productIds
-        //visitstrail?
+
+        var cart = require.mozuData('cart');
+        if (!cart.isEmpty){
+
+          for(var i=0; i<cart.items.length; i++){
+            var productId = cart.items[i].id;
+            var productQuery = "&productId="+productId;
+            pageDependentSection += productQuery;
+          }
+        }
       }
 
-      //more than one visitstrail?
-      //more than one url
-
-      var rtn = firstPart +
+      var url = firstPart +
        requiredParams +
         userIdQuery +
          bnExtUserIdQuery +
@@ -330,37 +351,13 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
              tenantIdQuery +
               siteIdQuery + "&format=json";
 
-      console.log(rtn);
-      return rtn;
+      return url;
 
     };
 
     var getRecommendedProducts = function(callback) {
-      // buildProductUrl(pageTemplate);
-      //
-      // var tenantIdQuery = "&?tenantId=";
-      // var siteIdQuery = "&?siteId=";
-      //
-      // if (includeTenantId){
-      //   tenantIdQuery +=siteContext.tenantId;
-      // }
-      // if (includeSiteId){
-      //   siteIdQuery +=siteContext.siteId;
-      // }
-      //
-      // var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode;
-      // var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
-      // var location = window.location.href;
-      // if (location.startsWith("http://")){
-      //   location = "https://" + location.slice(7);
-      // }
-      // location = '&url='+location;
-      // var jsonFormat = '&format=json';
-      // console.log(params);
-      var productUrl = buildProductUrl(pageTemplate);
-
-      // productUrl = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '/?'+config.params + '&format=json';
-      return $.get(productUrl, callback);
+      var url = buildProductUrl(pageType);
+      return $.get(url, callback);
 
     };
 
@@ -401,47 +398,71 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
     var renderSlider = function(data) {
         _.each(containerList, function(container){
 
-          var placeholder = container.config.placeholders;
+          var placeholder = container.config.placeholder;
           var numberOfItems = container.config.numberOfItems;
+          console.log(data.widgetResults);
 
           var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
-          var displayName = widgetResults[0].displayName;
-          $("."+placeholder+".slider-title").text(displayName);
+          if (!widgetResults[0]){
+            if (pageContext.isEditMode){
+              $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
+            }
+          } else {
+            var displayName = widgetResults[0].displayName;
+            console.log("display");
+            console.log(displayName);
+            //widgetResults should, at this point, be an array of only 1 item
+            //Prune list for "products" that are empty
+            var productSlots = widgetResults[0].slotResults.filter(function(product){
+             return product.url;
+           });
+            //If the pruned list contains anything, we continue.
+            if (productSlots.length){
+              $("."+placeholder+".slider-title").text(displayName);
+              var productIdList = [];
 
-          var productIdList = [];
-              _.each(widgetResults[0].slotResults, function(prod, key){
-                  var attrs = [];
-                  _.each(prod.attrs, function(attr, key, list){
-                      attrs[attr.name] = attr.values[0];
-                  });
-                  attrs.rank = prod.rank;
-                  productIdList.push(attrs);
-              });
-
-
-
-          if(productIdList.length !== 0) {
-              getProducts(productIdList).then(function(products){
-                  if(products.length !== 0) {
-                      var productsByRank = _.sortBy(products, 'rtiRank');
-                      if (productsByRank.length>numberOfItems){
-                        productsByRank = productsByRank.slice(0, numberOfItems);
-                      }
-                      var prodColl = new ProductModels.ProductCollection();
-                      prodColl.set('items', productsByRank);
-
-                       var productListView = new ProductListView({
-                          el: $('[data-rti-recommended-products='+placeholder+']'),
-                          model: prodColl
+                  _.each(productSlots, function(prod, key){
+                      var attrs = [];
+                      _.each(prod.attrs, function(attr, key, list){
+                          attrs[attr.name] = attr.values[0];
                       });
-                      productListView.render(placeholder);
-                      return;
+                      attrs.rank = prod.rank;
+                      productIdList.push(attrs);
+                  });
+
+                  if(productIdList.length !== 0) {
+                      getProducts(productIdList).then(function(products){
+                          if(products.length !== 0) {
+                              var productsByRank = _.sortBy(products, 'rtiRank');
+                              if (productsByRank.length>numberOfItems){
+                                productsByRank = productsByRank.slice(0, numberOfItems);
+                              }
+                              var prodColl = new ProductModels.ProductCollection();
+                              prodColl.set('items', productsByRank);
+
+
+                               var productListView = new ProductListView({
+                                  el: $('[data-rti-recommended-products='+placeholder+']'),
+                                  model: prodColl
+                              });
+                              productListView.render(placeholder);
+                              return;
+                          }
+                          $('.recommended-product-container .'+placeholder+'.slider-title').hide();
+                          $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
+                          $('.recommended-product-container.'+placeholder).removeClass('hidden');
+                      });
                   }
-                  $('.recommended-product-container .'+placeholder+'.slider-title').hide();
-                  $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
-                  $('.recommended-product-container.'+placeholder).removeClass('hidden');
-              });
+            } else {
+              if (pageContext.isEditMode){
+                $('.recommended-product-container.'+placeholder).text("An RTI recommendations widget is dropped but there are no products to display.");
+              }
+            }
+
+
           }
+
+
 
         });
 

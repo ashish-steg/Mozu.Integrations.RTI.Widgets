@@ -4,48 +4,9 @@ Ext.widget({
   initComponent: function(){
     var me = this;
 
-    Ext.Ajax.request({
-      url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
-      method: 'get',
-      success: function (res) {
-        var response = JSON.parse(res.responseText);
-        var customerCode = response.items[0].item.customerCode;
-        var customerId = response.items[0].item.customerId;
-        var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
-        var customerCodeInput = me.down('#customerCode');
-        var customerIdInput = me.down('#customerId');
-        customerCodeInput.setValue(customerCode);
-        customerIdInput.setValue(customerId);
-
-        me.getComboboxOptions(widgetNameReqUrl, 'page-template');
-      }
-    });
-
 
     this.items = [
 
-      {
-         xtype: 'mz-input-dropdown',
-         name: 'pageTemplate',
-         fieldLabel: 'Page Template',
-         itemId: 'page-template',
-         store: {
-            fields: ['name', 'placeholders'],
-            data: []
-         },
-         allowBlank: false,
-         displayField: 'name',
-         valueField: 'name',
-         queryMode: 'local',
-         editable: true,
-         forceSelection: true,
-         margin: '0 0 30px 0',
-         listeners: {
-           select: function(element, selection){
-             me.down('#isConfigged').setValue(true);
-           }
-         }
-     },
      {
        xtype: 'panel',
        layout: 'vbox',
@@ -97,20 +58,6 @@ Ext.widget({
          xtype: 'box',
          margin: '30px 0 0 0',
          html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
-       },
-
-       {
-         xtype: 'hidden',
-         name: 'customerId',
-         itemId: 'customerId',
-         value: 'noneya'
-       },
-
-       {
-         xtype: 'hidden',
-         name: 'customerCode',
-         itemId: 'customerCode',
-         value: 'noneya'
        },
       {
         xtype: 'hidden',

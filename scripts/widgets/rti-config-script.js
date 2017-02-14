@@ -8,7 +8,7 @@ require([
     'modules/models-product',
     'modules/models-cart',
     'modules/cart-monitor',
-    'shim!vendor/jquery/owl.carousel.min'
+    'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
 
@@ -400,7 +400,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
           var placeholder = container.config.placeholder;
           var numberOfItems = container.config.numberOfItems;
-          
+
           var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
           if (!widgetResults[0]){
             if (pageContext.isEditMode){

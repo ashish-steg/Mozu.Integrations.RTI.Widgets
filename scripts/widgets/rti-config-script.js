@@ -400,8 +400,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
           var placeholder = container.config.placeholder;
           var numberOfItems = container.config.numberOfItems;
-          console.log(data.widgetResults);
-
+          
           var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
           if (!widgetResults[0]){
             if (pageContext.isEditMode){
@@ -409,10 +408,9 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
             }
           } else {
             var displayName = widgetResults[0].displayName;
-            console.log("display");
-            console.log(displayName);
+
             //widgetResults should, at this point, be an array of only 1 item
-            //Prune list for "products" that are empty
+            //Prune slotResults list for "products" that are empty
             var productSlots = widgetResults[0].slotResults.filter(function(product){
              return product.url;
            });
@@ -420,7 +418,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
             if (productSlots.length){
               $("."+placeholder+".slider-title").text(displayName);
               var productIdList = [];
-
                   _.each(productSlots, function(prod, key){
                       var attrs = [];
                       _.each(prod.attrs, function(attr, key, list){

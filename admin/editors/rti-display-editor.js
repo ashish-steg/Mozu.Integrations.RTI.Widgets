@@ -43,6 +43,7 @@ Ext.widget({
                select: function(element, selection){
                  var listOfPlaceholders = selection[0].data.placeholders;
                  var select = me.down('#placeholder');
+                 select.setValue('');
                  var store = select.getStore();
                  store.removeAll();
                  store.insert(0, listOfPlaceholders);
@@ -62,7 +63,17 @@ Ext.widget({
             allowBlank: false,
             displayField: 'name',
             valueField: 'name',
-            queryMode: 'local'
+            queryMode: 'local',
+            margin: '0 0 30px 0'
+          },
+
+          {
+            xtype: 'mz-input-text',
+            name: 'title',
+            itemId: 'title',
+            fieldLabel: 'Title',
+            emptyText: 'Leave blank to default to RTI setting',
+            margin: '0 0 30px 0'
           },
 
           {

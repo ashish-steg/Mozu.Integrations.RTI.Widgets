@@ -400,6 +400,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
           var placeholder = container.config.placeholder;
           var numberOfItems = container.config.numberOfItems;
+          var configTitle = container.config.title;
+
 
           var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
           if (!widgetResults[0]){
@@ -407,15 +409,25 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
               $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
             }
           } else {
-            var displayName = widgetResults[0].displayName;
+            var displayName;
+            console.log(configTitle);
+            if (configTitle){
+              displayName = configTitle;
+
+            } else {
+              displayName = widgetResults[0].displayName;
+            }
+
+
 
             //widgetResults should, at this point, be an array of only 1 item
-            //Prune slotResults list for "products" that are empty
+            //Prune slotResults list for "products" that don't contain any data.
             var productSlots = widgetResults[0].slotResults.filter(function(product){
              return product.url;
            });
             //If the pruned list contains anything, we continue.
             if (productSlots.length){
+
               $("."+placeholder+".slider-title").text(displayName);
               var productIdList = [];
                   _.each(productSlots, function(prod, key){

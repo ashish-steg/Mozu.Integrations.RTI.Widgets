@@ -11,6 +11,8 @@ require([
     'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
+
+  //Page-wide configurations, currently set by configuration widget:
   var mainConfig = require.mozuData('modelconfig');
   var params = mainConfig.params;
   var includeSiteId = mainConfig.includeSiteId;
@@ -30,19 +32,48 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
   var customerCode = secondaryConfig.customerCode;
   var pageType = secondaryConfig.pageType;
 
-
-
-  var containerList = []; //All widgets to be populated
-  $('.recommended-product-container').each(function(a, b){
-    var configData = $(this).data('mzRtiRecommendedProducts');
-    console.log(configData);
-    var container = {config: configData};
-    containerList.push(container);
-
-  });
-
   var pageContext = require.mozuData('pagecontext');
   var siteContext = require.mozuData('sitecontext');
+
+  /*
+  containerList holds data about all of the widgets we're going to make.
+  */
+  var containerList = [];
+
+/*
+The following loop acts as cleanup; it populates containerList with the needed data,
+ignoring and delegitimizing any divs on the page with duplicate placeholder names.
+*/
+  $('.recommended-product-container').each(function(a, b){
+    if (!$(this).hasClass('ignore')){
+      var configData = $(this).data('mzRtiRecommendedProducts');
+      var container = {config: configData};
+      var selector = '.recommended-product-container.'+configData.placeholder;
+
+      if($(selector).length>1){
+        $(selector).each(function(index, element){
+          console.log(index);
+          if (index>0){
+            /*
+            We don't want to add the data from accidental duplicates to
+            our nice, clean containerList. We also don't want those duplicates to
+            accidentally render. So for all but the first element with this
+            class name, we strip all classes, add 'ignore' so the .each we're in
+            right now ignores the duplicates, hide the div, and add a message
+            in edit mode so the user knows what happened.
+            */
+            $(element).removeClass();
+            $(element).addClass('ignore');
+            if (pageContext.isEditMode){
+                $("<p>Error: duplicate placeholder name.</p>").insertBefore($(element));
+            }
+            $(element).hide();
+          }
+        });
+      }
+      containerList.push(container);
+  }
+  });
 
 /*Recommended Product Code Starts*/
 	  var eFlag = 0;
@@ -67,6 +98,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
             }
         },
         render: function(placeholder) {
+            var elSelector = ".rti-recommended-products."+placeholder;
             var self = this;
             var owlItems = 1;
                 if(pageContext.isDesktop) {
@@ -83,7 +115,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                 //this.priceFunction();
                 var catTitle = '';
                 $('[data-toolstip="toolstip"]').tooltip();
-                  var owl = $(".rti-recommended-products."+placeholder+" .related-prod-owl-carousel");
+                  var owl = $(elSelector+" .related-prod-owl-carousel");
                   owl.owlCarousel({
                       loop: false,
                       responsiveClass:true,
@@ -105,19 +137,19 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
                   owl.on('changed.owl.carousel', function(e) {
                       if( e.item.index >= 1)
-                          $(".rti-recommended-products."+placeholder).find('.previous').show();
+                          $(elSelector).find('.previous').show();
                       else
-                          $(".rti-recommended-products."+placeholder).find('.previous').hide();
+                          $(elSelector).find('.previous').hide();
                       if( e.item.index === e.item.count-owlItems)
-                          $(".rti-recommended-products."+placeholder).find('.next').hide();
+                          $(elSelector).find('.next').hide();
                       else
-                          $(".rti-recommended-products."+placeholder).find('.next').show();
+                          $(elSelector).find('.next').show();
                   });
 
                   if(owl.find('.owl-item').length <= owlItems)
-                      $(".rti-recommended-products."+placeholder).find('.next').hide();
+                      $(elSelector).find('.next').hide();
 
-                  $(".rti-recommended-products."+placeholder+" .related-prod-owl-carousel > .owl-item").addClass("mz-productlist-item");
+                  $(elSelector+" .related-prod-owl-carousel > .owl-item").addClass("mz-productlist-item");
                   $('.rti-recommended-products.'+placeholder+' .next').on('click', function() {
                       owl.trigger('next.owl.carousel');
                   });
@@ -125,15 +157,15 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                       owl.trigger('prev.owl.carousel');
                   });
 
-                  var owlItemTotal3 = $(".rti-recommended-products."+placeholder+" .owl-item").length;
+                  var owlItemTotal3 = $(elSelector+" .owl-item").length;
                   if(pageContext.isDesktop && owlItemTotal3 >= 5 ) {
-                    $(".rti-recommended-products."+placeholder).css("border-right", "none");
+                    $(elSelector).css("border-right", "none");
                   }
                   if(pageContext.isTablet && owlItemTotal3 >= 3) {
-                    $(".rti-recommended-products."+placeholder).css("border-right", "none");
+                    $(elSelector).css("border-right", "none");
                   }
                   if(pageContext.isMobile && owlItemTotal3 >= 2 ) {
-                    $(".rti-recommended-products."+placeholder).css("border-right", "none");
+                    $(elSelector).css("border-right", "none");
                   }
                   //this.colorSelected();
                   this.manageBlocksHeight();
@@ -281,9 +313,9 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
         }
     });
 
+
+
     var buildProductUrl = function(pageType){
-
-
       var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '?';
       var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
 
@@ -320,7 +352,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
       }
 
       //The queries stored in pageDependentSection vary between page types
-      //Right now the only difference configured is thatif pageType is cart,
+      //Right now the only difference configured is that if pageType is cart,
       //We add productIds to the query.
 
       var pageDependentSection = "";
@@ -348,7 +380,9 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
       var inject = "";
 
+      //if the user has entered anything in the js injection box...
       if (jsInject){
+        //We'll attempt to run it
         try {
           eval(jsInject); // jshint ignore:line
 
@@ -380,7 +414,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
     var getRecommendedProducts = function(callback) {
       var url = buildProductUrl(pageType);
       return $.get(url, callback);
-
     };
 
     var productItems = new Backbone.Collection();
@@ -418,23 +451,33 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
 
     var renderSlider = function(data) {
+
         _.each(containerList, function(container){
 
           var placeholder = container.config.placeholder;
           var numberOfItems = container.config.numberOfItems;
           var configTitle = container.config.title;
 
-
+          /*
+          Our data will contain information about lots of different possible widgets.
+          First we want to reduce that data to only the placeholderName we're dealing with.
+          */
           var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
+          /*
+          We should at this point have a list of results with the correct placeholderName,
+          and that last should only be 1 item long.
+          If that first item doesn't exist, there was a problem.
+          */
           if (!widgetResults[0]){
             if (pageContext.isEditMode){
               $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
             }
           } else {
+            //We have the data for our widget now. Time to fill it up.
 
             var displayName;
             //if configTitle has a value, the user entered a title to
-            //override the title set in RTI
+            //override the title set in RTI.
             if (configTitle){
               displayName = configTitle;
             } else {
@@ -442,12 +485,12 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
               //product results call
               displayName = widgetResults[0].displayName;
             }
-            //widgetResults should, at this point, be an array of only 1 item
+            //Our data should have a list of slotResults in it with product details.
             //Prune slotResults list in widgetResults for "products" that don't contain any data.
             var productSlots = widgetResults[0].slotResults.filter(function(product){
              return product.url;
            });
-            //If the pruned list contains anything, we continue.
+            //If the pruned list contains anything, we can continue.
             if (productSlots.length){
               $("."+placeholder+".slider-title").text(displayName);
               var productIdList = [];
@@ -464,12 +507,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                       getProducts(productIdList).then(function(products){
                           if(products.length !== 0) {
                               var productsByRank = _.sortBy(products, 'rtiRank');
-                              console.log("numberOfITems"+numberOfItems);
                               if (productsByRank.length>numberOfItems){
-                                console.log("productsByRank.length>numberOfItems");
-                                console.log("length before"+productsByRank.length);
                                 productsByRank = productsByRank.slice(0, numberOfItems);
-                                console.log("length after"+productsByRank.length);
                               }
                               var prodColl = new ProductModels.ProductCollection();
                               prodColl.set('items', productsByRank);
@@ -496,6 +535,9 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
         });
     };
 
+/*
+getCookie is used when building the product call URL.
+*/
     var getCookie = function(cname){
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);

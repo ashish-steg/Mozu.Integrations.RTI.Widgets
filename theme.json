@@ -810,9 +810,10 @@
       "validPageTypes": [
         "*"
       ],
-      "icon": "/resources/admin/widgets/07_code.png"
+      "icon": "/resources/admin/widgets/07_code.png",
+      "defaultConfig": {
+      }
     },
-
           {
             "displayName": "RTI Recommended Products",
             "displayTemplate": "RTI/rti-display-template",

@@ -42,7 +42,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
   });
 
   var pageContext = require.mozuData('pagecontext');
-  var siteContext = require.mozuData('siteContext');
+  var siteContext = require.mozuData('sitecontext');
 
 /*Recommended Product Code Starts*/
 	  var eFlag = 0;

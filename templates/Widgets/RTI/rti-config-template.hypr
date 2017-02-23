@@ -3,12 +3,8 @@
   Page is configured for RTI recommendation use.
   {% endif %}
   {% preload_json Model.config "modelconfig" %}
-  
+
 </div>
 
-
-
-
-
-
+{% preload_json siteContext "sitecontext" %}
 {% require_script "widgets/rti-config-script" %}

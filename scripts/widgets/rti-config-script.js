@@ -11,13 +11,12 @@ require([
     'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
-
-  var mainConfig = $('#config-drop').data('mzRtiRecommendedProducts');
-
+  var mainConfig = require.mozuData('modelconfig');
   var params = mainConfig.params;
   var includeSiteId = mainConfig.includeSiteId;
   var includeTenantId = mainConfig.includeTenantId;
   var isConfigged = mainConfig.isConfigged;
+  var jsInject = mainConfig.javascriptInjection;
 
   //CustomerId, customerCode, and pagetype are all variables used by the
   //whole page, but are right now being set by each individual display widget.
@@ -36,6 +35,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
   var containerList = []; //All widgets to be populated
   $('.recommended-product-container').each(function(a, b){
     var configData = $(this).data('mzRtiRecommendedProducts');
+    console.log(configData);
     var container = {config: configData};
     containerList.push(container);
 
@@ -332,7 +332,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
 
         var cart = require.mozuData('cart');
         if (!cart.isEmpty){
-
           for(var i=0; i<cart.items.length; i++){
             var productId = cart.items[i].id;
             var productQuery = "&productId="+productId;
@@ -341,17 +340,40 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
         }
       }
 
+      //Finally, we're going to let the user inject here
+      //Whatever javascript they need to gather their custom cookies.
+      //We will expect the user to append whatever they need into
+      //the variable "inject".
+
+
+      var inject = "";
+
+      if (jsInject){
+        try {
+          eval(jsInject); // jshint ignore:line
+
+        } catch(e) {
+          console.log("There was a problem with your javascript injection.");
+          console.log(e);
+        }
+      }
+
+
       var url = firstPart +
        requiredParams +
         userIdQuery +
          bnExtUserIdQuery +
-          extrasQuery +
-           sourceQuery +
+          extrasQuery + //From params field in config editor
+           sourceQuery + //Current page URL
             pageDependentSection +
-             tenantIdQuery +
-              siteIdQuery + "&format=json";
+             tenantIdQuery + //From checkbox
+              siteIdQuery + //From checkbox
+               inject; //From javascript field in config editor
 
-      return url;
+
+
+        url += "&format=json";
+        return url;
 
     };
 
@@ -409,25 +431,24 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
               $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
             }
           } else {
+
             var displayName;
-            console.log(configTitle);
+            //if configTitle has a value, the user entered a title to
+            //override the title set in RTI
             if (configTitle){
               displayName = configTitle;
-
             } else {
+              //if configTitle has no value, we get the title from the
+              //product results call
               displayName = widgetResults[0].displayName;
             }
-
-
-
             //widgetResults should, at this point, be an array of only 1 item
-            //Prune slotResults list for "products" that don't contain any data.
+            //Prune slotResults list in widgetResults for "products" that don't contain any data.
             var productSlots = widgetResults[0].slotResults.filter(function(product){
              return product.url;
            });
             //If the pruned list contains anything, we continue.
             if (productSlots.length){
-
               $("."+placeholder+".slider-title").text(displayName);
               var productIdList = [];
                   _.each(productSlots, function(prod, key){
@@ -443,8 +464,12 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                       getProducts(productIdList).then(function(products){
                           if(products.length !== 0) {
                               var productsByRank = _.sortBy(products, 'rtiRank');
+                              console.log("numberOfITems"+numberOfItems);
                               if (productsByRank.length>numberOfItems){
+                                console.log("productsByRank.length>numberOfItems");
+                                console.log("length before"+productsByRank.length);
                                 productsByRank = productsByRank.slice(0, numberOfItems);
+                                console.log("length after"+productsByRank.length);
                               }
                               var prodColl = new ProductModels.ProductCollection();
                               prodColl.set('items', productsByRank);
@@ -467,16 +492,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, C
                 $('.recommended-product-container.'+placeholder).text("An RTI recommendations widget is dropped but there are no products to display.");
               }
             }
-
-
           }
-
-
-
         });
-
-
-
     };
 
     var getCookie = function(cname){

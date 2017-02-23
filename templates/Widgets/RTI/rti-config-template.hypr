@@ -1,8 +1,13 @@
-<div id="config-drop" data-mz-rti-recommended-products={% json_attribute Model.config%}>
+<div id="config-drop">
+  {% if pageContext.isEditMode == 'true' %}
+  Page is configured for RTI recommendation use.
+  {% endif %}
+  {% preload_json Model.config "modelconfig" %}
+  
 </div>
-{% if pageContext.isEditMode == 'true' %}
-Page is configured for RTI recommendation use.
-{% endif %}
+
+
+
 
 
 

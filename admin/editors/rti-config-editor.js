@@ -3,10 +3,10 @@ Ext.widget({
   itemId: 'rti-config-editor',
   initComponent: function(){
     var me = this;
-
-
+    var jsInjectPlaceholder = "//Use this space for any custom scripting (such as collecting custom cookies).";
+    jsInjectPlaceholder += "\n//Append additional parameters to the 'inject' variable.";
+    jsInjectPlaceholder += "\n// inject += '&visitstrail=...'";
     this.items = [
-
      {
        xtype: 'panel',
        layout: 'vbox',
@@ -23,10 +23,16 @@ Ext.widget({
              margin: '0 0 30px 0'
           },
 
+          {
+            xtype: 'box',
+            margin: '0 0 30px 0',
+            html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
+          },
+
 
       {
         xtype: 'panel',
-        margin: '30px 0 0 0',
+        margin: '0 0 30px 0',
         items:[
           {
             xtype: 'box',
@@ -38,33 +44,32 @@ Ext.widget({
               name: 'includeTenantId',
               fieldLabel: 'Tenant ID',
           },
-
           {
                xtype: 'mz-input-checkbox',
                name: 'includeSiteId',
                fieldLabel: 'Site ID',
                margin: '-5px 0 0 0'
           }
-
         ]
       },
-
       ]
-
      },
 
+     {
+       xtype: 'mz-input-code',
+       name: 'javascriptInjection',
+       itemId: 'javascript-injection',
+       fieldLabel: 'Enter javascript',
+       mode: 'javascript',
+       value: jsInjectPlaceholder
+     },
 
-       {
-         xtype: 'box',
-         margin: '30px 0 0 0',
-         html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
-       },
       {
         xtype: 'hidden',
         name: 'isConfigged',
         itemId:'isConfigged',
         value: false
-      },
+      }
     ];
 
     this.superclass.initComponent.apply(this, arguments);

@@ -1,0 +1,7 @@
+{% extends "email/email" %}
+
+{% block body-content %}
+
+YAAA BITCH YAAAA
+
+{% endblock body-content %}

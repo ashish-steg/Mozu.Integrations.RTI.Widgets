@@ -8,8 +8,8 @@ require([
  'modules/models-product',
  'modules/models-cart',
  'modules/cart-monitor',
- 'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery',
- 'vendor/jquery/jquery-ui'
+ 'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
+ //'vendor/jquery/jquery-ui'
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
 //Page-wide configurations, currently set by configuration widget:

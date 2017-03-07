@@ -5,7 +5,7 @@ Ext.widget({
 
     var me = this;
     Ext.Ajax.request({
-      url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
+      url: "/admin/app/entities/read?list=rtiSettings%40a0842dd&entityType=mzdb",
       method: 'get',
       success: function (res) {
         var response = JSON.parse(res.responseText);

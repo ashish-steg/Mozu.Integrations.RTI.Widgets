@@ -13,23 +13,6 @@ Ext.widget({
        itemId: 'params-box',
        items: [
 
-           {
-             xtype: 'mz-input-text',
-             cls: 'textbox',
-             name: 'params',
-             allowBlank: true,
-             emptyText: 'Enter query style',
-             fieldLabel: 'Additional Parameters',
-             margin: '0 0 30px 0'
-          },
-
-          {
-            xtype: 'box',
-            margin: '0 0 30px 0',
-            html: "Price, Product ID, Thumbnail URL, and Title variables are automatically imported."
-          },
-
-
       {
         xtype: 'panel',
         margin: '0 0 30px 0',
@@ -59,7 +42,7 @@ Ext.widget({
        xtype: 'mz-input-code',
        name: 'javascriptInjection',
        itemId: 'javascript-injection',
-       fieldLabel: 'Enter javascript',
+       fieldLabel: 'Custom parameters',
        mode: 'javascript',
        value: jsInjectPlaceholder
      },

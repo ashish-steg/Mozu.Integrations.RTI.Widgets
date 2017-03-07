@@ -51,7 +51,6 @@ $('.recommended-product-container').each(function(a, b){
 
    if($(selector).length>1){
      $(selector).each(function(index, element){
-       console.log(index);
        if (index>0){
          /*
          We don't want to add the data from accidental duplicates to
@@ -118,7 +117,7 @@ $('.recommended-product-container').each(function(a, b){
 
              //this.priceFunction();
              var catTitle = '';
-             console.log($('[data-toolstip="toolstip"]').tooltip());
+             $('[data-toolstip="toolstip"]').tooltip();
 
                var owl = $(elSelector+" .related-prod-owl-carousel");
                owl.owlCarousel({

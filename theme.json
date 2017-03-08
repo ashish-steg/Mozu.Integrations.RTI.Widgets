@@ -91,7 +91,7 @@
       {
         "id": "rti.rec",
         "properties": { },
-        "template": "email/rti-rec",
+        "template": "email/order-confirmation-rti",
         "title": "RTI Recommendation Email"
 
       },

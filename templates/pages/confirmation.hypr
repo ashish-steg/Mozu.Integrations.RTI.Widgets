@@ -8,8 +8,6 @@
 
 {% preload_json model "order" %}
 
-{% dump model %}
-
 <div class="mz-l-container">
     <h1 class="mz-pagetitle">{{ labels.orderConfirmation }} </h1>
 

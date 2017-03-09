@@ -5,7 +5,7 @@ Ext.widget({
 
     var me = this;
     Ext.Ajax.request({
-      url: "/admin/app/entities/read?list=rtiSettings%40a0842dd&entityType=mzdb",
+      url: "/admin/app/entities/read?list=rtiSettings%40KiboDD&entityType=mzdb",
       method: 'get',
       success: function (res) {
         var response = JSON.parse(res.responseText);
@@ -41,13 +41,24 @@ Ext.widget({
              forceSelection: true,
              margin: '0 0 30px 0',
              listeners: {
-               select: function(element, selection){
-                 var listOfPlaceholders = selection[0].data.placeholders;
+               select: function(element, pageType){
+                 var listOfPlaceholderNames = pageType[0].data.placeholders.map(function(p){
+                   return p.name;
+                 });
+
                  var select = me.down('#placeholder');
-                 select.setValue('');
+                 var currentValue = select.getValue();
                  var store = select.getStore();
+
+
                  store.removeAll();
-                 store.insert(0, listOfPlaceholders);
+                 store.insert(0, pageType[0].data.placeholders);
+
+                 if(Ext.Array.contains(listOfPlaceholderNames, currentValue)){
+                   select.setValue(currentValue);
+                 } else {
+                   select.setValue('');
+                 }
                }
              }
           },

@@ -1,4 +1,5 @@
 {% comment %}
+
 {% with model.0.customerId|add:model.0.customerCode as instanceId %}
 {% endcomment %}
 
@@ -8,10 +9,9 @@
 {{ bigUrl }}
 <br>
 <div class="_iframe">
-  <iframe src={{ bigUrl }} height="200" width="100%"  style="border:0px;">
+  <iframe src={{ bigUrl }} frameborder="0">
   </iframe>
 </div>
-  <style>._iframe{position:relative;padding-bottom:56.25%;height:0;overflow: hidden;max-width:100%;}._iframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;}</style>
 
 {% endwith %}
 {% endwith %}

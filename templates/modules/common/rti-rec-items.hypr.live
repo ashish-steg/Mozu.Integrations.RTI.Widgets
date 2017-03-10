@@ -5,13 +5,9 @@
 
 {% with "sunfun" as instanceId %}
 {% with "http://pso.baynote.com/"|add:instanceId|add:"/email.html" as bigUrl %}
-
-{{ bigUrl }}
 <br>
-<div class="_iframe">
-  <iframe src={{ bigUrl }} frameborder="0">
+  <iframe src={{ bigUrl }} frameborder="0" width="100%" height="200" style="overflow:hidden;">
   </iframe>
-</div>
 
 {% endwith %}
 {% endwith %}

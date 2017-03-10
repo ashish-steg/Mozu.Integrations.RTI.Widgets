@@ -1,9 +1,6 @@
 {% extends "email/email" %}
 
 {% block body-content %}
-  {% include_entities "modules/common/rti-rec-items" listFQN="rtisettings@kibodd" view="admin" %}
-
-
     <br>
     <p>{{ labels.orderWelcome }} {{ model.billingInfo.billingContact.firstName }} {{ model.billingInfo.billingContact.lastNameOrSurname }}!</p>
     <br>
@@ -65,4 +62,6 @@
     {% endif %}
 
     {{ labels.emailClosing|string_format(siteContext.generalSettings.websiteName)|safe }}
+    {% include_entities "modules/common/rti-rec-items" listFQN="rtisettings@kibodd" view="admin" %}
+
 {% endblock body-content %}

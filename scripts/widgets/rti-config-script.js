@@ -80,6 +80,22 @@ $('.recommended-product-container').each(function(a, b){
  var ProductModelColor = Backbone.MozuModel.extend({
      mozuType: 'products'
  });
+
+ var GridView = Backbone.MozuView.extend({
+   templateName: 'modules/product/product-list-tiled',
+   initialize: function(){
+    var self = this;
+
+   },
+   render: function(placeholder){
+     console.log('render got called...');
+     var elSelector = ".rti-recommended-products."+placeholder;
+     var self = this;
+     debugger; // jshint ignore:line
+     Backbone.MozuView.prototype.render.apply(this, arguments);
+
+   }
+ });
  var ProductListView = Backbone.MozuView.extend({
      templateName: 'Widgets/RTI/rti-product-tiles',
      additionalEvents: {
@@ -110,8 +126,6 @@ $('.recommended-product-container').each(function(a, b){
              else {
                  owlItems = 2;
              }
-
-
              Backbone.MozuView.prototype.render.apply(this, arguments);
              this.colorSwatchingRecommend();
 
@@ -316,8 +330,6 @@ $('.recommended-product-container').each(function(a, b){
      }
  });
 
-
-
  var buildProductUrl = function(pageType){
    var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '?';
    var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
@@ -446,13 +458,14 @@ $('.recommended-product-container').each(function(a, b){
  };
 
 
- var renderSlider = function(data) {
+ var renderData = function(data) {
 
      _.each(containerList, function(container){
 
        var placeholder = container.config.placeholder;
        var numberOfItems = container.config.numberOfItems;
        var configTitle = container.config.title;
+       //var displayType = container.config.displayType;
 
        /*
        Our data will contain information about lots of different possible widgets.
@@ -483,12 +496,12 @@ $('.recommended-product-container').each(function(a, b){
          }
          //Our data should have a list of slotResults in it with product details.
          //Prune slotResults list in widgetResults for "products" that don't contain any data.
+         //This is unlikely but can happen if RTI isn't configured correctly.
          var productSlots = widgetResults[0].slotResults.filter(function(product){
           return product.url;
         });
          //If the pruned list contains anything, we can continue.
          if (productSlots.length){
-           $("."+placeholder+".slider-title").text(displayName);
            var productIdList = [];
                _.each(productSlots, function(prod, key){
                    var attrs = [];
@@ -510,12 +523,29 @@ $('.recommended-product-container').each(function(a, b){
                            prodColl.set('items', productsByRank);
 
 
+                          var displayType = container.config.displayType;
+                          if (!displayType){
+                            displayType = "carousel";
+                          }
+                          if (displayType == "carousel"){
                             var productListView = new ProductListView({
+                                 el: $('[data-rti-recommended-products='+placeholder+']'),
+                                 model: prodColl
+                             });
+                            $("."+placeholder+".slider-title").text(displayName);
+                            productListView.render(placeholder);
+                            return;
+                          } else if (displayType == "grid"){
+                            var gridListView = new GridView({
                                el: $('[data-rti-recommended-products='+placeholder+']'),
                                model: prodColl
-                           });
-                           productListView.render(placeholder);
-                           return;
+                            });
+                            $("."+placeholder+".slider-title").text(displayName);
+                            console.log("found grid");
+                            console.log(prodColl.toJSON());
+                            gridListView.render(placeholder);
+                            return;
+                          }
                        }
                        $('.recommended-product-container .'+placeholder+'.slider-title').hide();
                        $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
@@ -552,12 +582,12 @@ getCookie is used when building the product call URL.
 
  try {
      getRecommendedProducts(function(data) {
-         renderSlider(data);
+         renderData(data);
      }, function() {
          var productsFound = {};
          productsFound.data = {};
          productsFound.data.items = [];
-         renderSlider(productsFound);
+         renderData(productsFound);
      });
  } catch(err) {}
  /*Recommended Product Code Ends*/

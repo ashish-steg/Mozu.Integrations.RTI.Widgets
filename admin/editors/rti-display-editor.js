@@ -24,68 +24,111 @@ Ext.widget({
 
         this.items = [
 
-            {
+          {
+             xtype: 'panel',
+             layout: 'hbox',
+             items: [
+               {
+                 xtype: 'mz-input-text',
+                 name: 'title',
+                 itemId: 'title',
+                 fieldLabel: 'Title',
+                 emptyText: 'Leave blank to default to RTI setting',
+                 margin: '0 10px 30px 0'
+               },
+
+               {
+                 xtype: 'numberfield',
+                 cls: 'dropdown',
+                 name: 'numberOfItems',
+                 fieldLabel: 'Quantity of Items to Display',
+                 minValue: 1,
+                 value: 5,
+                 margin: '0 0 30px 0'
+               }
+
+             ]
+           },
+          {
+            xtype: 'mz-input-dropdown',
+            name: 'displayType',
+            itemId: 'display-type',
+            fieldLabel: 'Display Format',
+            store: {
+              fields: ['name', 'value'],
+              data: [
+                {'name':'Carousel', 'value':'carousel'},
+                {'name':'Grid', 'value':'grid'},
+              ]
+            },
+            displayField: 'name',
+            valueField: 'value',
+            value: 'carousel',
+            editable: false,
+            forceSelection: true,
+            margin: '0 0 30px 0'
+          },
+        {
+           xtype: 'panel',
+           layout: 'hbox',
+           items: [
+             {
+              xtype: 'mz-input-dropdown',
+              name: 'pageType',
+              fieldLabel: 'Page Type',
+              itemId: 'page-type',
+              store: {
+                 fields: ['name', 'placeholders'],
+                 data: []
+               },
+              allowBlank: false,
+              displayField: 'name',
+              valueField: 'name',
+              queryMode: 'local',
+              editable: true,
+              forceSelection: true,
+              margin: '0 0 30px 0',
+              listeners: {
+                select: function(element, pageType){
+                  var listOfPlaceholderNames = pageType[0].data.placeholders.map(function(p){
+                    return p.name;
+                  });
+
+                  var select = me.down('#placeholder');
+                  var currentValue = select.getValue();
+                  var store = select.getStore();
+
+
+                  store.removeAll();
+                  store.insert(0, pageType[0].data.placeholders);
+
+                  if(Ext.Array.contains(listOfPlaceholderNames, currentValue)){
+                    select.setValue(currentValue);
+                  } else {
+                    select.setValue('');
+                  }
+                }
+              }
+           },
+
+           {
              xtype: 'mz-input-dropdown',
-             name: 'pageType',
-             fieldLabel: 'Page Type',
-             itemId: 'page-type',
+             name: 'placeholder',
+             itemId: 'placeholder',
+             fieldLabel: 'Placeholder Name',
              store: {
-                fields: ['name', 'placeholders'],
-                data: []
-              },
+               fields: ['name'],
+               data: []
+             },
              allowBlank: false,
              displayField: 'name',
              valueField: 'name',
              queryMode: 'local',
-             editable: true,
-             forceSelection: true,
-             margin: '0 0 30px 0',
-             listeners: {
-               select: function(element, selection){
-                 var listOfPlaceholders = selection[0].data.placeholders;
-                 var select = me.down('#placeholder');
-                 select.setValue('');
-                 var store = select.getStore();
-                 store.removeAll();
-                 store.insert(0, listOfPlaceholders);
-               }
-             }
-          },
+             margin: '0 0 30px 0'
+           }
 
-          {
-            xtype: 'mz-input-dropdown',
-            name: 'placeholder',
-            itemId: 'placeholder',
-            fieldLabel: 'Placeholder Name',
-            store: {
-              fields: ['name'],
-              data: []
-            },
-            allowBlank: false,
-            displayField: 'name',
-            valueField: 'name',
-            queryMode: 'local',
-            margin: '0 0 30px 0'
-          },
-
-          {
-            xtype: 'mz-input-text',
-            name: 'title',
-            itemId: 'title',
-            fieldLabel: 'Title',
-            emptyText: 'Leave blank to default to RTI setting',
-            margin: '0 0 30px 0'
-          },
-
-          {
-            xtype: 'numberfield',
-            cls: 'dropdown',
-            name: 'numberOfItems',
-            fieldLabel: 'Quantity of Items to Display',
-            minValue: 1,
-            value: 5,
-            margin: '0 0 30px 0'
-          },
+           ]
+        },
 
           {
             xtype: 'hidden',

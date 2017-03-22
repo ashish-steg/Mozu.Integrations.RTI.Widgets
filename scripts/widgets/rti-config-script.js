@@ -91,7 +91,6 @@ $('.recommended-product-container').each(function(a, b){
      console.log('render got called...');
      var elSelector = ".rti-recommended-products."+placeholder;
      var self = this;
-     debugger; // jshint ignore:line
      Backbone.MozuView.prototype.render.apply(this, arguments);
 
    }

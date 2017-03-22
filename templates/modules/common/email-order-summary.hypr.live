@@ -27,7 +27,7 @@
                 </tr>
             </tbody>
         {% endfor %}
-      
+
         <tbody>
             {% for discount in model.orderDiscounts %}
             {% if not discount.excluded %}

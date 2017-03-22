@@ -13,11 +13,11 @@ require([
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
 //Page-wide configurations, currently set by configuration widget:
-var mainConfig = require.mozuData('modelconfig');
-var includeSiteId = mainConfig.includeSiteId;
-var includeTenantId = mainConfig.includeTenantId;
-var isConfigged = mainConfig.isConfigged;
-var jsInject = mainConfig.javascriptInjection;
+// var mainConfig = require.mozuData('modelconfig');
+// var includeSiteId = mainConfig.includeSiteId;
+// var includeTenantId = mainConfig.includeTenantId;
+// var isConfigged = mainConfig.isConfigged;
+// var jsInject = mainConfig.javascriptInjection;
 
 //CustomerId, customerCode, and pagetype are all variables used by the
 //whole page, but are right now being set by each individual display widget.
@@ -26,10 +26,16 @@ var jsInject = mainConfig.javascriptInjection;
 //on the page.
 
 var firstDisplay = $('.recommended-product-container').first();
-var secondaryConfig = firstDisplay.data('mzRtiRecommendedProducts');
-var customerId = secondaryConfig.customerId;
-var customerCode = secondaryConfig.customerCode;
-var pageType = secondaryConfig.pageType;
+var firstConfig = firstDisplay.data('mzRtiRecommendedProducts');
+
+var rtiOptions = {
+  customerId: firstConfig.customerId || "",
+  customerCode: firstConfig.customerCode || "",
+  pageType: firstConfig.pageType || "",
+  jsInject: firstConfig.javascriptInjection || "",
+  includeSiteId: firstConfig.includeSiteId || false,
+  includeTenantId: firstConfig.includeTenantId || false,
+};
 
 var pageContext = require.mozuData('pagecontext');
 var siteContext = require.mozuData('sitecontext');
@@ -43,9 +49,13 @@ var containerList = [];
 The following loop acts as cleanup; it populates containerList with the needed data,
 ignoring and delegitimizing any divs on the page with duplicate placeholder names.
 */
-$('.recommended-product-container').each(function(a, b){
+$('.recommended-product-container').each(function(){
  if (!$(this).hasClass('ignore')){
    var configData = $(this).data('mzRtiRecommendedProducts');
+
+   //displayOptions are individual to each container.
+   var displayOptions = {
+   };
    var container = {config: configData};
    var selector = '.recommended-product-container.'+configData.placeholder;
 

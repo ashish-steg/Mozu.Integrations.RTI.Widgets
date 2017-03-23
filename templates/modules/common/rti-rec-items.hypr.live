@@ -1,0 +1,25 @@
+{% with model.0.customerId as customerId %}
+{% with model.0.customerCode as customerCode %}
+{% with "EmailWidget" as widgetName %}
+
+
+<a href="http://{{customerId}}-{{customerCode}}.baynote.net/link/1/{{customerId}}_{{customerCode}}?index=1&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}">
+<img src="http://{{customerId}}-{{customerCode}}.baynote.net/render/1/{{customerId}}_{{customerCode}}?index=1&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}&width=200&height=270&imgStyle=name:productImage,w:200,h:200,x:0,y:0&attrStyle=align:center,name:productName,w:200,h:60,x:0,y:200,font:Arial,size:15,color:444444&attrStyle=name:price,w:200,h:20,x:0,y:250,font:Arial,size:12,color:444444,style:italic,align:center"/>
+</a>
+
+<a href="http://{{customerId}}-{{customerCode}}.baynote.net/link/1/{{customerId}}_{{customerCode}}?index=2&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}">
+<img src="http://{{customerId}}-{{customerCode}}.baynote.net/render/1/{{customerId}}_{{customerCode}}?index=2&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}&width=200&height=270&imgStyle=name:productImage,w:200,h:200,x:0,y:0&attrStyle=align:center,name:productName,w:200,h:60,x:0,y:200,font:Arial,size:15,color:444444&attrStyle=name:price,w:200,h:20,x:0,y:250,font:Arial,size:12,color:444444,style:italic,align:center"/>
+</a>
+
+<a href="http://{{customerId}}-{{customerCode}}.baynote.net/link/1/{{customerId}}_{{customerCode}}?index=3&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}">
+<img src="http://{{customerId}}-{{customerCode}}.baynote.net/render/1/{{customerId}}_{{customerCode}}?index=3&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}&width=200&height=270&imgStyle=name:productImage,w:200,h:200,x:0,y:0&attrStyle=align:center,name:productName,w:200,h:60,x:0,y:200,font:Arial,size:15,color:444444&attrStyle=name:price,w:200,h:20,x:0,y:250,font:Arial,size:12,color:444444,style:italic,align:center"/>
+</a>
+
+<a href="http://{{customerId}}-{{customerCode}}.baynote.net/link/1/{{customerId}}_{{customerCode}}?index=4&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}">
+<img src="http://{{customerId}}-{{customerCode}}.baynote.net/render/1/{{customerId}}_{{customerCode}}?index=4&passThru=bnec%3DEmail1&widget={{widgetName}}{% for item in items %}&productId={{item.id}}{% endfor %}&width=200&height=270&imgStyle=name:productImage,w:200,h:200,x:0,y:0&attrStyle=align:center,name:productName,w:200,h:60,x:0,y:200,font:Arial,size:15,color:444444&attrStyle=name:price,w:200,h:20,x:0,y:250,font:Arial,size:12,color:444444,style:italic,align:center"/>
+</a>
+
+
+{% endwith %}
+{% endwith %}
+{% endwith %}

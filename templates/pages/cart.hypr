@@ -1,5 +1,6 @@
 ﻿{% extends "page" %}
 
+
 {% block title-tag-content %}{% firstof pageContext.metaTitle labels.cart %} - {% parent %}{% endblock title-tag-content %}
 
 {% block head-tag-scripts %}
@@ -18,6 +19,8 @@
 {% require_script "pages/cart" %}
 
 {% preload_json model "cart" %}
+{% dump model %}
+
 
 <div class="mz-l-container">
 	<h1 class="mz-pagetitle">{{ labels.cart }}</h1>

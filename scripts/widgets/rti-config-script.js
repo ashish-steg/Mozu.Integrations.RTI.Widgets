@@ -52,9 +52,12 @@ ignoring and delegitimizing any divs on the page with duplicate placeholder name
 $('.recommended-product-container').each(function(){
  if (!$(this).hasClass('ignore')){
    var configData = $(this).data('mzRtiRecommendedProducts');
-
    //displayOptions are individual to each container.
    var displayOptions = {
+     title: configData.title || "",
+     quantity: configData.numberOfItems || "",
+     format: configData.displayFormat || "",
+     placeholder: configData.placeholder || ""
    };
    var container = {config: configData};
    var selector = '.recommended-product-container.'+configData.placeholder;

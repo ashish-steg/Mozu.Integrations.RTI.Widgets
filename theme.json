@@ -88,6 +88,10 @@
         }
     ],
     "emailTemplates": [
+<<<<<<< HEAD
+=======
+
+>>>>>>> tiny bit of work
         {
             "id": "order.shipped",
             "properties": { },

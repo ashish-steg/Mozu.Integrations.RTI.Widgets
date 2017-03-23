@@ -88,13 +88,6 @@
         }
     ],
     "emailTemplates": [
-      {
-        "id": "rti.rec",
-        "properties": { },
-        "template": "email/order-confirmation-rti",
-        "title": "RTI Recommendation Email"
-
-      },
         {
             "id": "order.shipped",
             "properties": { },

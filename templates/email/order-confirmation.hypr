@@ -63,8 +63,10 @@
 
     {{ labels.emailClosing|string_format(siteContext.generalSettings.websiteName)|safe }}
 
+{% comment %}
+RTI recommendations
+{% endcomment %}
     {% with model.items as items %}
-
     {% include_entities "modules/common/rti-rec-items" listFQN="rtisettings@kibodd" view="admin" %}
     {% endwith %}
 

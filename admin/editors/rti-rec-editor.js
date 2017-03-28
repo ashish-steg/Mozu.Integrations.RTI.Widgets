@@ -5,7 +5,7 @@ Ext.widget({
 
     var me = this;
     var jsInjectPlaceholder = "//Use this space for any custom scripting (such as collecting custom cookies).";
-    jsInjectPlaceholder += "\n//Append additional parameters to the 'inject' variable.";
+    jsInjectPlaceholder += "\n//Append additional parameters to the 'inject' variable. For example:";
     jsInjectPlaceholder += "\n// inject += '&visitstrail=...'";
 
     Ext.Ajax.request({
@@ -24,8 +24,6 @@ Ext.widget({
 
       }
     });
-
-
         this.items = [
 
           {
@@ -33,6 +31,7 @@ Ext.widget({
             title: 'Widget Display Options',
             collapsible: true,
             width: 500,
+            margin: '20px 0 0 0',
             layout: 'vbox',
             items: [
               {
@@ -45,7 +44,7 @@ Ext.widget({
                      itemId: 'title',
                      fieldLabel: 'Title',
                      emptyText: 'Leave blank to default to RTI setting',
-                     margin: '0 10px 30px 0'
+                     margin: '30px 10px 30px 0'
                    },
 
                    {
@@ -55,7 +54,7 @@ Ext.widget({
                      fieldLabel: 'Quantity of Items to Display',
                      minValue: 1,
                      value: 5,
-                     margin: '0 0 30px 0'
+                     margin: '30px 0 30px 0'
                    }
 
                  ]
@@ -147,7 +146,7 @@ Ext.widget({
           },
         {
           xtype: 'panel',
-          title: 'Call Options',
+          title: 'Request Options',
           width: 500,
           collapsible: true,
           collapsed: true,
@@ -208,14 +207,14 @@ Ext.widget({
             xtype: 'hidden',
             name: 'customerId',
             itemId: 'customerId',
-            value: 'noneya'
+            value: ''
           },
 
           {
             xtype: 'hidden',
             name: 'customerCode',
             itemId: 'customerCode',
-            value: 'noneya'
+            value: ''
           },
 
       ];

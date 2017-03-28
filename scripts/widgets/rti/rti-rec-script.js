@@ -340,7 +340,7 @@ $('.recommended-product-container').each(function(){
 
 //Uses a list of product IDs to return a list of products
 //That can be turned into a ProductCollection, which our
-//Views know how to handle.
+//Views know how to handle. 
   var getProducts = function(rtiProductList){
      var deferred = api.defer();
      var numReqs = rtiProductList.length;
@@ -393,6 +393,8 @@ $('.recommended-product-container').each(function(){
            If we reach this point, it means there wasn't a placeholderName in the
            data that was returned that matches the one we selected.
            */
+
+
            $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
          }
        } else {

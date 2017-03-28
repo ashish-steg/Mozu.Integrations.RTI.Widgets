@@ -11,15 +11,9 @@
     },
     "editors": [
 
-
         {
-          "id": "rti-config-editor",
-          "path": "rti-config-editor.js"
-        },
-
-        {
-            "id": "rti-display-editor",
-            "path": "rti-display-editor.js"
+            "id": "rti-rec-editor",
+            "path": "rti-rec-editor.js"
         },
 
         {
@@ -805,10 +799,10 @@
 
       {
         "displayName": "RTI Recommended Products",
-        "displayTemplate": "RTI/rti-display-template",
-        "customEditor": "rti-display-editor",
+        "displayTemplate": "RTI/rti-rec-template",
+        "customEditor": "rti-rec-editor",
         "icon": "/resources/admin/widgets/rti-recommend.png",
-        "id": "rti-display",
+        "id": "rti-rec-display",
         "validPageTypes": [
           "*"
         ]

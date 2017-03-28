@@ -146,7 +146,7 @@ Ext.widget({
           },
         {
           xtype: 'panel',
-          title: 'Request Options',
+          title: 'Product Request Options',
           width: 500,
           collapsible: true,
           collapsed: true,
@@ -156,7 +156,7 @@ Ext.widget({
             {
               xtype: 'box',
               margin: '30px 0 0 0',
-              html: 'Only the call options set in the <b>first widget on the page</b> will be applied.'
+              html: 'Only the request options set in the <b>first widget on the page</b> will be applied.'
             },
             {
               xtype: 'panel',

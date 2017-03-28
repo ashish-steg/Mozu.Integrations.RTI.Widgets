@@ -13,7 +13,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
 	var init = function(options) {
 
 		var _options = options;
-		var _products = [];
+		var _products = {};
 
     var getRTIOptions = function(){
       return _options;
@@ -125,23 +125,64 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
 
 		},
 
-    fetchProducts = function(callback){
+    fetchData = function(callback){
       var url = buildUrl();
       return $.get(url, callback);
-		};
+		},
+    //Uses a list of product IDs to return a list of products
+    //That can be turned into a ProductCollection, which our
+    //Views know how to handle.
 
+
+    parseProducts = function(data){
+      var dataList = [];
+
+      _.each(data.widgetResults, function(results){
+        var displayName = results.displayName;
+        var placeholderName = results.placeholderName;
+        var productList = [];
+        var editModeMessage = "";
+
+        var productSlots = results.slotResults.filter(function(product){
+          return product.url; //Prunes slotResults for incomplete entries
+        });
+
+        var productIdList = [];
+        _.each(productSlots, function(prod, key){
+            var attrs = [];
+            _.each(prod.attrs, function(attr, key, list){
+                attrs[attr.name] = attr.values[0];
+            });
+            attrs.rank = prod.rank;
+            productIdList.push(attrs);
+        });
+
+        if (productIdList.length !== 0){
+
+        } else {
+          editModeMessage = "There were no products configured for that placeholder name.";
+        }
+        dataList.push({
+          displayName: displayName,
+          placeholderName: placeholderName,
+          productList: productIdList,
+          editModeMessage: editModeMessage
+        });
+
+      });
+      return dataList;
+    };
 
 		return {
-			getData: function(callback){
+			getProductData: function(callback){
         if(getProducts().length > 0){
           callback(getProducts());
         } else {
-          fetchProducts(function(data){
-            setProducts(data);
+          fetchData(function(data){
+            setProducts(parseProducts(data));
             callback(getProducts());
           });
         }
-
 			}
 		};
 

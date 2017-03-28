@@ -337,37 +337,31 @@ $('.recommended-product-container').each(function(){
  });
 //End Carousel view def***
 
+var getMozuProducts = function(rtiProductList){
+  var deferred = api.defer();
+  var numReqs = rtiProductList.length;
+  var productList = [];
+  _.each(rtiProductList, function(attrs) {
+    var op = api.get('product', attrs.ProductId);
+    op.then(function(data) {
+      data.data.rtiRank = attrs.rank;
+      productList.push(data.data);
+      if (--numReqs === 0) {
+        _.defer(function() {
+          deferred.resolve(productList);
+        });
+      }
+    }, function(reason){
+      if (--numReqs === 0) {
+        _.defer(function() {
+          deferred.resolve(productList);
+        });
+      }
+    });
+  });
+return deferred.promise;
+};
 
-//Uses a list of product IDs to return a list of products
-//That can be turned into a ProductCollection, which our
-//Views know how to handle. 
-  var getProducts = function(rtiProductList){
-     var deferred = api.defer();
-     var numReqs = rtiProductList.length;
-     var productList = [];
-     _.each(rtiProductList, function(attrs) {
-         var op = api.get('product', attrs.ProductId);
-         op.then(function(data) {
-             data.data.rtiRank = attrs.rank;
-             productList.push(data.data);
-             if (--numReqs === 0) {
-                 _.defer(function() {
-                     deferred.resolve(productList);
-                 });
-             }
-         }, function(reason){
-             if (--numReqs === 0) {
-                 _.defer(function() {
-                     deferred.resolve(productList);
-                 });
-             }
-         });
-     });
-
-     return deferred.promise;
- };
-
-//Uses the data
  var renderData = function(data) {
 
      _.each(containerList, function(container){
@@ -381,23 +375,22 @@ $('.recommended-product-container').each(function(){
        Our data will contain information about lots of different possible widgets.
        First we want to reduce that data to only the placeholderName we're dealing with.
        */
-       var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
+       var currentProducts = $.grep(data, function(e){ return e.placeholderName == placeholder; });
        /*
        We should at this point have a list of results with the correct placeholderName,
        and that last should only be 1 item long.
        If that first item doesn't exist, there was a problem.
        */
-       if (!widgetResults[0]){
+       if (!currentProducts[0]){
          if (pageContext.isEditMode){
            /*
            If we reach this point, it means there wasn't a placeholderName in the
            data that was returned that matches the one we selected.
            */
-
-
-           $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
+           $('.recommended-product-container.'+placeholder).text("Placeholder not found.");
          }
        } else {
+
          //We have the data for our widget now. Time to fill it up.
          var displayName;
          //if configTitle has a value, the user entered a title to
@@ -407,95 +400,76 @@ $('.recommended-product-container').each(function(){
          } else {
            //if configTitle has no value, we get the title from the
            //product results call
-           displayName = widgetResults[0].displayName;
+           displayName = currentProducts[0].displayName;
          }
-         //Our data should have a list of slotResults in it with product details.
-         //Prune slotResults list in widgetResults for "products" that don't contain any data.
-         //This is unlikely but can happen if RTI isn't configured correctly.
-         var productSlots = widgetResults[0].slotResults.filter(function(product){
-          return product.url;
-        });
-         //If the pruned list contains anything, we can continue.
-         if (productSlots.length){
-           var productIdList = [];
-               _.each(productSlots, function(prod, key){
-                   var attrs = [];
-                   _.each(prod.attrs, function(attr, key, list){
-                       attrs[attr.name] = attr.values[0];
-                   });
-                   attrs.rank = prod.rank;
-                   productIdList.push(attrs);
-               });
 
-               //Next we get a list of product information from our ids,
-               //sort the list by rtiRank
-               if(productIdList.length !== 0) {
-                   getProducts(productIdList).then(function(products){
-                       if(products.length !== 0) {
-                           var productsByRank = _.sortBy(products, 'rtiRank');
-
-                           if (productsByRank.length>numberOfItems){
-                             productsByRank = productsByRank.slice(0, numberOfItems);
-                           }
-                           var prodColl = new ProductModels.ProductCollection();
-                           prodColl.set('items', productsByRank);
-
-                          //The actual rendering part
-
-                          $("."+placeholder+".slider-title").text(displayName);
-
-                          if (!format){
-                            format = "carousel";
-                          }
-
-                          if (format == "carousel"){
-                            var productListView = new ProductListView({
-                                 el: $('[data-rti-recommended-products='+placeholder+']'),
-                                 model: prodColl
-                             });
-                            productListView.render(placeholder);
-                            return;
-
-                          } else if (format == "grid"){
-                            var gridListView = new GridView({
-                               el: $('[data-rti-recommended-products='+placeholder+']'),
-                               model: prodColl
-                            });
-                            gridListView.render(placeholder);
-                            return;
-                          }
-                       }
-                       /*
-                       The only reason we'd reach this point is if
-                       something went wrong in getting products in the store
-                       that match the product IDs of the list that RTI gave us.
-                       */
-                       $('.recommended-product-container .'+placeholder+'.slider-title').hide();
-                       $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
-                       $('.recommended-product-container.'+placeholder).removeClass('hidden');
-                   });
-               }
+         //We slice the productList we received according to the limit set
+         //in the editor
+        var productList;
+         if (currentProducts[0].productList.length>numberOfItems){
+           productList = currentProducts[0].productList.slice(0, numberOfItems);
          } else {
-           if (pageContext.isEditMode){
-             /*
-             If we reach this point, it means the data returned by RTI
-             contained a placeholder name that matched the name we chose,
-             but there wasn't any product data in that placeholder.
-             */
-             $('.recommended-product-container.'+placeholder).text("An RTI recommendations widget is dropped but there are no products to display.");
-           }
+           productList = currentProducts[0].productList;
          }
-       }
-     });
- };
 
+         //Turns list of product IDs into a product collection
+         getMozuProducts(productList).then(function(products){
+           if(products.length !== 0) {
+               var productsByRank = _.sortBy(products, 'rtiRank');
+               productList = productsByRank;
+               var prodColl = new ProductModels.ProductCollection();
+               prodColl.set('items', productList);
+
+               //Time to actually render
+               if (currentProducts[0].editModeMessage){
+
+                 if (pageContext.isEditMode){
+                   $('.recommended-product-container.'+placeholder).text(currentProducts[0].editModeMessage);
+                 }
+
+               } else {
+
+               $("."+placeholder+".slider-title").text(displayName);
+               if (!format){
+                 format = "carousel";
+               }
+               if (format == "carousel"){
+                 var productListView = new ProductListView({
+                      el: $('[data-rti-recommended-products='+placeholder+']'),
+                      model: prodColl
+                  });
+                 productListView.render(placeholder);
+                 return;
+
+               } else if (format == "grid"){
+
+                 var gridListView = new GridView({
+                    el: $('[data-rti-recommended-products='+placeholder+']'),
+                    model: prodColl
+                 });
+                 gridListView.render(placeholder);
+                 return;
+               }
+             }
+
+             } else {
+               if (pageContext.isEditMode){
+                 $('.recommended-product-container.'+placeholder).text("There was a problem retrieving products from your catalog that match the products received from RTI.");
+               }
+             }
+
+         });
+
+       }
+
+     });
+   };
 
  try {
      var productInstance = RecommendedProducts.getInstance(rtiOptions);
-     productInstance.getData(function(data){
+     productInstance.getProductData(function(data){
        renderData(data);
      });
-
  } catch(err) {
    console.log(err);
  }

@@ -88,10 +88,7 @@
         }
     ],
     "emailTemplates": [
-<<<<<<< HEAD
-=======
 
->>>>>>> tiny bit of work
         {
             "id": "order.shipped",
             "properties": { },
@@ -806,18 +803,6 @@
     ],
     "widgets": [
 
-      {
-        "displayName": "RTI Configuration",
-        "customEditor": "rti-config-editor",
-        "displayTemplate": "RTI/rti-config-template",
-        "id": "rti-config",
-        "validPageTypes": [
-          "*"
-        ],
-        "icon": "/resources/admin/widgets/rti-configuration.png",
-        "defaultConfig": {
-        }
-      },
       {
         "displayName": "RTI Recommended Products",
         "displayTemplate": "RTI/rti-display-template",

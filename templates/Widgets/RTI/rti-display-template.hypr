@@ -5,3 +5,5 @@
 		</div>
 	</div>
 </div>
+
+{% require_script "widgets/rti-config-script" %}

@@ -6,24 +6,15 @@ require([
  'modules/api',
  'modules/backbone-mozu',
  'modules/models-product',
- 'modules/models-cart',
- 'modules/cart-monitor',
+ 'widgets/rti/recommended-products',
  'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
  //'vendor/jquery/jquery-ui'
 ],
-function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
-//Page-wide configurations, currently set by configuration widget:
-// var mainConfig = require.mozuData('modelconfig');
-// var includeSiteId = mainConfig.includeSiteId;
-// var includeTenantId = mainConfig.includeTenantId;
-// var isConfigged = mainConfig.isConfigged;
-// var jsInject = mainConfig.javascriptInjection;
+function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, RecommendedProducts) {
 
-//CustomerId, customerCode, and pagetype are all variables used by the
-//whole page, but are right now being set by each individual display widget.
-//It's possible that the user could accidentally set the pagetype differently in
-//the each display widget. So we're going to go with the info that is in the first one
-//on the page.
+// rtiOptions will contain variables used by the
+//whole page. They can be set in every widget editor, but only the first
+//one on the page is the one that we'll listen to for these variables.
 
 var firstDisplay = $('.recommended-product-container').first();
 var firstConfig = firstDisplay.data('mzRtiRecommendedProducts');
@@ -34,7 +25,7 @@ var rtiOptions = {
   pageType: firstConfig.pageType || "",
   jsInject: firstConfig.javascriptInjection || "",
   includeSiteId: firstConfig.includeSiteId || false,
-  includeTenantId: firstConfig.includeTenantId || false,
+  includeTenantId: firstConfig.includeTenantId || false
 };
 
 var pageContext = require.mozuData('pagecontext');
@@ -56,10 +47,10 @@ $('.recommended-product-container').each(function(){
    var displayOptions = {
      title: configData.title || "",
      quantity: configData.numberOfItems || "",
-     format: configData.displayFormat || "",
+     format: configData.displayType || "",
      placeholder: configData.placeholder || ""
    };
-   var container = {config: configData};
+   var container = {config: displayOptions};
    var selector = '.recommended-product-container.'+configData.placeholder;
 
    if($(selector).length>1){
@@ -70,7 +61,7 @@ $('.recommended-product-container').each(function(){
          our nice, clean containerList. We also don't want those duplicates to
          accidentally render. So for all but the first element with this
          class name, we strip all classes, add 'ignore' so the .each we're in
-         right now ignores the duplicates, hide the div, and add a message
+         right now ignores the duplicates, hides the div, and adds a message
          in edit mode so the user knows what happened.
          */
          $(element).removeClass();
@@ -86,14 +77,16 @@ $('.recommended-product-container').each(function(){
 }
 });
 
-
-
 /*Recommended Product Code Starts*/
  var eFlag = 0;
  var ProductModelColor = Backbone.MozuModel.extend({
      mozuType: 'products'
  });
+//***********************
+//---VIEW DEFINITIONS---//
+//************************
 
+//***Start Grid view defition:
  var GridView = Backbone.MozuView.extend({
    templateName: 'modules/product/product-list-tiled',
    initialize: function(){
@@ -101,13 +94,14 @@ $('.recommended-product-container').each(function(){
 
    },
    render: function(placeholder){
-     console.log('render got called...');
      var elSelector = ".rti-recommended-products."+placeholder;
      var self = this;
      Backbone.MozuView.prototype.render.apply(this, arguments);
-
    }
  });
+//End Grid view definition***
+
+//***Start Carousel view def:
  var ProductListView = Backbone.MozuView.extend({
      templateName: 'Widgets/RTI/rti-product-tiles',
      additionalEvents: {
@@ -341,109 +335,13 @@ $('.recommended-product-container').each(function(){
          });
      }
  });
-
- var buildProductUrl = function(pageType){
-   var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '?';
-   var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
-
-   var bnExtUserId = require.mozuData('user').userId;
-   var userId = getCookie('bn_u');
+//End Carousel view def***
 
 
-   var userIdQuery = "&userId="+userId;
-   var bnExtUserIdQuery = "&User.bnExtUserId="+bnExtUserId;
-
-
-   var source = window.location.href;
-   if (source.startsWith("http://")){
-     source = "https://" + source.slice(7);
-   }
-   var sourceQuery = "&source="+source;
-
-   var tenantIdQuery = "&tenantId=";
-   var siteIdQuery = "&siteId=";
-
-   if (includeTenantId){
-     tenantIdQuery +=siteContext.tenantId;
-   }
-   if (includeSiteId){
-     siteIdQuery +=siteContext.siteId;
-   }
-
-   //The queries stored in pageDependentSection vary between page types
-   //Right now the only difference configured is that if pageType is cart,
-   //We add productIds to the query.
-
-   var pageDependentSection = "";
-   if (pageType=="Home"){
-
-   } else if (pageType=="ProductDetail") {
-
-   } else if (pageType=="Cart"){
-
-     var cart = require.mozuData('cart');
-     if (!cart.isEmpty){
-       for(var i=0; i<cart.items.length; i++){
-         var productId = cart.items[i].id;
-         var productQuery = "&productId="+productId;
-         pageDependentSection += productQuery;
-       }
-     }
-   }
-
-   //Finally, we're going to let the user inject here
-   //Whatever javascript they need to gather their custom cookies.
-   //We will expect the user to append whatever they need into
-   //the variable "inject".
-
-
-   var inject = "";
-
-   //if the user has entered anything in the js injection box...
-   if (jsInject){
-     //We'll attempt to run it
-     try {
-       eval(jsInject); // jshint ignore:line
-
-     } catch(e) {
-       console.log("There was a problem with your javascript injection.");
-       console.log(e);
-     }
-   } else {
-     inject = "&query=&Override=&Product.Override=";
-   }
-
-
-   var url = firstPart +
-    requiredParams +
-     userIdQuery +
-      bnExtUserIdQuery +
-        sourceQuery + //Current page URL
-         pageDependentSection +
-          tenantIdQuery + //From checkbox
-           siteIdQuery + //From checkbox
-            inject; //From javascript field in config editor
-
-
-
-     url += "&format=json";
-     return url;
-
- };
-
- var getRecommendedProducts = function(callback) {
-   var url = buildProductUrl(pageType);
-   return $.get(url, callback);
- };
-
- var productItems = new Backbone.Collection();
- var productItem = Backbone.MozuModel.extend({
-     defaults: {
-         data: {}
-     }
- });
-
-  var getProducts =function(rtiProductList){
+//Uses a list of product IDs to return a list of products
+//That can be turned into a ProductCollection, which our
+//Views know how to handle.
+  var getProducts = function(rtiProductList){
      var deferred = api.defer();
      var numReqs = rtiProductList.length;
      var productList = [];
@@ -469,15 +367,15 @@ $('.recommended-product-container').each(function(){
      return deferred.promise;
  };
 
-
+//Uses the data
  var renderData = function(data) {
 
      _.each(containerList, function(container){
 
        var placeholder = container.config.placeholder;
-       var numberOfItems = container.config.numberOfItems;
+       var numberOfItems = container.config.quantity;
        var configTitle = container.config.title;
-       //var displayType = container.config.displayType;
+       var format = container.config.format;
 
        /*
        Our data will contain information about lots of different possible widgets.
@@ -491,11 +389,14 @@ $('.recommended-product-container').each(function(){
        */
        if (!widgetResults[0]){
          if (pageContext.isEditMode){
+           /*
+           If we reach this point, it means there wasn't a placeholderName in the
+           data that was returned that matches the one we selected.
+           */
            $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
          }
        } else {
          //We have the data for our widget now. Time to fill it up.
-
          var displayName;
          //if configTitle has a value, the user entered a title to
          //override the title set in RTI.
@@ -524,41 +425,49 @@ $('.recommended-product-container').each(function(){
                    productIdList.push(attrs);
                });
 
+               //Next we get a list of product information from our ids,
+               //sort the list by rtiRank
                if(productIdList.length !== 0) {
                    getProducts(productIdList).then(function(products){
                        if(products.length !== 0) {
                            var productsByRank = _.sortBy(products, 'rtiRank');
+
                            if (productsByRank.length>numberOfItems){
                              productsByRank = productsByRank.slice(0, numberOfItems);
                            }
                            var prodColl = new ProductModels.ProductCollection();
                            prodColl.set('items', productsByRank);
 
+                          //The actual rendering part
 
-                          var displayType = container.config.displayType;
-                          if (!displayType){
-                            displayType = "carousel";
+                          $("."+placeholder+".slider-title").text(displayName);
+
+                          if (!format){
+                            format = "carousel";
                           }
-                          if (displayType == "carousel"){
+
+                          if (format == "carousel"){
                             var productListView = new ProductListView({
                                  el: $('[data-rti-recommended-products='+placeholder+']'),
                                  model: prodColl
                              });
-                            $("."+placeholder+".slider-title").text(displayName);
                             productListView.render(placeholder);
                             return;
-                          } else if (displayType == "grid"){
+
+                          } else if (format == "grid"){
                             var gridListView = new GridView({
                                el: $('[data-rti-recommended-products='+placeholder+']'),
                                model: prodColl
                             });
-                            $("."+placeholder+".slider-title").text(displayName);
-                            console.log("found grid");
-                            console.log(prodColl.toJSON());
                             gridListView.render(placeholder);
                             return;
                           }
                        }
+                       /*
+                       The only reason we'd reach this point is if
+                       something went wrong in getting products in the store
+                       that match the product IDs of the list that RTI gave us.
+                       */
                        $('.recommended-product-container .'+placeholder+'.slider-title').hide();
                        $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
                        $('.recommended-product-container.'+placeholder).removeClass('hidden');
@@ -566,6 +475,11 @@ $('.recommended-product-container').each(function(){
                }
          } else {
            if (pageContext.isEditMode){
+             /*
+             If we reach this point, it means the data returned by RTI
+             contained a placeholder name that matched the name we chose,
+             but there wasn't any product data in that placeholder.
+             */
              $('.recommended-product-container.'+placeholder).text("An RTI recommendations widget is dropped but there are no products to display.");
            }
          }
@@ -573,35 +487,16 @@ $('.recommended-product-container').each(function(){
      });
  };
 
-/*
-getCookie is used when building the product call URL.
-*/
- var getCookie = function(cname){
-   var name = cname + "=";
-   var decodedCookie = decodeURIComponent(document.cookie);
-   var ca = decodedCookie.split(';');
-   for(var i = 0; i <ca.length; i++) {
-       var c = ca[i];
-       while (c.charAt(0) == ' ') {
-           c = c.substring(1);
-       }
-       if (c.indexOf(name) === 0) {
-           return c.substring(name.length, c.length);
-       }
-   }
-   return "";
-};
 
  try {
-     getRecommendedProducts(function(data) {
-         renderData(data);
-     }, function() {
-         var productsFound = {};
-         productsFound.data = {};
-         productsFound.data.items = [];
-         renderData(productsFound);
+     var productInstance = RecommendedProducts.getInstance(rtiOptions);
+     productInstance.getData(function(data){
+       renderData(data);
      });
- } catch(err) {}
+
+ } catch(err) {
+   console.log(err);
+ }
  /*Recommended Product Code Ends*/
 
 });

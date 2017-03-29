@@ -5,3 +5,6 @@
 		</div>
 	</div>
 </div>
+
+{% preload_json siteContext "sitecontext" %}
+{% require_script "widgets/rti/rti-rec-script" %}

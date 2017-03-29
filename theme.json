@@ -11,15 +11,9 @@
     },
     "editors": [
 
-
         {
-          "id": "rti-config-editor",
-          "path": "rti-config-editor.js"
-        },
-
-        {
-            "id": "rti-display-editor",
-            "path": "rti-display-editor.js"
+            "id": "rti-rec-editor",
+            "path": "rti-rec-editor.js"
         },
 
         {
@@ -88,6 +82,7 @@
         }
     ],
     "emailTemplates": [
+
         {
             "id": "order.shipped",
             "properties": { },
@@ -803,23 +798,11 @@
     "widgets": [
 
       {
-        "displayName": "RTI Configuration",
-        "customEditor": "rti-config-editor",
-        "displayTemplate": "RTI/rti-config-template",
-        "id": "rti-config",
-        "validPageTypes": [
-          "*"
-        ],
-        "icon": "/resources/admin/widgets/rti-configuration.png",
-        "defaultConfig": {
-        }
-      },
-      {
         "displayName": "RTI Recommended Products",
-        "displayTemplate": "RTI/rti-display-template",
-        "customEditor": "rti-display-editor",
+        "displayTemplate": "RTI/rti-rec-template",
+        "customEditor": "rti-rec-editor",
         "icon": "/resources/admin/widgets/rti-recommend.png",
-        "id": "rti-display",
+        "id": "rti-rec-display",
         "validPageTypes": [
           "*"
         ]

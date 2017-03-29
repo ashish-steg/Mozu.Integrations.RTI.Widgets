@@ -6,30 +6,27 @@ require([
  'modules/api',
  'modules/backbone-mozu',
  'modules/models-product',
- 'modules/models-cart',
- 'modules/cart-monitor',
+ 'widgets/rti/recommended-products',
  'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
  //'vendor/jquery/jquery-ui'
 ],
-function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
-//Page-wide configurations, currently set by configuration widget:
-var mainConfig = require.mozuData('modelconfig');
-var includeSiteId = mainConfig.includeSiteId;
-var includeTenantId = mainConfig.includeTenantId;
-var isConfigged = mainConfig.isConfigged;
-var jsInject = mainConfig.javascriptInjection;
+function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, RecommendedProducts) {
 
-//CustomerId, customerCode, and pagetype are all variables used by the
-//whole page, but are right now being set by each individual display widget.
-//It's possible that the user could accidentally set the pagetype differently in
-//the each display widget. So we're going to go with the info that is in the first one
-//on the page.
+// rtiOptions will contain variables used by the
+//whole page. They can be set in every widget editor, but only the first
+//one on the page is the one that we'll listen to for these variables.
 
 var firstDisplay = $('.recommended-product-container').first();
-var secondaryConfig = firstDisplay.data('mzRtiRecommendedProducts');
-var customerId = secondaryConfig.customerId;
-var customerCode = secondaryConfig.customerCode;
-var pageType = secondaryConfig.pageType;
+var firstConfig = firstDisplay.data('mzRtiRecommendedProducts');
+
+var rtiOptions = {
+  customerId: firstConfig.customerId || "",
+  customerCode: firstConfig.customerCode || "",
+  pageType: firstConfig.pageType || "",
+  jsInject: firstConfig.javascriptInjection || "",
+  includeSiteId: firstConfig.includeSiteId || false,
+  includeTenantId: firstConfig.includeTenantId || false
+};
 
 var pageContext = require.mozuData('pagecontext');
 var siteContext = require.mozuData('sitecontext');
@@ -43,10 +40,17 @@ var containerList = [];
 The following loop acts as cleanup; it populates containerList with the needed data,
 ignoring and delegitimizing any divs on the page with duplicate placeholder names.
 */
-$('.recommended-product-container').each(function(a, b){
+$('.recommended-product-container').each(function(){
  if (!$(this).hasClass('ignore')){
    var configData = $(this).data('mzRtiRecommendedProducts');
-   var container = {config: configData};
+   //displayOptions are individual to each container.
+   var displayOptions = {
+     title: configData.title || "",
+     quantity: configData.numberOfItems || "",
+     format: configData.displayType || "",
+     placeholder: configData.placeholder || ""
+   };
+   var container = {config: displayOptions};
    var selector = '.recommended-product-container.'+configData.placeholder;
 
    if($(selector).length>1){
@@ -57,7 +61,7 @@ $('.recommended-product-container').each(function(a, b){
          our nice, clean containerList. We also don't want those duplicates to
          accidentally render. So for all but the first element with this
          class name, we strip all classes, add 'ignore' so the .each we're in
-         right now ignores the duplicates, hide the div, and add a message
+         right now ignores the duplicates, hides the div, and adds a message
          in edit mode so the user knows what happened.
          */
          $(element).removeClass();
@@ -73,14 +77,16 @@ $('.recommended-product-container').each(function(a, b){
 }
 });
 
-
-
 /*Recommended Product Code Starts*/
  var eFlag = 0;
  var ProductModelColor = Backbone.MozuModel.extend({
      mozuType: 'products'
  });
+//***********************
+//---VIEW DEFINITIONS---//
+//************************
 
+//***Start Grid view defition:
  var GridView = Backbone.MozuView.extend({
    templateName: 'modules/product/product-list-tiled',
    initialize: function(){
@@ -88,13 +94,14 @@ $('.recommended-product-container').each(function(a, b){
 
    },
    render: function(placeholder){
-     console.log('render got called...');
      var elSelector = ".rti-recommended-products."+placeholder;
      var self = this;
      Backbone.MozuView.prototype.render.apply(this, arguments);
-
    }
  });
+//End Grid view definition***
+
+//***Start Carousel view def:
  var ProductListView = Backbone.MozuView.extend({
      templateName: 'Widgets/RTI/rti-product-tiles',
      additionalEvents: {
@@ -328,161 +335,62 @@ $('.recommended-product-container').each(function(a, b){
          });
      }
  });
+//End Carousel view def***
 
- var buildProductUrl = function(pageType){
-   var firstPart = '//' + customerId + '-' + customerCode + '.baynote.net/recs/1/' + customerId + '_' + customerCode + '?';
-   var requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
-
-   var bnExtUserId = require.mozuData('user').userId;
-   var userId = getCookie('bn_u');
-
-
-   var userIdQuery = "&userId="+userId;
-   var bnExtUserIdQuery = "&User.bnExtUserId="+bnExtUserId;
-
-
-   var source = window.location.href;
-   if (source.startsWith("http://")){
-     source = "https://" + source.slice(7);
-   }
-   var sourceQuery = "&source="+source;
-
-   var tenantIdQuery = "&tenantId=";
-   var siteIdQuery = "&siteId=";
-
-   if (includeTenantId){
-     tenantIdQuery +=siteContext.tenantId;
-   }
-   if (includeSiteId){
-     siteIdQuery +=siteContext.siteId;
-   }
-
-   //The queries stored in pageDependentSection vary between page types
-   //Right now the only difference configured is that if pageType is cart,
-   //We add productIds to the query.
-
-   var pageDependentSection = "";
-   if (pageType=="Home"){
-
-   } else if (pageType=="ProductDetail") {
-
-   } else if (pageType=="Cart"){
-
-     var cart = require.mozuData('cart');
-     if (!cart.isEmpty){
-       for(var i=0; i<cart.items.length; i++){
-         var productId = cart.items[i].id;
-         var productQuery = "&productId="+productId;
-         pageDependentSection += productQuery;
-       }
-     }
-   }
-
-   //Finally, we're going to let the user inject here
-   //Whatever javascript they need to gather their custom cookies.
-   //We will expect the user to append whatever they need into
-   //the variable "inject".
-
-
-   var inject = "";
-
-   //if the user has entered anything in the js injection box...
-   if (jsInject){
-     //We'll attempt to run it
-     try {
-       eval(jsInject); // jshint ignore:line
-
-     } catch(e) {
-       console.log("There was a problem with your javascript injection.");
-       console.log(e);
-     }
-   } else {
-     inject = "&query=&Override=&Product.Override=";
-   }
-
-
-   var url = firstPart +
-    requiredParams +
-     userIdQuery +
-      bnExtUserIdQuery +
-        sourceQuery + //Current page URL
-         pageDependentSection +
-          tenantIdQuery + //From checkbox
-           siteIdQuery + //From checkbox
-            inject; //From javascript field in config editor
-
-
-
-     url += "&format=json";
-     return url;
-
- };
-
- var getRecommendedProducts = function(callback) {
-   var url = buildProductUrl(pageType);
-   return $.get(url, callback);
- };
-
- var productItems = new Backbone.Collection();
- var productItem = Backbone.MozuModel.extend({
-     defaults: {
-         data: {}
-     }
- });
-
-  var getProducts =function(rtiProductList){
-     var deferred = api.defer();
-     var numReqs = rtiProductList.length;
-     var productList = [];
-     _.each(rtiProductList, function(attrs) {
-         var op = api.get('product', attrs.ProductId);
-         op.then(function(data) {
-             data.data.rtiRank = attrs.rank;
-             productList.push(data.data);
-             if (--numReqs === 0) {
-                 _.defer(function() {
-                     deferred.resolve(productList);
-                 });
-             }
-         }, function(reason){
-             if (--numReqs === 0) {
-                 _.defer(function() {
-                     deferred.resolve(productList);
-                 });
-             }
-         });
-     });
-
-     return deferred.promise;
- };
-
+var getMozuProducts = function(rtiProductList){
+  var deferred = api.defer();
+  var numReqs = rtiProductList.length;
+  var productList = [];
+  _.each(rtiProductList, function(attrs) {
+    var op = api.get('product', attrs.ProductId);
+    op.then(function(data) {
+      data.data.rtiRank = attrs.rank;
+      productList.push(data.data);
+      if (--numReqs === 0) {
+        _.defer(function() {
+          deferred.resolve(productList);
+        });
+      }
+    }, function(reason){
+      if (--numReqs === 0) {
+        _.defer(function() {
+          deferred.resolve(productList);
+        });
+      }
+    });
+  });
+return deferred.promise;
+};
 
  var renderData = function(data) {
 
      _.each(containerList, function(container){
 
        var placeholder = container.config.placeholder;
-       var numberOfItems = container.config.numberOfItems;
+       var numberOfItems = container.config.quantity;
        var configTitle = container.config.title;
-       //var displayType = container.config.displayType;
+       var format = container.config.format;
 
        /*
        Our data will contain information about lots of different possible widgets.
        First we want to reduce that data to only the placeholderName we're dealing with.
        */
-       var widgetResults = $.grep(data.widgetResults, function(e){ return e.placeholderName == placeholder; });
+       var currentProducts = $.grep(data, function(e){ return e.placeholderName == placeholder; });
        /*
        We should at this point have a list of results with the correct placeholderName,
        and that last should only be 1 item long.
        If that first item doesn't exist, there was a problem.
        */
-       if (!widgetResults[0]){
+       if (!currentProducts[0]){
          if (pageContext.isEditMode){
-           $('.recommended-product-container.'+placeholder).text("Found no data for products to display for that placeholder.");
+           /*
+           If we reach this point, it means there wasn't a placeholderName in the
+           data that was returned that matches the one we selected.
+           */
+           $('.recommended-product-container.'+placeholder).text("Placeholder not found.");
          }
        } else {
          //We have the data for our widget now. Time to fill it up.
-
          var displayName;
          //if configTitle has a value, the user entered a title to
          //override the title set in RTI.
@@ -491,104 +399,72 @@ $('.recommended-product-container').each(function(a, b){
          } else {
            //if configTitle has no value, we get the title from the
            //product results call
-           displayName = widgetResults[0].displayName;
+           displayName = currentProducts[0].displayName;
          }
-         //Our data should have a list of slotResults in it with product details.
-         //Prune slotResults list in widgetResults for "products" that don't contain any data.
-         //This is unlikely but can happen if RTI isn't configured correctly.
-         var productSlots = widgetResults[0].slotResults.filter(function(product){
-          return product.url;
-        });
-         //If the pruned list contains anything, we can continue.
-         if (productSlots.length){
-           var productIdList = [];
-               _.each(productSlots, function(prod, key){
-                   var attrs = [];
-                   _.each(prod.attrs, function(attr, key, list){
-                       attrs[attr.name] = attr.values[0];
-                   });
-                   attrs.rank = prod.rank;
-                   productIdList.push(attrs);
-               });
 
-               if(productIdList.length !== 0) {
-                   getProducts(productIdList).then(function(products){
-                       if(products.length !== 0) {
-                           var productsByRank = _.sortBy(products, 'rtiRank');
-                           if (productsByRank.length>numberOfItems){
-                             productsByRank = productsByRank.slice(0, numberOfItems);
-                           }
-                           var prodColl = new ProductModels.ProductCollection();
-                           prodColl.set('items', productsByRank);
-
-
-                          var displayType = container.config.displayType;
-                          if (!displayType){
-                            displayType = "carousel";
-                          }
-                          if (displayType == "carousel"){
-                            var productListView = new ProductListView({
-                                 el: $('[data-rti-recommended-products='+placeholder+']'),
-                                 model: prodColl
-                             });
-                            $("."+placeholder+".slider-title").text(displayName);
-                            productListView.render(placeholder);
-                            return;
-                          } else if (displayType == "grid"){
-                            var gridListView = new GridView({
-                               el: $('[data-rti-recommended-products='+placeholder+']'),
-                               model: prodColl
-                            });
-                            $("."+placeholder+".slider-title").text(displayName);
-                            console.log("found grid");
-                            console.log(prodColl.toJSON());
-                            gridListView.render(placeholder);
-                            return;
-                          }
-                       }
-                       $('.recommended-product-container .'+placeholder+'.slider-title').hide();
-                       $('.recommended-product-container .rti-recommended-products.'+placeholder+'.carousel-parent').hide();
-                       $('.recommended-product-container.'+placeholder).removeClass('hidden');
-                   });
-               }
+         //We slice the productList we received according to the limit set
+         //in the editor
+        var productList;
+         if (currentProducts[0].productList.length>numberOfItems){
+           productList = currentProducts[0].productList.slice(0, numberOfItems);
          } else {
-           if (pageContext.isEditMode){
-             $('.recommended-product-container.'+placeholder).text("An RTI recommendations widget is dropped but there are no products to display.");
-           }
+           productList = currentProducts[0].productList;
          }
+
+         //Turns list of product IDs into a product collection
+         getMozuProducts(productList).then(function(products){
+           if(products.length !== 0) {
+               var productsByRank = _.sortBy(products, 'rtiRank');
+               productList = productsByRank;
+               var prodColl = new ProductModels.ProductCollection();
+               prodColl.set('items', productList);
+
+               //Time to actually render
+
+               if (currentProducts[0].editModeMessage){
+                 if (pageContext.isEditMode){
+                   $('.recommended-product-container.'+placeholder).text(currentProducts[0].editModeMessage);
+                 }
+               } else {
+               $("."+placeholder+".slider-title").text(displayName);
+               if (!format){
+                 format = "carousel";
+               }
+               if (format == "carousel"){
+                 var productListView = new ProductListView({
+                      el: $('[data-rti-recommended-products='+placeholder+']'),
+                      model: prodColl
+                  });
+                 productListView.render(placeholder);
+                 return;
+
+               } else if (format == "grid"){
+                 var gridListView = new GridView({
+                    el: $('[data-rti-recommended-products='+placeholder+']'),
+                    model: prodColl
+                 });
+                 gridListView.render(placeholder);
+                 return;
+               }
+             }
+             } else {
+               if (pageContext.isEditMode){
+                 $('.recommended-product-container.'+placeholder).text("There was a problem retrieving products from your catalog that match the products received from RTI.");
+               }
+             }
+         });
        }
      });
- };
-
-/*
-getCookie is used when building the product call URL.
-*/
- var getCookie = function(cname){
-   var name = cname + "=";
-   var decodedCookie = decodeURIComponent(document.cookie);
-   var ca = decodedCookie.split(';');
-   for(var i = 0; i <ca.length; i++) {
-       var c = ca[i];
-       while (c.charAt(0) == ' ') {
-           c = c.substring(1);
-       }
-       if (c.indexOf(name) === 0) {
-           return c.substring(name.length, c.length);
-       }
-   }
-   return "";
-};
+   };
 
  try {
-     getRecommendedProducts(function(data) {
-         renderData(data);
-     }, function() {
-         var productsFound = {};
-         productsFound.data = {};
-         productsFound.data.items = [];
-         renderData(productsFound);
+     var productInstance = RecommendedProducts.getInstance(rtiOptions);
+     productInstance.getProductData(function(data){
+       renderData(data);
      });
- } catch(err) {}
+ } catch(err) {
+   console.log(err);
+ }
  /*Recommended Product Code Ends*/
 
 });

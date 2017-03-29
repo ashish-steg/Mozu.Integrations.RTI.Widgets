@@ -390,7 +390,6 @@ return deferred.promise;
            $('.recommended-product-container.'+placeholder).text("Placeholder not found.");
          }
        } else {
-
          //We have the data for our widget now. Time to fill it up.
          var displayName;
          //if configTitle has a value, the user entered a title to
@@ -421,14 +420,12 @@ return deferred.promise;
                prodColl.set('items', productList);
 
                //Time to actually render
-               if (currentProducts[0].editModeMessage){
 
+               if (currentProducts[0].editModeMessage){
                  if (pageContext.isEditMode){
                    $('.recommended-product-container.'+placeholder).text(currentProducts[0].editModeMessage);
                  }
-
                } else {
-
                $("."+placeholder+".slider-title").text(displayName);
                if (!format){
                  format = "carousel";
@@ -442,7 +439,6 @@ return deferred.promise;
                  return;
 
                } else if (format == "grid"){
-
                  var gridListView = new GridView({
                     el: $('[data-rti-recommended-products='+placeholder+']'),
                     model: prodColl
@@ -451,17 +447,13 @@ return deferred.promise;
                  return;
                }
              }
-
              } else {
                if (pageContext.isEditMode){
                  $('.recommended-product-container.'+placeholder).text("There was a problem retrieving products from your catalog that match the products received from RTI.");
                }
              }
-
          });
-
        }
-
      });
    };
 

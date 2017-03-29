@@ -8,26 +8,33 @@ define([
     'modules/models-product'
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
-  var instance;
 
+  var instance;
 	var init = function(options) {
 
-		var _options = options;
+		var _options = options || {};
 		var _products = {};
 
+    /*
+      Getters and Setters
+    */
     var getRTIOptions = function(){
       return _options;
     },
     getProducts = function(){
       return _products;
     },
-
     setRTIOptions = function(options){
       _options = options;
     },
     setProducts = function(products){
       _products = products;
     },
+
+    /*
+    Returns the value of the given cookie name
+    Used by buildUrl
+    */
     getCookie = function(cname){
       var name = cname + "=";
       var decodedCookie = decodeURIComponent(document.cookie);
@@ -43,6 +50,10 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
       }
       return "";
     },
+
+    /*
+      Uses _options to concatenate the proper request
+    */
 		buildUrl = function(){
       var firstPart = '//' + getRTIOptions().customerId + '-' + getRTIOptions().customerCode + '.baynote.net/recs/1/' + getRTIOptions().customerId + '_' + getRTIOptions().customerCode + '?',
       requiredParams = '&attrs=Price&attrs=ProductId&attrs=ThumbUrl&attrs=Title&attrs=url';
@@ -108,7 +119,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
         inject = "&query=&Override=&Product.Override=";
       }
 
-
       var url = firstPart +
        requiredParams +
         userIdQuery +
@@ -119,30 +129,26 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
               siteIdQuery + //From checkbox
                inject + //From javascript field in config editor
                "&format=json";
-
         return url;
-
-
 		},
 
+    /*
+      Makes the call and returns the data to the passed function
+    */
     fetchData = function(callback){
-      var url = buildUrl();
-      return $.get(url, callback);
+      return $.get(buildUrl, callback);
 		},
-    //Uses a list of product IDs to return a list of products
-    //That can be turned into a ProductCollection, which our
-    //Views know how to handle.
 
-
+    /*
+      Returns concise object from URL call
+    */
     parseProducts = function(data){
       var dataList = [];
-
       _.each(data.widgetResults, function(results){
         var displayName = results.displayName;
         var placeholderName = results.placeholderName;
         var productList = [];
         var editModeMessage = "";
-
         var productSlots = results.slotResults.filter(function(product){
           return product.url; //Prunes slotResults for incomplete entries
         });
@@ -157,9 +163,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
             productIdList.push(attrs);
         });
 
-        if (productIdList.length !== 0){
-
-        } else {
+        if (productIdList.length === 0){
           editModeMessage = "There were no products configured for that placeholder name.";
         }
         dataList.push({
@@ -168,10 +172,10 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
           productList: productIdList,
           editModeMessage: editModeMessage
         });
-
       });
       return dataList;
     };
+
 
 		return {
 			getProductData: function(callback){
@@ -185,7 +189,6 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
         }
 			}
 		};
-
 	};
 
 	return {

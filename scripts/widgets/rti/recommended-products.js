@@ -9,6 +9,7 @@ define([
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
 
+
   var instance;
 	var init = function(options) {
 
@@ -136,7 +137,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
       Makes the call and returns the data to the passed function
     */
     fetchData = function(callback){
-      return $.get(buildUrl, callback);
+      return $.get(buildUrl(), callback);
 		},
 
     /*

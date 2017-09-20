@@ -8,7 +8,7 @@ require([
  'modules/models-product',
  'widgets/rti/recommended-products',
  'shim!vendor/jquery/owl.carousel.min[modules/jquery-mozu=jQuery]>jQuery'
- //'vendor/jquery/jquery-ui'
+ 'vendor/jquery/jquery-ui'
 ],
 function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels, RecommendedProducts) {
 

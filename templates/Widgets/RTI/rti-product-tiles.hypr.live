@@ -90,7 +90,7 @@
                                 {% endif %}
                             {% endif %}
                             <div class="mz-subcategory-image-div">
-                                <a href="{{prod.url}}">
+                                <a href="{{prod.url}}" data-baynote-slot="{{prod.slot}}"  data-baynote-widget="{{prod.widgetId}}" data-baynote-pid="{{prod.productCode}}" data-baynote-href="{{prod.href}}">
                                     {% if prod.mainImage.imageUrl %}
                                     {% comment %}
                                     <img class="mz-subcategory-image active lazyload" data-main-image-src="{{prod.mainImage.imageUrl}}"
@@ -119,7 +119,7 @@
                                 </a>
                             </div>
                             <div class="mz-productlisting-info">
-                                <div class="productTitle"><a class="mz-productlisting-title" href="{{prod.url}}">{{prod.content.productName}}</a></div>
+                                <div class="productTitle"><a class="mz-productlisting-title" href="{{prod.url}}"  data-baynote-slot="{{prod.slot}}"  data-baynote-widget="{{prod.widgetId}}" data-baynote-pid="{{prod.productCode}}" data-baynote-href="{{prod.href}}" >{{prod.content.productName}}</a></div>
                                 <div class="priceSection">
                                     {% for property in prod.properties %}
                                         {% if property.attributeFQN == "tenant~rating" %}

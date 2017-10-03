@@ -345,6 +345,9 @@ var getMozuProducts = function(rtiProductList){
     var op = api.get('product', attrs.ProductId);
     op.then(function(data) {
       data.data.rtiRank = attrs.rank;
+      data.data.slot = attrs.slot;
+      data.data.widgetId = attrs.widgetId;
+      data.data.href = attrs.url;      
       productList.push(data.data);
       if (--numReqs === 0) {
         _.defer(function() {
@@ -418,7 +421,7 @@ return deferred.promise;
                productList = productsByRank;
                var prodColl = new ProductModels.ProductCollection();
                prodColl.set('items', productList);
-
+               prodColl.set('bnData', data.bnData);
                //Time to actually render
 
                if (currentProducts[0].editModeMessage){

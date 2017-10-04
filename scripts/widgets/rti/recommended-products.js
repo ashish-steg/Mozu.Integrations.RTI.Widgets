@@ -161,6 +161,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
                 attrs[attr.name] = attr.values[0];
             });
             attrs.rank = prod.rank;
+            attrs.slot = prod.slot||'';
+            attrs.widgetId = results.id||'';            
             productIdList.push(attrs);
         });
 
@@ -174,6 +176,8 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
           editModeMessage: editModeMessage
         });
       });
+      var bnData = data.trackingData||'';
+      dataList.bnData = bnData;      
       return dataList;
     };
 

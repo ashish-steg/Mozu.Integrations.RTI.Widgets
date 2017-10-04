@@ -2,4 +2,4 @@
 <div>Observer tag deployed.</div>
 {% endif %}
 {% require_script "widgets/rti-observation" %}
-{% require_script "vendor/baynote" %}
+

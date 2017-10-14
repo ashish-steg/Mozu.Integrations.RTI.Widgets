@@ -343,10 +343,10 @@ var getMozuProducts = function(rtiProductList){
   _.each(rtiProductList, function(attrs) {
     var op = api.get('product', attrs.ProductId);
     op.then(function(data) {
-      data.data.rtiRank = attrs.rank;
-      data.data.slot = attrs.slot;
-      data.data.widgetId = attrs.widgetId;
-      data.data.href = attrs.url;      
+      data.data.rtiRank = attrs.rank||'';
+      data.data.slot = attrs.slot||'';
+      data.data.widgetId = attrs.widgetId||'';
+      data.data.href = attrs.url||'';      
       productList.push(data.data);
       if (--numReqs === 0) {
         _.defer(function() {

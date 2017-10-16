@@ -2,4 +2,8 @@
 <div>Observer tag deployed.</div>
 {% endif %}
 {% require_script "widgets/rti-observation" %}
-{% require_script "vendor/baynote" %}
+<script type="text/javascript">
+    document.addEventListener("load", function(){
+       {% require_script "vendor/baynote" %}
+    });
+</script>

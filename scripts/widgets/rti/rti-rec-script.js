@@ -337,32 +337,38 @@ $('.recommended-product-container').each(function(){
 //End Carousel view def***
 
 var getMozuProducts = function(rtiProductList){
-  var deferred = api.defer();
-  var numReqs = rtiProductList.length;
-  var productList = [];
-  _.each(rtiProductList, function(attrs) {
-    var op = api.get('product', attrs.ProductId);
-    op.then(function(data) {
-      data.data.rtiRank = attrs.rank||'';
-      data.data.slot = attrs.slot||'';
-      data.data.widgetId = attrs.widgetId||'';
-      data.data.href = attrs.url||'';      
-      productList.push(data.data);
-      if (--numReqs === 0) {
-        _.defer(function() {
-          deferred.resolve(productList);
-        });
-      }
-    }, function(reason){
-      if (--numReqs === 0) {
-        _.defer(function() {
-          deferred.resolve(productList);
-        });
-      }
+    var deferred = api.defer();
+    var numReqs = rtiProductList.length;
+    var productList = [];
+    var filter = "";
+    _.each(rtiProductList, function(attrs) {
+        if (filter !== "") filter += " or ";
+        filter += "productCode eq "+ attrs.ProductId;    
     });
-  });
-return deferred.promise;
-};
+    var op = api.get('products', filter);
+    op.then(function(data) {
+        _.each(data.data.items, function(product){
+            
+          var rtiProduct = _.findWhere(rtiProductList, {ProductId: product.productCode});
+          
+              product.rtiRank = rtiProduct.rank||'';
+              product.slot = rtiProduct.slot||'';
+              product.widgetId = rtiProduct.widgetId||'';
+              product.href = rtiProduct.url||'';      
+              productList.push(product);
+              _.defer(function() {
+                  deferred.resolve(productList);
+              });
+        });
+  
+    }, function(reason){
+      _.defer(function() {
+      deferred.resolve(productList);
+      });
+    });
+     return deferred.promise;
+  };
+  
 
  var renderData = function(data) {
 

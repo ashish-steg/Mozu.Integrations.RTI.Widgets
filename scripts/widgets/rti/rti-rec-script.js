@@ -356,10 +356,10 @@ var getMozuProducts = function(rtiProductList){
               product.widgetId = rtiProduct.widgetId||'';
               product.href = rtiProduct.url||'';      
               productList.push(product);
-              _.defer(function() {
-                  deferred.resolve(productList);
-              });
         });
+       _.defer(function() {
+           deferred.resolve(productList);
+       });
   
     }, function(reason){
       _.defer(function() {

@@ -6,40 +6,33 @@ require([
     'modules/backbone-mozu',
     'modules/models-product',
     'modules/models-cart',
-    'modules/cart-monitor',
-    'shim!vendor/jquery/owl.carousel.min'
+    'modules/cart-monitor'
 ],
 function($, HyprLiveContext, _, api,Backbone, ProductModels, CartModels, CartMonitor) {
-  var context = require.mozuData('pagecontext');
+    var context = require.mozuData('pagecontext');
     //Set other variables needed by script
 
     //User ID:
-    var bnExtUserId = require.mozuData('user').userId;
+    bnExtUserId = require.mozuData('user').userId; // jshint ignore:line
 
     //Search term on search pages:
-    var bn_SearchTerm;
     if(context.pageType == "searchresult" || context.pageType == "search"){
-      bn_SearchTerm = context.search.query;
+      bn_SearchTerm = context.search.query; // jshint ignore:line
     }
 
     //On order confirmation pages:
-    var bnOrderId;
-    var bnOrderTotal;
-    var bnOrderDetails;
-
     if (context.pageType == "confirmation") {
-      var order = require.mozuData('order');
-      bnOrderId = order.orderNumber;
-      bnOrderTotal = order.total;
-      bnOrderDetails = [];
+       var order = require.mozuData('order');
+      bnOrderId = order.orderNumber; // jshint ignore:line
+      bnOrderTotal = order.total;// jshint ignore:line
+      bnOrderDetails = [];// jshint ignore:line
 
       for (var i = 0; i<order.items.length; i++){
         var item = order.items[i];
-        var id = item.id;
         var quantity = item.quantity;
         var price = item.product.price.price;
-        var detailString = id + ":" + quantity + ":" + price;
-        bnOrderDetails.push(detailString);
+        var detailString = item.product.productCode + ":" + quantity + ":" + price;
+        bnOrderDetails.push(detailString); // jshint ignore:line
       }
     }
 

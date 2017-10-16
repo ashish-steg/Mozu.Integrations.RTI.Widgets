@@ -70,14 +70,14 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
       var sourceQuery = "&source="+source;
 
 
-      var tenantIdQuery = "&tenantId=";
-      var siteIdQuery = "&siteId=";
+      var tenantIdQuery = "";
+      var siteIdQuery = "";
 
       if (getRTIOptions().includeTenantId){
-        tenantIdQuery += require.mozuData('sitecontext').tenantId;
+        tenantIdQuery += "&tenantId=" +require.mozuData('sitecontext').tenantId;
       }
       if (getRTIOptions().includeSiteId){
-        siteIdQuery += require.mozuData('sitecontext').siteId;
+        siteIdQuery += "&siteId="+ require.mozuData('sitecontext').siteId;
       }
 
       //The queries stored in pageDependentSection vary between page types
@@ -88,7 +88,9 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
       if (getRTIOptions().pageType=="Home"){
 
       } else if (getRTIOptions().pageType=="ProductDetail") {
-
+          var product = require.mozuData('product');
+          bnProductId = product.productCode; // jshint ignore:line
+          pageDependentSection +=  "&productId="+bnProductId; // jshint ignore:line
       } else if (getRTIOptions().pageType=="Cart"){
         var cart = require.mozuData('cart');
         if (!cart.isEmpty){

@@ -6,9 +6,9 @@ This repository contains files for the theme widget that accompanies the [RTI Ap
 ##Widget Files
 
 This widget adds the following files:
-* `templates/Widgets/rti-observation.hypr`
-* `templates/Widgets/rti-product-tiles.hypr.live`
-* `templates/Widgets/rti-rec-template.hypr`
+* `templates/Widgets/RTI/rti-observation.hypr`
+* `templates/Widgets/RTI/rti-product-tiles.hypr.live`
+* `templates/Widgets/RTI/rti-rec-template.hypr`
 * `scripts/widgets/rti-observation.js`
 * `scripts/widgets/rti/recommended-products.js`
 * `scripts/widgets/rti/rti-rec-script.js`

@@ -15,6 +15,7 @@ This widget adds the following files:
 * `admin/editors/rti-rec-editor.js`
 * `resources/admin/widgets/rti-observation.png`
 * `resources/admin/widgets/rti-recommend.png`
+* Replace `scripts/vendor/baynote.js` file with the file sent by RTI team
 
 And updates the following file:
 * `theme.json`

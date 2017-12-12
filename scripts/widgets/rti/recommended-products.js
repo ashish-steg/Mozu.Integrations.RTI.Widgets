@@ -95,7 +95,7 @@ function($, Hypr, HyprLiveContext, _, api,Backbone, ProductModels) {
         var cart = require.mozuData('cart');
         if (!cart.isEmpty){
           for(var i=0; i<cart.items.length; i++){
-            var productId = cart.items[i].id;
+            var productId = cart.items[i].product.productCode;
             var productQuery = "&productId="+productId;
             pageDependentSection += productQuery;
           }

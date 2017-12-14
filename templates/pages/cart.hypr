@@ -19,7 +19,7 @@
 {% require_script "pages/cart" %}
 
 {% preload_json model "cart" %}
-{% dump model %}
+
 
 
 <div class="mz-l-container">

@@ -40,6 +40,14 @@ And updates the following file:
         "validPageTypes":[ "*" ]
     }
     ```
+    
+    Add the following under editors section
+    ```
+    {
+      "id": "rti-rec-editor",
+      "path": "rti-rec-editor.js"
+    }
+    ```    
 
 ##Update Your Theme
 

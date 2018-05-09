@@ -13,8 +13,24 @@ Ext.widget({
       method: 'get',
       success: function (res) {
         var response = JSON.parse(res.responseText);
-        var customerCode = response.items[0].item.customerCode;
-        var customerId = response.items[0].item.customerId;
+        var item;
+        var customerCode;
+        var customerId;
+        try{
+          var site = Ext.util.Cookies.get("SBCONTEXT").split('&')[0].split('=')[1];
+          console.log(site);
+          item = response.items.filter(function(item){
+            console.log(item.id);
+            return item.id === site;
+          });
+          customerCode = item[0].item.customerCode;
+          customerId = item[0].item.customerId;
+          if(customerCode==null||customerId==null) throw error("Using default values");
+        } catch(err) {
+          item = response.items[0].item;
+          customerCode = item.customerCode;
+          customerId = item.customerId;
+        }
         var widgetNameReqUrl = '//' + customerId + '-' + customerCode + '.baynote.net/merch/1/' + customerId + '_' + customerCode + '/production/pageTypes';
         me.getComboboxOptions(widgetNameReqUrl, 'page-type');
         var customerCodeInput = me.down('#customerCode');

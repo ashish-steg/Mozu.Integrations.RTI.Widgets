@@ -1,7 +1,6 @@
 /* global module: true */
 module.exports = function (grunt) {
   'use strict';
-
   var pkg = grunt.file.readJSON('./package.json');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -11,8 +10,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('mozu-theme-helpers');
   grunt.loadNpmTasks('grunt-contrib-watch');
   require('time-grunt')(grunt);
-
-  require('process').env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
   grunt.initConfig({
     mozuconfig: grunt.file.exists('./mozu.config.json') ? grunt.file.readJSON('./mozu.config.json') : {},
@@ -172,7 +169,7 @@ module.exports = function (grunt) {
       upload: {
         options: {
           'action': 'upload',
-          'noclobber': false
+          'noclobber': true
         },
         src: [
           'admin/**/*',

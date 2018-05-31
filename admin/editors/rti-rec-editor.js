@@ -9,7 +9,7 @@ Ext.widget({
     jsInjectPlaceholder += "\n// inject += '&visitstrail=...'";
 
     Ext.Ajax.request({
-      url: "/admin/app/entities/read?list=rtiSettings%40mzint&entityType=mzdb",
+      url: "/admin/app/entities/read?list=rtiSettings%40mozuadmin&entityType=mzdb",
       method: 'get',
       success: function (res) {
         var response = JSON.parse(res.responseText);

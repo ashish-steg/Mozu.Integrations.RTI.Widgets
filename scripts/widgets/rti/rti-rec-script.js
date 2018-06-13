@@ -87,7 +87,7 @@ $('.recommended-product-container').each(function(){
 
 //***Start Grid view defition:
  var GridView = Backbone.MozuView.extend({
-   templateName: 'modules/product/product-list-tiled',
+   templateName: 'Widgets/RTI/rti-product-tiles',
    initialize: function(){
     var self = this;
 
@@ -427,6 +427,7 @@ var getMozuProducts = function(rtiProductList){
                var prodColl = new ProductModels.ProductCollection();
                prodColl.set('items', productList);
                prodColl.set('bnData', data.bnData);
+			         prodColl.set('config', container.config);
                //Time to actually render
 
                if (currentProducts[0].editModeMessage){

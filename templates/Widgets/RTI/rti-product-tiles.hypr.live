@@ -1,3 +1,5 @@
+<div class="clearfix{% if model.config.displayType == "carousel" or model.config.format == "carousel" %} carousel-display{% else %} grid-display{% endif %}" data-config="{% json_attribute model.config %}">
+{% if model.config.displayType == "carousel" or model.config.format == "carousel" %}
 <div class="{% if pageContext.isMobile %}hidden{% endif %}">
     <div class="previous {% if model.items.length == 0 %}hidden{% endif %}">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="19.5px" height="54.3px" viewBox="0 0 23 58" version="1.1">
@@ -30,13 +32,14 @@
         </svg>
     </div>
 </div>
+{% endif %}
 {% if model.items %}
     <div class="related-title {% if model.items.length == 0 %}hidden{% endif %}">
         <span id="title" class="pull-left title"></span>
     </div>
     <div class="related-prod-owl-carousel">
         {% for prod in model.items %}
-            <div class="row mz-productlisting {% block module-classes %}{% endblock module-classes %}" data-mz-product="{{ prod.productCode }}">
+            <div class="mz-productlisting {% block module-classes %}{% endblock module-classes %}" data-mz-product="{{ prod.productCode }}">
                 {% if prod.price.salePrice > 0 and prod.price.price > prod.price.salePrice %}
                     <span class="sale-tag-icon">Sale</span>
                 {% endif %}
@@ -119,7 +122,7 @@
                                 </a>
                             </div>
                             <div class="mz-productlisting-info">
-                                <div class="productTitle"><a class="mz-productlisting-title" href="{{prod.url}}"  data-baynote-slot="{{prod.slot}}"  data-baynote-widget="{{prod.widgetId}}" data-baynote-pid="{{prod.productCode}}" data-baynote-href="{{prod.href}}" >{{prod.content.productName}}</a></div>
+                                <div class="productTitle"><a class="mz-productlisting-title" href="{{prod.url}}"  data-baynote-slot="{{prod.slot}}"  data-baynote-widget="{{prod.widgetId}}" data-baynote-pid="{{prod.productCode}}" data-baynote-href="{{prod.href}}" >{{prod.content.productName|safe}}</a></div>
                                 <div class="priceSection">
                                     {% for property in prod.properties %}
                                         {% if property.attributeFQN == "tenant~rating" %}
@@ -366,3 +369,30 @@
         {% endfor %}
     </div>
 {% endif %}
+</div>
+{% with model.items|first as currentBN %}
+<script type="text/javascript">
+var BNData = BNData || '';
+var BNWidgetId = BNWidgetId || '';
+if (BNData) {
+    if ( BNData.widgetCount ) {
+        BNData.widgetCount += 1;
+        BNData.widget['{{currentBN.widgetId}}'] = '{{model.bnData}}'
+    }
+    else {
+        var oldBNData = BNData;
+        BNData = {
+            widgetCount: 2,
+            widget: {
+                '{{currentBN.widgetId}}': '{{model.bnData}}',
+            }
+        };
+        BNData.widget[BNWidgetId] = oldBNData;
+    }
+}
+else {
+    BNData = '{{model.bnData}}';
+    BNWidgetId = '{{currentBN.widgetId}}'
+}
+</script>
+{% endwith %}

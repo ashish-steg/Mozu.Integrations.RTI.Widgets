@@ -45,7 +45,7 @@
                 {% endif %}
                 <div class="prod-content mz-productlisting-image-right">
                     {% block product-image %}
-                        <div class="row product-listing-row-content">
+                        <div class="product-listing-row-content">
                             {% if not user.isAnonymous %}
                                 {% if siteContext.generalSettings.isWishlistCreationEnabled %}
                                     {% if prod.purchasableState.isPurchasable and prod.options.length < 1 %}
@@ -370,29 +370,3 @@
     </div>
 {% endif %}
 </div>
-{% with model.items|first as currentBN %}
-<script type="text/javascript">
-var BNData = BNData || '';
-var BNWidgetId = BNWidgetId || '';
-if (BNData) {
-    if ( BNData.widgetCount ) {
-        BNData.widgetCount += 1;
-        BNData.widget['{{currentBN.widgetId}}'] = '{{model.bnData}}'
-    }
-    else {
-        var oldBNData = BNData;
-        BNData = {
-            widgetCount: 2,
-            widget: {
-                '{{currentBN.widgetId}}': '{{model.bnData}}',
-            }
-        };
-        BNData.widget[BNWidgetId] = oldBNData;
-    }
-}
-else {
-    BNData = '{{model.bnData}}';
-    BNWidgetId = '{{currentBN.widgetId}}'
-}
-</script>
-{% endwith %}

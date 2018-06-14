@@ -428,8 +428,35 @@ var getMozuProducts = function(rtiProductList){
                prodColl.set('items', productList);
                prodColl.set('bnData', data.bnData);
 			         prodColl.set('config', container.config);
-               //Time to actually render
-
+                //BNData for multiple widgets
+                if (productList.length) {
+                    var firstItem = productList[0];
+                    window.BNData = window.BNData || '';
+                    window.BNWidgetId = window.BNWidgetId || '';
+                    if (window.BNData) {
+                        if (window.BNData.widgetCount) {
+                            window.BNData.widgetCount += 1;
+                            window.BNData.widget[firstItem.widgetId] = data.bnData;
+                        }
+                        else {
+                            var oldBNData = window.BNData;
+                            window.BNData = {
+                                widgetCount: 2,
+                                widget: {}
+                            };
+                            window.BNData.widget[firstItem.widgetId] = data.bnData;
+                            window.BNData.widget[window.BNWidgetId] = oldBNData;
+                        }
+                    }
+                    else {
+                        window.BNData = data.bnData;
+                        window.BNWidgetId = firstItem.widgetId;
+                    }
+                }
+                else {
+                    window.BNData = data.bnData;
+                }
+                //Time to actually render
                if (currentProducts[0].editModeMessage){
                  if (pageContext.isEditMode){
                    $('.recommended-product-container.'+placeholder).text(currentProducts[0].editModeMessage);

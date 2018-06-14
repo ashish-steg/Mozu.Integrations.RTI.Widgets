@@ -87,7 +87,7 @@ $('.recommended-product-container').each(function(){
 
 //***Start Grid view defition:
  var GridView = Backbone.MozuView.extend({
-   templateName: 'modules/product/product-list-tiled',
+   templateName: 'Widgets/RTI/rti-product-tiles',
    initialize: function(){
     var self = this;
 
@@ -427,8 +427,36 @@ var getMozuProducts = function(rtiProductList){
                var prodColl = new ProductModels.ProductCollection();
                prodColl.set('items', productList);
                prodColl.set('bnData', data.bnData);
-               //Time to actually render
-
+			         prodColl.set('config', container.config);
+                //BNData for multiple widgets
+                if (productList.length) {
+                    var firstItem = productList[0];
+                    window.BNData = window.BNData || '';
+                    window.BNWidgetId = window.BNWidgetId || '';
+                    if (window.BNData) {
+                        if (window.BNData.widgetCount) {
+                            window.BNData.widgetCount += 1;
+                            window.BNData.widget[firstItem.widgetId] = data.bnData;
+                        }
+                        else {
+                            var oldBNData = window.BNData;
+                            window.BNData = {
+                                widgetCount: 2,
+                                widget: {}
+                            };
+                            window.BNData.widget[firstItem.widgetId] = data.bnData;
+                            window.BNData.widget[window.BNWidgetId] = oldBNData;
+                        }
+                    }
+                    else {
+                        window.BNData = data.bnData;
+                        window.BNWidgetId = firstItem.widgetId;
+                    }
+                }
+                else {
+                    window.BNData = data.bnData;
+                }
+                //Time to actually render
                if (currentProducts[0].editModeMessage){
                  if (pageContext.isEditMode){
                    $('.recommended-product-container.'+placeholder).text(currentProducts[0].editModeMessage);

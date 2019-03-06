@@ -94,7 +94,7 @@
                             {% endif %}
                             <div class="mz-subcategory-image-div">
                                 <a href="{{prod.url}}" data-baynote-slot="{{prod.slot}}"  data-baynote-widget="{{prod.widgetId}}" data-baynote-pid="{{prod.productCode}}" data-baynote-href="{{prod.href}}">
-                                    {% if prod.mainImage.imageUrl %}
+                                    {% if prod.mainImage and prod.mainImage.imageUrl %}
                                     {% comment %}
                                     <img class="mz-subcategory-image active lazyload" data-main-image-src="{{prod.mainImage.imageUrl}}"
                                         data-srcset="{{ prod.mainImage.imageUrl }}?max=320 320w 160h,

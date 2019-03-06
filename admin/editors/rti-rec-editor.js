@@ -17,7 +17,7 @@ Ext.widget({
         var customerCode;
         var customerId;
         try{
-          var site = Ext.util.Cookies.get("SBCONTEXT").split('&')[0].split('=')[1];
+          var site = window.location.pathname.split('s-')[1].split('/')[0];
           console.log(site);
           item = response.items.filter(function(item){
             console.log(item.id);
